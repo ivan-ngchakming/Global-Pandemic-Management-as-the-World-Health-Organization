@@ -14,5 +14,4 @@ struct country
 
 float calculate_overall_performance_index(float pi_by_country[], struct country AllCountries[]);
 
-
 #endif
