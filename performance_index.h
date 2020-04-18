@@ -9,6 +9,7 @@ struct country
   int infections;
   int deaths;
   int recovered;
+  int economy;
 };
 
 float calculate_overall_performance_index(float pi_by_country[], struct country AllCountries[]);
