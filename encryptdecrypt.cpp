@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <time.h>
+#include <list.h>
 using namespace std;
 
 const int no_of_characters=63;
@@ -81,7 +82,7 @@ bool decryption(string filename, Node * &head){
     string currentline="";
     fin>>previousline;
     //the first line of the file is the key to decrypt second line
-    delete_list(head);
+    list.delete_list(head);
     head=NULL;
     //initialise the lsit
     Node* tail=NULL;

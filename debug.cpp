@@ -1,5 +1,5 @@
 //use for debug only
-#include <encrypt&decrypt.h>
+#include <encryptdecrypt.h>
 #include <list.h>
 #include <iostream>
 using namespace std;
