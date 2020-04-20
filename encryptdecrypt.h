@@ -5,4 +5,4 @@
 bool decryption(string filename, Node * &head);
 bool encryption(string filename, Node * &head);
 
-#ENDIF
+#endif

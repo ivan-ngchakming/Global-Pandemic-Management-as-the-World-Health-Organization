@@ -1,6 +1,7 @@
 //use for debug only
-#include <encryptdecrypt.h>
-#include <list.h>
+#include "encryptdecrypt.h"
+#include "linkedlist.h"
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -30,11 +31,11 @@ void debug(){
       }
     }
   }
-  list.printlist(head);
-  bool success=encrypt&decrypt.encryption("testing.txt",head);
-  list.delete_list(head);
-  success=encrypt&decrypt.decryption("testing.txt",head);
-  list.printlist(head);
+  printlist(head);
+  bool success=encryption("testing.txt",head);
+  delete_list(head);
+  success=decryption("testing.txt",head);
+  printlist(head);
 }
 
 

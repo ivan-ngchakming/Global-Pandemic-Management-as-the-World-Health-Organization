@@ -1,18 +1,18 @@
-#include <fstream>
 #include <string>
+#include <fstream>
 #include <cstdlib>
 #include <time.h>
-#include <list.h>
+#include "linkedlist.h"
 using namespace std;
-
-const int no_of_characters=63;
-//a-z,A-Z,0-9,' '
 
 struct Node{
   string content;
   Node * next;
 };
 //linked list
+
+const int no_of_characters=63;
+//a-z,A-Z,0-9,' '
 
 char inttochar(int num){
   if ((num>=0)&&(num<=25)){
@@ -82,7 +82,7 @@ bool decryption(string filename, Node * &head){
     string currentline="";
     fin>>previousline;
     //the first line of the file is the key to decrypt second line
-    list.delete_list(head);
+    delete_list(head);
     head=NULL;
     //initialise the lsit
     Node* tail=NULL;

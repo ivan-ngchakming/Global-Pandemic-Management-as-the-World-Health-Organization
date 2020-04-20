@@ -1,12 +1,15 @@
 FLAGS= -pedantic-errors -std=c++11
 
-list.o: list.cpp list.h
+linkedlist.o: linkedlist.cpp linkedlist.h
 	g++ $(FLAGS) -c $<
 
-encryptdecrypt.o: encryptdecrypt.cpp encryptdecrypt.h list.h
+encryptdecrypt.o: encryptdecrypt.cpp encryptdecrypt.h linkedlist.h
 	g++ $(FLAGS) -c $<
 
-debug:debug.cpp encryptdecrypt.cpp list.cpp
+debug.o: debug.cpp encryptdecrypt.h linkedlist.h
+	g++ $(FLAGS) -c $<
+
+debug: linkedlist.o encryptdecrypt.o debug.o
 	g++ $(FLAGS) $^ -o $@
 
 clean:
