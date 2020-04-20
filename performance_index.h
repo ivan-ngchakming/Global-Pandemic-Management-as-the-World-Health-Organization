@@ -10,8 +10,10 @@ struct country
   int deaths;
   int recovered;
   int economy;
+  int pi;
 };
 
-float calculate_overall_performance_index(float pi_by_country[], struct country AllCountries[]);
+void calculate_performance_by_country(struct country AllCountries[]);
+float calculate_overall_performance_index(struct country AllCountries[]);
 
 #endif
