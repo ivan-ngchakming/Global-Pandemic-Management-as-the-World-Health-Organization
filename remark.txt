@@ -1,2 +1,7 @@
-testing Yo
-test 2
+git clone origin master
+editing
+git add . / specific files
+git commit -m ""
+git push origin mike
+
+git checkout -b mike

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 struct Node{
@@ -8,7 +9,7 @@ struct Node{
 };
 //linked list
 
-#include <linkedlist>
+#include "linkedlist.h"
 
 int main(){
   Node * list_head=NULL;
@@ -18,15 +19,15 @@ int main(){
   string input="";
   cout<<"deck list: "<<endl;
   int no_list=0;
-  while (intput!="exit"){
+  while (input!="exit"){
     //loop until user enter exit
-    cin>>answer;
-    if (answer!="exit"){
+    cin>>input;
+    if (input!="exit"){
       no_list+=1;
       Node * temp = new Node;
-      temp->content=answer;
+      temp->content=input;
       temp->next=NULL;
-      if (head==NULL){
+      if (list_head==NULL){
         list_head=temp;
         list_tail=temp;
       }
@@ -39,15 +40,15 @@ int main(){
   input="";
   cout<<"trash list: "<<endl;
   int no_trash=0;
-  while (intput!="exit"){
+  while (input!="exit"){
     //loop until user enter exit
-    cin>>answer;
-    if (answer!="exit"){
+    cin>>input;
+    if (input!="exit"){
       no_trash+=1;
       Node * temp = new Node;
-      temp->content=answer;
+      temp->content=input;
       temp->next=NULL;
-      if (head==NULL){
+      if (trash_head==NULL){
         trash_head=temp;
         trash_tail=temp;
       }
@@ -58,15 +59,25 @@ int main(){
     }
   }
   input="";
+  printlist(list_head);
+  cout<<"no_list: "<<no_list<<endl;
+  printlist(trash_head);
+  cout<<"no_trash: "<<no_trash<<endl;
   cout<<"It is time to test"<<endl;
   int number_of_loops=0;
-  cout>>number_of_loops;
+  cin>>number_of_loops;
   for (int i=0;i<number_of_loops;++i){
+    cout<<"________________________________________________"<<endl;
+    cout<<"loop: "<<i<<endl;
     string s[3];
-    pop3(list_head,trash_head,s,no_list,no_trash)
-    cout<<"deck: "<<no_deck<<endl;
+    pop3(list_head,trash_head,s,no_list,no_trash);
+    cout<<"Pop 3: "<<endl;
+    for (int j=0;j<3;++j){
+      cout<<s[j]<<endl;
+    }
+    cout<<"deck: "<<no_list<<endl;
     printlist(list_head);
-    cout<<"trasn: "<<no_trash<<endl;
+    cout<<"trash: "<<no_trash<<endl;
     printlist(trash_head);
   }
   delete_list(list_head);
