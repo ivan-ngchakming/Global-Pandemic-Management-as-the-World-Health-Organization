@@ -1,15 +1,14 @@
 //use for debug only
-#include "encryptdecrypt.h"
-#include "linkedlist.h"
 #include <string>
 #include <iostream>
 using namespace std;
-
 struct Node{
   string content;
   Node * next;
 };
 //linked list
+#include "encryptdecrypt.h"
+#include "linkedlist.h"
 
 void debug(){
   Node * head = NULL;

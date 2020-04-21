@@ -25,7 +25,7 @@ void delete_list (Node * & head){
 }
 
 // output the linked list
-void printlist(Node * head){
+void printlist(Node * & head){
     Node * current = head;
     while (current != NULL)
     {

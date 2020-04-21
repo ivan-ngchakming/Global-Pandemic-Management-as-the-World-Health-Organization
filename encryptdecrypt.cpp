@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <time.h>
-#include "linkedlist.h"
+
 using namespace std;
 
 struct Node{
@@ -10,6 +10,8 @@ struct Node{
   Node * next;
 };
 //linked list
+
+#include "linkedlist.h"
 
 const int no_of_characters=63;
 //a-z,A-Z,0-9,' '

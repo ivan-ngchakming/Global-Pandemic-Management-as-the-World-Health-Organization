@@ -13,6 +13,6 @@ debug: linkedlist.o encryptdecrypt.o debug.o
 	g++ $(FLAGS) $^ -o $@
 
 clean:
-
+	rm -f linkedlist.o encryptdecrypt.o debug.o
 .PHONY:
 	clean
