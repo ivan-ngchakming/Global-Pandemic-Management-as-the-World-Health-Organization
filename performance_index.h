@@ -1,6 +1,7 @@
 #ifndef PERFORMANCE_INDEX_H
 #define PERFORMANCE_INDEX_H
 #include <string>
+#include <iostream>
 
 struct country
 {

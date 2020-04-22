@@ -16,6 +16,8 @@ performance_index.o: performance_index.cpp performance_index.h
 
 #-----------------------------for debugging-------------------------------------
 
+
+#for debugging
 test: test.cpp load_init_countries_statistics.o performance_index.o
 	g++ $(FLAGS) $^ -o $@
 
@@ -34,6 +36,6 @@ debug_encryptdecrypt: debug_encryptdecrypt.o encryptdecrypt.o linkedlist.o
 #----------------------------end debugging--------------------------------------
 
 clean:
-	rm -f *.o
+	rm -f *.o *.gch
 .PHONY:
 	clean
