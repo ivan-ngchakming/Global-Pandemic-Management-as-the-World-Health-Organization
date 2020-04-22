@@ -1,17 +1,30 @@
-FLAGS = -pedantic-errors -std=c++11
+FLAGS= -pedantic-errors -std=c++11
 
-all: load_init_countries_statistics.o performance_index.o test clean
+linkedlist.o: linkedlist.cpp linkedlist.h
+	g++ $(FLAGS) -c $<
+
+encryptdecrypt.o: encryptdecrypt.cpp encryptdecrypt.h linkedlist.h
+	g++ $(FLAGS) -c $<
 
 load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_countries_statistics.h performance_index.h
-		g++ $(FLAGS) $^ -c $<
+	g++ $(FLAGS) $^ -c $<
 
 performance_index.o: performance_index.cpp performance_index.h
-		g++ $(FLAGS) $^ -c $<
+	g++ $(FLAGS) $^ -c $<
 
+
+#for debugging
 test: test.cpp load_init_countries_statistics.o performance_index.o
-		g++ $(FLAGS) $^ -o $@
+	g++ $(FLAGS) $^ -o $@
+
+debug_linkedlist.o: debug_linkedlist.cpp linkedlist.h
+	g++ $(FLAGS) -c $<
+
+debug_linkedlist: linkedlist.o debug_linkedlist.o
+	g++ $(FLAGS) $^ -o $@
+#end debugging
 
 clean:
-		rm -f *.o *.gch
-
-.PHONY: clean
+	rm -f *.o *.gch
+.PHONY:
+	clean
