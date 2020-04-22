@@ -25,11 +25,11 @@ debug_linkedlist.o: debug_linkedlist.cpp linkedlist.h
 debug_linkedlist: linkedlist.o debug_linkedlist.o
 	g++ $(FLAGS) $^ -o $@
 
-encryption_machine.o: encryption_machine.cpp
+debug_encryptdecrypt.o: debug_encryptdecrypt.cpp
 	g++ $(FLAGS) -c $<
 
-encryption_machine: encryption_machine.o encryptdecrypt.o linkedlist.o
-	g++ $(FLAGS) $^ -o $<
+debug_encryptdecrypt: debug_encryptdecrypt.o encryptdecrypt.o linkedlist.o
+	g++ $(FLAGS) $^ -o $@
 
 #----------------------------end debugging--------------------------------------
 

@@ -13,7 +13,7 @@ struct Node{
 
 #include "linkedlist.h"
 
-const int no_of_characters=63;
+const int no_of_characters=64;
 //a-z,A-Z,0-9,' '
 
 char inttochar(int num){
@@ -33,6 +33,10 @@ char inttochar(int num){
     return ' ';
   }
   //62 storing ' '
+  if (num==63){
+    return ',';
+  }
+  //63 storing ' '
 }
 
 int chartoint(char answer){
@@ -52,6 +56,10 @@ int chartoint(char answer){
     return 62;
   }
   //62 storing ' '
+  if (answer==','){
+    return 63;
+  }
+  //63 storing '3'
 }
 
 char shift_decrypt(char inputchar, int shiftingpos){
@@ -87,8 +95,12 @@ bool decryption(string filename, Node * &head){
     delete_list(head);
     head=NULL;
     //initialise the lsit
-    Node* tail=NULL;
-    while (fin>>currentline){
+    Node * tail = NULL;
+
+    //get the previousline first
+    getline(fin,currentline);
+
+    while (getline(fin,currentline)){
       //loop until eof
       string templine="";
       //to store the temporary line to be input into linked list
@@ -115,6 +127,7 @@ bool decryption(string filename, Node * &head){
         tail=temp;
       }
       previousline=templine;
+      printlist(head);
     }
   }
   fin.close();
