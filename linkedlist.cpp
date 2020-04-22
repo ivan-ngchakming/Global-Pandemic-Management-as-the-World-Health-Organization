@@ -126,4 +126,7 @@ void printlist(Node * & head){
 void init_deck_trash_list(Node * & deck_head, Node * & trashhead){
   delete_list(deck_head);
   delete_list(trash_head);
+  for (int i=0;i<no_cards){
+
+  }
 }
