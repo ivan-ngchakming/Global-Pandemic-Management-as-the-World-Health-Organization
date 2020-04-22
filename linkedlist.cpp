@@ -122,3 +122,7 @@ void printlist(Node * & head){
     }
     cout << "NULL\n";
 }
+
+void init_deck_trash_list(Node * & deck_head, Node * & trashhead){
+  
+}
