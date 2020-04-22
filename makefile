@@ -12,13 +12,16 @@ load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_c
 performance_index.o: performance_index.cpp performance_index.h
 	g++ $(FLAGS) -c $<
 
+infection_rate_calculator.o: infection_rate_calculator.cpp infection_rate_calculator.h
+	 g++ $(FLAGS) -c $<
+
 
 
 #-----------------------------for debugging-------------------------------------
 
 
 #for debugging
-test: test.cpp load_init_countries_statistics.o performance_index.o
+test: test.cpp load_init_countries_statistics.o performance_index.o infection_rate_calculator.o
 	g++ $(FLAGS) $^ -o $@
 
 debug_linkedlist.o: debug_linkedlist.cpp linkedlist.h

@@ -34,8 +34,8 @@ float calculate_overall_performance_index(struct country AllCountries[])
   {
     average_pi += AllCountries[i].pi / 20;
   }
-
-  std::cout << "\noverall pi is : " << overall_pi << '\n';
-  std::cout << "average pi is : " << average_pi << '\n';
+  
+  // std::cout << "\noverall pi is : " << overall_pi << '\n';
+  // std::cout << "average pi is : " << average_pi << '\n';
   return (float)overall_pi;
 }

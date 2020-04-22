@@ -12,6 +12,7 @@ struct country
   double recovered;
   double economy;
   double pi;
+  int infection_increase;
 };
 
 
