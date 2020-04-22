@@ -12,12 +12,18 @@ load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_c
 performance_index.o: performance_index.cpp performance_index.h
 	g++ $(FLAGS) -c $<
 
+
 command.o : command.cpp command.h
 	g++ $(FLAGS) -c $<
 
+infection_rate_calculator.o: infection_rate_calculator.cpp infection_rate_calculator.h
+	 g++ $(FLAGS) -c $<
+
 #-----------------------------for debugging-------------------------------------
 
-test: test.cpp load_init_countries_statistics.o performance_index.o
+
+#for debugging
+test: test.cpp load_init_countries_statistics.o performance_index.o infection_rate_calculator.o
 	g++ $(FLAGS) $^ -o $@
 
 debug_linkedlist.o: debug_linkedlist.cpp linkedlist.h
@@ -32,6 +38,7 @@ debug_encryptdecrypt.o: debug_encryptdecrypt.cpp
 debug_encryptdecrypt: debug_encryptdecrypt.o encryptdecrypt.o linkedlist.o
 	g++ $(FLAGS) $^ -o $@
 
+
 debug_command.o: debug_command.cpp
 	g++ $(FLAGS) -c $<
 
@@ -41,6 +48,7 @@ debug_command: debug_command.o command.o
 #----------------------------end debugging--------------------------------------
 
 clean:
-	rm -f *.o
+	rm -f *.o *.gch
+
 .PHONY:
 	clean

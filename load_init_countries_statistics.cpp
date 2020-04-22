@@ -41,19 +41,3 @@ void load_countries_statistics(struct country AllCountries[])
   std::cout << country_count << " countries' data loaded" << '\n';
 
 }
-
-
-// int main()
-// {
-//   struct country AllCountries[20];
-//   load_countries_statistics(AllCountries);
-//
-//   // For debugging.
-//   for (int i=0;i<2;i++)
-//   {
-//     std::cout << AllCountries[i].name << ", pop: " << AllCountries[i].population;
-//     std::cout << std::endl;
-//   }
-//
-//   return 0;
-// }

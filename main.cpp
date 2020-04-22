@@ -19,6 +19,7 @@ struct country
   double recovered;
   double economy;
   double pi;
+  int infection_factor;
   //pi: performance index
 };
 //for storing the data for a country
