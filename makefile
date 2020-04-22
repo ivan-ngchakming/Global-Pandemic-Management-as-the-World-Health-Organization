@@ -12,7 +12,8 @@ load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_c
 performance_index.o: performance_index.cpp performance_index.h
 	g++ $(FLAGS) -c $<
 
-
+command.o : command.cpp command.h
+	g++ $(FLAGS) -c $<
 
 #-----------------------------for debugging-------------------------------------
 
@@ -25,11 +26,17 @@ debug_linkedlist.o: debug_linkedlist.cpp linkedlist.h
 debug_linkedlist: linkedlist.o debug_linkedlist.o
 	g++ $(FLAGS) $^ -o $@
 
-encryption_machine.o: encryption_machine.cpp
+debug_encryptdecrypt.o: debug_encryptdecrypt.cpp
 	g++ $(FLAGS) -c $<
 
-encryption_machine: encryption_machine.o encryptdecrypt.o linkedlist.o
-	g++ $(FLAGS) $^ -o $<
+debug_encryptdecrypt: debug_encryptdecrypt.o encryptdecrypt.o linkedlist.o
+	g++ $(FLAGS) $^ -o $@
+
+debug_command.o: debug_command.cpp
+	g++ $(FLAGS) -c $<
+
+debug_command: debug_command.o command.o
+	g++ $(FLAGS) $^ -o $@
 
 #----------------------------end debugging--------------------------------------
 
