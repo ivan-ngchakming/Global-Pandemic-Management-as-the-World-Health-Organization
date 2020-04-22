@@ -51,6 +51,8 @@ int main()
   //day stores the virtual time in the game
   //also mean the number of round the player had played
 
+  init_deck_trash_list(deck_head,trash_head);
+  //initialize deck list and trash list
   //------------------initialization-----------------------------
 
   //------------------New game? ----------------------------
@@ -71,7 +73,10 @@ int main()
 
   //---------------------------the game ----------------------------------
 
-  while calculate_overall_performance_index(AllCountries[]);
+  while calculate_overall_performance_index(AllCountries[]){
+    each_round(deck_head,trash_head,)
+  }
+  return 0;
 
   //---------------------------the game ----------------------------------
 
