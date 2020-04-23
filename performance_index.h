@@ -3,17 +3,7 @@
 #include <string>
 #include <iostream>
 
-struct country
-{
-  std::string name;
-  double population;
-  double infections;
-  double deaths;
-  double recovered;
-  double economy;
-  double pi;
-  int infection_increase;
-};
+#include "main.h"
 
 
 float calculate_overall_performance_index(struct country AllCountries[]);

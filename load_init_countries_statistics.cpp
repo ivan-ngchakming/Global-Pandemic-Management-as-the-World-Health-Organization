@@ -17,7 +17,7 @@ void load_countries_statistics(struct country AllCountries[])
     std::string         value;
 
     int data_count = 0;
-    while(getline(linestream, value,','))
+    while(getline(linestream, value, ','))
     {
         if (data_count==0)
           AllCountries[country_count].name = value;
@@ -37,6 +37,13 @@ void load_countries_statistics(struct country AllCountries[])
 
   }
   data.close();
+
+  double init_death_probability = 1;
+
+  for (int i=0;i<country_count;i++)
+  {
+    AllCountries[i].death_probability = init_death_probability / 100;
+  }
 
   std::cout << country_count << " countries' data loaded" << '\n';
 

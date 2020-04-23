@@ -3,6 +3,7 @@
 #include "load_init_countries_statistics.h"
 #include "performance_index.h"
 #include "infection_rate_calculator.h"
+#include "main.h"
 
 
 
@@ -17,7 +18,10 @@ int main()
 
 
   for(int i=0;i<5;i++)
-  calculate_daily_infection(AllCountries);
+  {
+    std::cout << "\nDAY " << i << '\n';
+    calculate_daily_infection(AllCountries);
+  }
 
   return 0;
 }

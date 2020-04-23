@@ -1,5 +1,10 @@
 #ifndef MAIN_H
 #define MAIN_H
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+
+using namespace std;
 
 struct Node{
   string content;
@@ -16,7 +21,9 @@ struct country
   double recovered;
   double economy;
   double pi;
-  double infection_factor;
+  float infection_factor; // Range 0.0 - 5.0
+  double infection_increase;
+  double death_probability; // Range 0 - 1
   //pi: performance index
 };
 //for storing the data for a country
