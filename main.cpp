@@ -1,43 +1,63 @@
 #include <iostream>
 #include <string>
-#include <conio.h>
-//for clear screen
+#include <stdlib.h>
 using namespace std;
 
-struct Node{
-  string content;
-  Node * next;
-};
-//linked list
+#include "main.h"
 
-struct country
-{
-  string name;
-  double population;
-  double infections;
-  double deaths;
-  double recovered;
-  double economy;
-  double pi;
-  int infection_factor;
-  //pi: performance index
-};
-//for storing the data for a country
 
-struct WHO{
-  int capital;
-  //stores the capital that the WHO have
-  int staff;
-  //stores the no. of staff that WHO has
-  int medical;
-  //stores amout of medical equipment that WHO has
+//--------------------for debug--------------------------------------------
+
+string doubletostr(double num){
+  return to_string(num);
 }
+
+bool is_digits(const std::string &str)
+{
+    return str.find_first_not_of("0123456789") == std::string::npos;
+}
+
+double str_to_double(string s){
+  if (is_digits(s)){
+    //turn string to double
+    return stod(s);
+  }
+  exit(1);
+}
+
+void printcounrty(country c){
+  cout<<"country: "<<c.name<<endl;
+  cout<<"population: "<<doubletostr(c.population)<<endl;
+  cout<<"infection: "<<doubletostr(c.infections)<<endl;
+  cout<<"deaths: "<<doubletostr(c.deaths)<<endl;
+  cout<<"recovered: "<<doubletostr(c.recovered)<<endl;
+  cout<<"economy: "<<doubletostr(c.economy)<<endl;
+  cout<<"pi: "<<doubletostr(c.pi)<<endl;
+  cout<<"infection_factor: "<<doubletostr(c.infection_factor)<<endl;
+}
+
+void printcard(card c){
+  cout<<"card: "<<c.name<<endl;
+  cout<<"target: "<<c.target<<endl;
+  cout<<"variable: "<<c.variable<<endl;
+  cout<<"add: "<<boolalpha<<c.add<<endl;
+  cout<<"magnitude: "<<doubletostr(c.magnitude)<<endl;
+}
+
+//--------------------for debug--------------------------------------------
 
 void printruler(){
   cout<<"--------------------------------------------------"<<endl;
   //synchronized every ruller have the same length
 }
 
+void clearscreen(){
+  system("CLS");
+}
+
+
+//real
+/*
 int main()
 {
   //------------------initialization-----------------------------
@@ -66,9 +86,14 @@ int main()
   }
   if (s=="1"){
     //new game
+    //ask for tutorial
+    //can skip tutorial
+    tutorial();
+    init_new_game();
   }
   else{
     //load game
+
   }
   //------------------------------New game? ------------------------------
 
@@ -82,3 +107,4 @@ int main()
   //---------------------------the game ----------------------------------
 
 }
+*/
