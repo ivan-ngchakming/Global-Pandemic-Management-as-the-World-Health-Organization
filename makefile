@@ -1,5 +1,8 @@
 FLAGS= -pedantic-errors -std=c++11
 
+main.o: main.cpp main.h
+	g++ $(FLAGS) -c $<
+
 linkedlist.o: linkedlist.cpp linkedlist.h
 	g++ $(FLAGS) -c $<
 
@@ -42,7 +45,7 @@ debug_encryptdecrypt: debug_encryptdecrypt.o encryptdecrypt.o linkedlist.o
 debug_command.o: debug_command.cpp
 	g++ $(FLAGS) -c $<
 
-debug_command: debug_command.o command.o
+debug_command: debug_command.o command.o main.o
 	g++ $(FLAGS) $^ -o $@
 
 #----------------------------end debugging--------------------------------------
