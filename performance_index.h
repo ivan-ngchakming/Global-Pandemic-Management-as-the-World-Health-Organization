@@ -6,6 +6,6 @@
 #include "main.h"
 
 
-float calculate_overall_performance_index(struct country AllCountries[]);
+float calculate_overall_performance_index(struct country AllCountries[], float country_pi_settings[], int country_count);
 
 #endif

@@ -7,7 +7,7 @@
 #include <random>
 #include <time.h>
 
-void calculate_daily_infection(struct country AllCountries[]);
+void calculate_daily_infection(struct country AllCountries[], int country_count);
 
 
 #endif

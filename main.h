@@ -45,6 +45,7 @@ struct WHO{
   //stores amout of medical equipment that WHO has
 };
 
+
 //-----------------------for debug----------------------------------
 double str_to_double(string s);
 void printcounrty(country c);

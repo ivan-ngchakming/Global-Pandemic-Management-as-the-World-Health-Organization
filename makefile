@@ -20,7 +20,10 @@ command.o : command.cpp command.h
 	g++ $(FLAGS) -c $<
 
 infection_rate_calculator.o: infection_rate_calculator.cpp infection_rate_calculator.h
-	 g++ $(FLAGS) -c $<
+	g++ $(FLAGS) -c $<
+
+apply_effects.o: apply_effects.cpp apply_effects.h
+	g++ $(FLAGS) -c $<
 
 #-----------------------------for debugging-------------------------------------
 
