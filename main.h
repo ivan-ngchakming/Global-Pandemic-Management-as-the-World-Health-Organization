@@ -1,5 +1,10 @@
 #ifndef MAIN_H
 #define MAIN_H
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+
+using namespace std;
 
 //--------------------------------txt document----------------------------------
 const string store_game="storegame.txt";
@@ -20,10 +25,10 @@ struct country
   double recovered;
   double economy;
   double pi;
+  //pi: performance index
   float infection_factor; // Range 0.0 - 5.0
   double infection_increase;
   float death_probability; // Range 0 - 1
-  //pi: performance index
 };
 //for storing the data for a country
 
@@ -43,6 +48,7 @@ struct WHO{
   int medical;
   //stores amout of medical equipment that WHO has
 };
+
 
 //-----------------------data type conversion----------------------------------
 int str_to_int(string s);

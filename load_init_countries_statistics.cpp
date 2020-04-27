@@ -1,6 +1,8 @@
 #include "load_init_countries_statistics.h"
 
-void load_countries_statistics(struct country AllCountries[])
+
+// This function loads the country stats directly from a txt file
+void load_countries_statistics(struct country AllCountries[], double init_death_probability, int &no_of_country)
 {
   std::cout << "Loading countries' statistics..." << "\n";
 
@@ -17,7 +19,7 @@ void load_countries_statistics(struct country AllCountries[])
     std::string         value;
 
     int data_count = 0;
-    while(getline(linestream, value,','))
+    while(getline(linestream, value, ','))
     {
         if (data_count==0)
           AllCountries[country_count].name = value;
@@ -38,6 +40,11 @@ void load_countries_statistics(struct country AllCountries[])
   }
   data.close();
 
+  for (int i=0;i<country_count;i++)
+  {
+    AllCountries[i].death_probability = init_death_probability / 100;
+  }
+  no_of_country = country_count;
   std::cout << country_count << " countries' data loaded" << '\n';
 
 }
