@@ -4,12 +4,7 @@
 #include <time.h>
 using namespace std;
 
-struct Node{
-  string content;
-  Node * next;
-};
-//linked list
-
+#include "main.h"
 #include "linkedlist.h"
 
 //delete the head node from a linked list
@@ -25,6 +20,20 @@ void delete_head (Node * & head){
 void delete_list (Node * & head){
   while (head !=NULL){
     delete_head(head);
+  }
+}
+
+void insertlist(Node *& head ,Node *& tail, string s){
+  Node * temp = new Node;
+  temp->content=s;
+  temp->next=NULL;
+  if (head==NULL){
+    head=temp;
+    tail=temp;
+  }
+  else{
+    tail->next=temp;
+    tail=temp;
   }
 }
 
@@ -108,6 +117,22 @@ void pop3(Node * & list_head, Node * & trashhead, string s[3], int & no_list, in
     }
     count+=1;
     //loop three times
+  }
+}
+
+//pop the first node of the list
+//and the node is free
+string pop1(Node *&  list){
+  if (list==NULL){
+    return "";
+  }
+  else{
+    string s=list->content;
+    Node * temp = new Node;
+    temp=list;
+    list=list->next;
+    delete temp;
+    return s;
   }
 }
 

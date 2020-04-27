@@ -52,9 +52,21 @@ bool country_command(string command, country & c ){
   //extract pi
 
   pos=next_pos;
-  temp=command.substr(pos+1);
-  c.infection_factor=str_to_double(temp);
+  next_pos=command.find(",",pos+1);
+  temp=command.substr(pos+1,next_pos-pos-1);
+  c.infection_factor=str_to_float(temp);
   //extract infection_factor
+
+  pos=next_pos;
+  next_pos=command.find(",",pos+1);
+  temp=command.substr(pos+1,next_pos-pos-1);
+  c.infection_increase=str_to_double(temp);
+  //extract infection_increase
+
+  pos=next_pos;
+  temp=command.substr(pos+1);
+  c.death_probability=str_to_float(temp);
+  //extract death_probability
 
   return true;
   //means the function runs smoothly
@@ -104,6 +116,32 @@ bool card_command(string command, card & c){
   temp=command.substr(pos+1);
   c.magnitude=str_to_double(temp);
   //extract magnitude
+
+  return true;
+  //means the function runs smoothly
+}
+
+//----------------- break down the WHO command------------------------------
+//command format
+//<capital>,<staff>,<medical>
+bool who_command(string command, WHO & w ){
+  int pos=0;
+  string temp;
+  int next_pos=command.find(",");
+  temp=command.substr(pos,next_pos);
+  w.capital=str_to_int(temp);
+  //extract capital
+
+  pos=next_pos;
+  next_pos=command.find(",",pos+1);
+  temp=command.substr(pos+1,next_pos-pos-1);
+  w.staff=str_to_int(temp);
+  //extract staff
+
+  pos=next_pos;
+  temp=command.substr(pos+1);
+  w.medical=str_to_int(temp);
+  //extract medical
 
   return true;
   //means the function runs smoothly
