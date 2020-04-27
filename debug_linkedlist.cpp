@@ -3,12 +3,7 @@
 
 using namespace std;
 
-struct Node{
-  string content;
-  Node * next;
-};
-//linked list
-
+#include "main.h"
 #include "linkedlist.h"
 
 int main(){
