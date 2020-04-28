@@ -15,16 +15,16 @@ struct Node{
 struct country
 {
   string name;
-  double population;
-  double infections;
-  double deaths;
-  double recovered;
+  unsigned long int population;
+  unsigned long int infections;
+  unsigned int deaths;
+  unsigned int recovered;
   double economy;
   double pi;
   float infection_factor; // Range 0.0 - 5.0
-  double infection_increase;
-  double death_probability; // Range 0 - 1
-  //pi: performance index
+  unsigned long int infection_increase;
+  int death_probability; // Range 0 - 100
+  int recover_probability; // Range 0 - 100
 };
 //for storing the data for a country
 
