@@ -1,19 +1,12 @@
 #include <string>
 #include <fstream>
-#include <cstdlib>
-#include <time.h>
 
 using namespace std;
 
-struct Node{
-  string content;
-  Node * next;
-};
-//linked list
-
+#include "main.h"
 #include "linkedlist.h"
 
-const int no_of_characters=64;
+const int no_of_characters=65;
 //a-z,A-Z,0-9,' '
 
 char inttochar(int num){
@@ -36,7 +29,11 @@ char inttochar(int num){
   if (num==63){
     return ',';
   }
-  //63 storing ' '
+  //63 storing ','
+  if (num==64){
+    return '.';
+  }
+  //64 storing '.'
 }
 
 int chartoint(char answer){
@@ -127,7 +124,6 @@ bool decryption(string filename, Node * &head){
         tail=temp;
       }
       previousline=templine;
-      printlist(head);
     }
   }
   fin.close();
@@ -163,7 +159,6 @@ bool encryption(string filename, Node * &head){
     int max_length_of_the_key=20;
     //the first line is for encrypting the second line,
     //the maximum length of the first line is 20
-    srand(time(NULL));
     int random_number=rand()%max_length_of_the_key;
     for (int i=0;i<random_number;++i){
       previousline+=inttochar(rand()%no_of_characters);

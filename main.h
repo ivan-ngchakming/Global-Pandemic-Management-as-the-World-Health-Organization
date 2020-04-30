@@ -6,6 +6,10 @@
 
 using namespace std;
 
+//--------------------------------txt document----------------------------------
+const string store_game="storegame.txt";
+//--------------------------------txt document----------------------------------
+
 struct Node{
   string content;
   Node * next;
@@ -21,6 +25,7 @@ struct country
   unsigned int recovered;
   double economy;
   double pi;
+  //pi: performance index
   float infection_factor; // Range 0.0 - 5.0
   unsigned long int infection_increase;
   int death_probability; // Range 0 - 100
@@ -46,12 +51,18 @@ struct WHO{
 };
 
 
-//-----------------------for debug----------------------------------
+//-----------------------data type conversion----------------------------------
+int str_to_int(string s);
+float str_to_float(string s);
 double str_to_double(string s);
+string doubletostr(double num);
 void printcounrty(country c);
 void printcard(card c);
-void printruler();
-string doubletostr(double num);
-//-----------------------for debug----------------------------------
+//-----------------------data type conversion----------------------------------
 
+//-----------------------for UI----------------------------------
+void clearscreen();
+void printruler();
+void printeverything(int & day, WHO & who, string c[], int & country_size, string ac[], int & ac_size, string rec[], int & rec_size, Node * & dh, Node * & dt, Node * & th, Node * & tt, Node * & rec_h, Node * & rec_t);
+//-----------------------for UI----------------------------------
 #endif

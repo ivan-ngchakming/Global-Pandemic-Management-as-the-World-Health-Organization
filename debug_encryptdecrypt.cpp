@@ -3,12 +3,7 @@
 #include <string>
 using namespace std;
 
-struct Node{
-  string content;
-  Node * next;
-};
-//linked list
-
+#include "main.h"
 #include "encryptdecrypt.h"
 #include "linkedlist.h"
 
