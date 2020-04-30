@@ -24,8 +24,7 @@ struct country
   unsigned int deaths;
   unsigned int recovered;
   double economy;
-  double pi;
-  //pi: performance index
+  double pi; //pi: performance index
   float infection_factor; // Range 0.0 - 5.0
   unsigned long int infection_increase;
   int death_probability; // Range 0 - 100
@@ -39,15 +38,21 @@ struct card{
   string variable;
   bool add;
   double magnitude;
+  string cost_type;
+  int cost;
 };
 
 struct WHO{
   int capital;
-  //stores the capital that the WHO have
+  //stores the capital that the WHO have in thousands
   int staff;
   //stores the no. of staff that WHO has
   int medical;
   //stores amout of medical equipment that WHO has
+  int capital_income;
+  int staff_increment;
+  int medical_increment;
+  int income_frequency; // # of days until the next income received
 };
 
 

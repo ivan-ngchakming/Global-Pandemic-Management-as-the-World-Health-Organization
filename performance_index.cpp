@@ -7,7 +7,7 @@ void calculate_performance_by_country(struct country AllCountries[], float count
   {
     // std::cout << "Error Check" << '\n';
     AllCountries[i].pi = AllCountries[i].deaths / AllCountries[i].population * country_pi_settings[0];
-    AllCountries[i].pi += AllCountries[i].infections / AllCountries[i].population * country_pi_settings[1];
+    AllCountries[i].pi += ( AllCountries[i].infections - AllCountries[i].deaths - AllCountries[i].recovered ) / AllCountries[i].population * country_pi_settings[1];
     AllCountries[i].pi += AllCountries[i].recovered / AllCountries[i].population * country_pi_settings[2];
     AllCountries[i].pi += AllCountries[i].economy * country_pi_settings[3];
 

@@ -5,6 +5,6 @@
 
 #include <iostream>
 
-bool apply_card_effects_on_country(struct country AllCountries[], struct card c);
+bool apply_card_effects_on_country(struct country AllCountries[], struct card c, int no_of_countries);
 
 #endif
