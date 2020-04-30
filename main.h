@@ -8,6 +8,8 @@ using namespace std;
 
 //--------------------------------txt document----------------------------------
 const string store_game="storegame.txt";
+const string init_game="initgame.txt";
+
 //--------------------------------txt document----------------------------------
 
 struct Node{
@@ -71,3 +73,53 @@ void printruler();
 void printeverything(int & day, WHO & who, string c[], int & country_size, string ac[], int & ac_size, string rec[], int & rec_size, Node * & dh, Node * & dt, Node * & th, Node * & tt, Node * & rec_h, Node * & rec_t);
 //-----------------------for UI----------------------------------
 #endif
+
+/*
+//**************************declare variables*********************************
+//----------------deck and trash list------------------------
+Node * deck_head = new Node;
+deck_head=NULL;
+//initialize deck list and it is empty
+Node * trash_tail = new Node;
+trash_tail=NULL;
+Node * deck_tail = new Node;
+deck_tail=NULL;
+Node * trash_head = new Node;
+trash_head=NULL;
+//initialize trash list and it is empty
+//----------------deck and trash list------------------------
+
+//-----------------record histroy----------------------------
+Node * record_head = new Node;
+record_head = NULL;
+//stores the game history record
+Node * record_tail = new Node;
+record_tail = NULL;
+//-----------------record histroy----------------------------
+
+//------------------game status------------------------------
+int day;
+//day stores the virtual time in the game
+//also mean the number of round the player had played
+WHO who;
+//stores what WHO has such as capital, staff and medical equipment
+//------------------game status------------------------------
+
+//---------load all nation, cards, randomeventcard----------
+//++++++++++coutnry++++++++
+int nation_size=20;
+string * nation = new string[nation_size];
+//++++++++++coutnry++++++++
+
+//++++++++++action_card++++++++
+int action_card_size=40;
+string * action_card = new string[action_card_size];
+//++++++++++action_card++++++++
+
+//++++++++++random_event_card++++++++
+int random_event_card_size=40;
+string * random_event_card = new string[random_event_card_size];
+//++++++++++random_event_card++++++++
+//---------load all nation, cards, randomeventcard----------
+//**************************declare variables*********************************
+*/
