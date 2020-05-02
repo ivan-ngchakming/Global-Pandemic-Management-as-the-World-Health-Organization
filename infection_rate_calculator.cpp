@@ -76,3 +76,20 @@ void calculate_daily_infection(struct country AllCountries[], int country_count)
   }
 
 }
+
+void calculate_daily_economic_impact(struct country AllCountries[], int country_count, float lockdown_economy_threshold)
+{
+  for (int i=0;i<country_count;i++)
+  {
+    AllCountries[i].infected_percentage = ( (long double)AllCountries[i].infections - (long double)AllCountries[i].recovered - (long double)AllCountries[i].deaths ) / (long double)AllCountries[i].population;
+    // High infection rate leads to lower economic activity
+    if (AllCountries[i].economy > 0)
+    {
+      AllCountries[i].economy -= (int)(AllCountries[i].infected_percentage * 10);
+      if (AllCountries[i].infected_percentage > lockdown_economy_threshold)
+        AllCountries[i].economy = 0;
+    }
+    else
+      AllCountries[i].economy = 0;
+  }
+}

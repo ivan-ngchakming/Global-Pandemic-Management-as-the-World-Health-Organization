@@ -212,9 +212,9 @@ int main(){
   else{
     filename=store_game;
   }
-  loadgame(filename,day,who,nation,nation_size,action_card,cation_card_size,random_event_card,random_event_card_size,deck_head,deck_tail,trash_head,trash_tail,record_head,record_tail);
+  loadgame(filename,day,who,nation,nation_size,action_card,action_card_size,random_event_card,random_event_card_size,deck_head,deck_tail,trash_head,trash_tail,record_head,record_tail);
   //for debug
-  printeverything(day,who,nation,nation_size,action_card,cation_card_size,random_event_card,random_event_card_size,deck_head,deck_tail,trash_head,trash_tail,record_head,record_tail);
+  printeverything(day,who,nation,nation_size,action_card,action_card_size,random_event_card,random_event_card_size,deck_head,deck_tail,trash_head,trash_tail,record_head,record_tail);
   //for debug
   //**************************initialization************************************
 
@@ -421,7 +421,7 @@ int main(){
 
   //----------------------dynamic array------------------------
   delete [] nation;
-  delete [] action_ card ;
+  delete [] action_card ;
   delete [] random_event_card;
   //----------------------dynamic array------------------------
 

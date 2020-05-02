@@ -1,5 +1,8 @@
 FLAGS= -pedantic-errors -std=c++11
 
+main: main.cpp main.h
+	g++ $(FLAGS) -c $<
+
 main.o: main.cpp main.h
 	g++ $(FLAGS) -c $<
 
@@ -24,8 +27,8 @@ infection_rate_calculator.o: infection_rate_calculator.cpp infection_rate_calcul
 
 
 load_save.o: load_save.cpp load_save.h
-  g++ $(FLAGS) -c $<
-  
+	g++ $(FLAGS) -c $<
+
 apply_effects.o: apply_effects.cpp apply_effects.h
 	g++ $(FLAGS) -c $<
 

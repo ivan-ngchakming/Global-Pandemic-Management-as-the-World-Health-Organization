@@ -1,0 +1,2 @@
+United States Economic Shutdown,country,United States,economy,false,100,capital,10
+Indonesia Increase Mask Production,country,Indonesia,infection_factor,false,0.3,staff,2

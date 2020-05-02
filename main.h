@@ -25,6 +25,7 @@ struct country
   unsigned long int infections;
   unsigned int deaths;
   unsigned int recovered;
+  float infected_percentage;
   double economy;
   double pi; //pi: performance index
   float infection_factor; // Range 0.0 - 5.0
@@ -36,6 +37,7 @@ struct country
 
 struct card{
   string name;
+  string target_type; // country, resources,
   string target;
   string variable;
   bool add;
