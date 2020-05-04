@@ -1,17 +1,15 @@
-#include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <cstdlib>
-#include <time.h>
-#include <iomanip>
-using namespace std;
-
-
 #include "main.h"
-#include "linkedlist.h"
-#include "encryptdecrypt.h"
 
+
+using namespace std;
 //--------------------for debug--------------------------------------------
+
+void printruller(){
+  cout<<"--------------------------------------------------"<<endl;
+  //synchronized every ruller have the same length
+}
+
+
 void printcounrty(country c){
   cout<<"nation: "<<c.name<<endl;
   cout<<"population: "<<doubletostr(c.population)<<endl;
@@ -31,7 +29,9 @@ void printcard(card c){
   cout<<"magnitude: "<<doubletostr(c.magnitude)<<endl;
 }
 
-void printeverything(int & day, WHO & who, string c[], int & nation_size, string ac[], int & ac_size, string rec[], int & rec_size, Node * & dh, Node * & dt, Node * & th, Node * & tt, Node * & rec_h, Node * & rec_t){
+void printeverything(int & day, struct WHO & who, string c[], int & nation_size,
+  string ac[], int & ac_size, string rec[], int & rec_size, Node * & dh,
+  Node * & dt, Node * & th, Node * & tt, Node * & rec_h, Node * & rec_t){
   printruller();
   cout<<"Day: "<<day<<endl;
   printruller();
@@ -55,11 +55,11 @@ void printeverything(int & day, WHO & who, string c[], int & nation_size, string
     cout<<i<<" : "<<rec[i]<<endl;
   }
   printruller();
-  printlist(dh);
+  // printlist(dh);
   printruller();
-  printlist(th);
+  // printlist(th);
   printruller();
-  printlist(rec_h);
+  // printlist(rec_h);
 }
 //--------------------for debug-------------------------------------------
 
@@ -100,11 +100,6 @@ string doubletostr(double num){
 //--------------------data type conversion--------------------------------------
 
 //--------------------------------- UI------------------------------------------
-void printruller(){
-  cout<<"--------------------------------------------------"<<endl;
-  //synchronized every ruller have the same length
-}
-
 void clearscreen(){
   system("CLS");
 }
@@ -142,8 +137,17 @@ int main(){
 
   //---------load all nation, cards, randomeventcard----------
   //++++++++++coutnry++++++++
-  int nation_size=20;
+  int nation_size = 20;
   string * nation = new string[nation_size];
+  struct country AllCountries[20];
+  int number_of_countries;
+  int init_death_probability = 1;
+  int init_recover_probability = 3;
+  float country_pi_settings[4] = {0.4, 0.1, 0.1, 0.3};
+  float infection_factor = 0.7;
+
+  load_countries_statistics(AllCountries, init_death_probability,
+    nation_size, infection_factor, init_recover_probability);
   //++++++++++coutnry++++++++
 
   //++++++++++action_card++++++++
@@ -168,14 +172,14 @@ int main(){
   fin.open(store_game.c_str());
   if (fin.fail()){
     //which means fail to open storegame.txt
-    system("touch"+store_game);
+    // system("touch"+store_game);
     //if there is no store game file, then create a new one
   }
   else{
-    if (!is_empty(fin)){
-      //if the file is empty, which means the only way is to create new game
-      saved_game_flag=true;
-    }
+    // if (!is_empty(fin)){
+    //   //if the file is empty, which means the only way is to create new game
+    //   saved_game_flag=true;
+    // }
   }
   //the current directory must have a txt file which is for storing file
   //if saved_game_flag is true, which means there is saved game
@@ -220,7 +224,8 @@ int main(){
 
   //---------------------------the game ----------------------------------
   bool exit=false;
-  while ((calculate_overall_performance_index(???)<=??) || (exit==false)){
+  float winning_pi = 90;
+  while ((calculate_overall_performance_index(AllCountries, country_pi_settings, nation_size) <= winning_pi) || (exit==false)){
     //loop when the PI is not enough and the user not yet want to exit
 
     clearscreen();
@@ -237,7 +242,7 @@ int main(){
       cout<<setw(20)<<"Country Name"<<setw(10)<<"performance Index"<<endl;
       for (int i=0;i<nation_size;++i){
         country temp;
-        country_command(c[i],temp);
+        // country_command(c[i],temp);
         cout<<setw(20)<<temp.name;
         cout<<setw(10)<<temp.pi;
         cout<<endl;
@@ -245,10 +250,10 @@ int main(){
       printruller();
       //----------printing all country statistic in simple way----------
       cout<<"Day: "<<day<<endl;
-      cout<<"1: See Long statistic table???"<<endl;
-      cout<<"2: Purchase from the market???"<<endl;
-      cout<<"3: Use Action card???"<<endl;
-      cout<<"0: Exit the game???"<<endl;
+      cout<<"1: View statistics of all Countries"<<endl;
+      cout<<"2: View market"<<endl;
+      cout<<"3: Use Action card"<<endl;
+      cout<<"0: Exit game"<<endl;
       printruller();
       //*****************user input*****************
       answer="-1";
@@ -269,9 +274,9 @@ int main(){
         clearscreen();
         cout<<left;
         cout<<setw(15)<<"Country Name"<<setw(10)<<"Population"<<setw(10)<<"Infection"<<setw(10)<<"Death"<<setw(10)<<"Recovered"<<setw(10)<<"Economy"<<setw(20)<<"performance Index"<<endl;
-        for (int i=0;i<size;++i){
+        for (int i=0;i<nation_size;++i){
           country temp;
-          country_command(c[i],temp);
+          // country_command(c[i],temp);
 
           cout<<setw(15)<<temp.name;
           cout<<setw(15)<<temp.population;
@@ -285,15 +290,15 @@ int main(){
         //----------------print table----------------
 
         //---------------quit the table---------------
-        cout<<endl;
-        cout<<"Input 0 to exit"
+        cout << endl;
+        cout << "Input 0 to exit" << endl;
         printruller();
         answer="-1";
         while (answer=="0"){
           cout<<"Input: ";
-          cin>>answer;
+          cin >> answer;
           if (!(answer=="0")){
-            cout<<"Invalid input!"<<endl;
+            cout << "Invalid input!" << endl;
           }
         }
         //---------------quit the table---------------
@@ -326,10 +331,10 @@ int main(){
         //------------print market------------
         //-------------user input-------------
         answer="a";
-        while ((answer.length==1)&&((answer[0]>="0")&&(answer[0]<="9"))){
+        while ((answer.length()==1)&&((answer[0]>=0)&&(answer[0]<=9))){
           cout<<"Input: ";
           cin>>answer;
-          if (!((answer.length==1)&&((answer[0]>="0")&&(answer[0]<="9")))){
+          if (!((answer.length()==1)&&((answer[0]>=0)&&(answer[0]<=9)))){
             cout<<"Invalid input!"<<endl;
           }
         }
@@ -350,7 +355,7 @@ int main(){
         //quit game
         //-------------user input-------------
         clearscreen();
-        cout<<"Are you sure to exit??? (Y/N)"<<endl;
+        cout<<"Are you you want to exit (Y/N)"<<endl;
         answer="a";
         while ((answer>="Y")&&(answer<="N")){
           cout<<"Input: ";
@@ -366,7 +371,7 @@ int main(){
 
           //-------------user input-------------
           clearscreen();
-          cout<<"Save game??? (Y/N)"<<endl;
+          cout<<"Save game? (Y/N)"<<endl;
           answer="a";
           while ((answer>="Y")&&(answer<="N")){
             cout<<"Input: ";
@@ -381,7 +386,7 @@ int main(){
           if (answer=="Y"){
             //user want to save game
             filename=store_game;
-            savegame(filename,day,who,nation,nation_size,action_card,cation_card_size,random_event_card,random_event_card_size,deck_head,trash_head,record_head);
+            savegame(filename,day,who,nation,nation_size,action_card,action_card_size,random_event_card,random_event_card_size,deck_head,trash_head,record_head);
           }
           //if answer=="N", the program will not save the game
           exit=true;
@@ -403,7 +408,7 @@ int main(){
     //as PI over the graduation mark
 
     //??? congrat to the user ha ha
-    system("rm "+store_game)
+    // system("rm "+store_game)
     //remove the store_game txt file because the user had win the game
     //if the user like the game, he should play new game as he finish the game
   }
@@ -415,8 +420,8 @@ int main(){
 
   //-------------deck, trash and record list-------------------
   delete_list(deck_head);
-  deltet_list(trash_head);
-  delete_list(record);
+  // deltet_list(trash_head);
+  // delete_list(record);
   //-------------deck, trash and record list-------------------
 
   //----------------------dynamic array------------------------

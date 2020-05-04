@@ -3,8 +3,20 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <cstdlib>
+#include <time.h>
+#include <iomanip>
 
 using namespace std;
+
+//--------------------------functions header files------------------------------
+#include "performance_index.h"
+#include "load_init_countries_statistics.h"
+#include "tutorial.h"
+#include "load_save.h"
+#include "linkedlist.h"
+#include "encryptdecrypt.h"
+//--------------------------functions header files------------------------------
 
 //--------------------------------txt document----------------------------------
 const string store_game="storegame.txt";

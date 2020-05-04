@@ -1,12 +1,5 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <time.h>
-using namespace std;
-
-#include "main.h"
 #include "linkedlist.h"
-
+using namespace std;
 //delete the head node from a linked list
 void delete_head (Node * & head){
   if (head !=NULL){
@@ -17,7 +10,7 @@ void delete_head (Node * & head){
 }
 
 //free an entire linked list
-void delete_list (Node * & head){
+void delete_list(struct Node * & head){
   while (head !=NULL){
     delete_head(head);
   }
@@ -99,27 +92,27 @@ void pop3(Node * & list_head, Node * & trashhead, string s[3]){
   while (count<3){
     if (list_head==NULL){
       swaplist(list_head, trashhead);
-      no_list=no_trash;
-      no_trash=0;
+      // no_list=no_trash;
+      // no_trash=0;
       //as the deck list is empty, then swap trash list with deck list
       s[count]=list_head->content;
       //store the content of the first node into array
-      random_insert_to_trash(list_head,trashhead,no_trash);
+      // random_insert_to_trash(list_head,trashhead,no_trash);
       //and pop the first card from the deck list.
-      no_list-=1;
-    }
+      // no_list-=1;
+
     count+=1;
     //loop three times
     }
     else{
       s[count]=list_head->content;
       //store the content of the first node into the array
-      random_insert_to_trash(list_head,trashhead,no_trash);
+      // random_insert_to_trash(list_head,trashhead,no_trash);
       //pop the first node in list_head and put into the trash list
-      no_list-=1;
+      // no_list-=1;
   }
 }
-
+}
 //pop the first node of the list
 //and the node is free
 string pop1(Node *&  list){
@@ -135,6 +128,7 @@ string pop1(Node *&  list){
     return s;
   }
 }
+
 
 // output the linked list
 void printlist(Node * & head){

@@ -2,7 +2,12 @@
 #ifndef ENCRYPTDECRYPT_H
 #define ENCRYPTDECRYPT_H
 
-bool decryption(string filename, Node * &head);
-bool encryption(string filename, Node * &head);
+#include <string>
+#include <fstream>
+#include "main.h"
+#include "linkedlist.h"
+
+bool decryption(string filename, struct Node * &head);
+bool encryption(string filename, struct Node * &head);
 
 #endif

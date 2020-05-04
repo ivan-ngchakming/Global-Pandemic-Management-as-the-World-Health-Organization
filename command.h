@@ -1,10 +1,12 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-bool country_command(string command, country & c );
+#include "main.h"
 
-bool card_command(string command, card & c);
+bool country_command(string command, struct country & c );
 
-bool who_command(string command, WHO & w );
+bool card_command(string command, struct card & c);
+
+bool who_command(string command, struct WHO & w );
 
 #endif

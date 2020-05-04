@@ -1,10 +1,7 @@
-#include <string>
-#include <fstream>
-
+#include "encryptdecrypt.h"
 using namespace std;
 
-#include "main.h"
-#include "linkedlist.h"
+
 
 const int no_of_characters=65;
 //a-z,A-Z,0-9,' '

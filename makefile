@@ -1,11 +1,5 @@
 FLAGS= -pedantic-errors -std=c++11
 
-main: main.cpp main.h
-	g++ $(FLAGS) -c $<
-
-main.o: main.cpp main.h
-	g++ $(FLAGS) -c $<
-
 linkedlist.o: linkedlist.cpp linkedlist.h
 	g++ $(FLAGS) -c $<
 
@@ -18,22 +12,29 @@ load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_c
 performance_index.o: performance_index.cpp performance_index.h
 	g++ $(FLAGS) -c $<
 
-
-command.o : command.cpp command.h
-	g++ $(FLAGS) -c $<
+tutorial.o: tutorial.cpp tutorial.h
+		g++ $(FLAGS) -c $<
 
 infection_rate_calculator.o: infection_rate_calculator.cpp infection_rate_calculator.h
 	g++ $(FLAGS) -c $<
 
-
-load_save.o: load_save.cpp load_save.h
-	g++ $(FLAGS) -c $<
+load_save.o: load_save.cpp load_save.h encryptdecrypt.o linkedlist.o command.o dynamic_array.o
+	g++ $(FLAGS) $^ -o $@
 
 apply_effects.o: apply_effects.cpp apply_effects.h
 	g++ $(FLAGS) -c $<
 
 dynamic_array.o: dynamic_array.cpp dynamic_array.h
 	g++ $(FLAGS) -c $<
+
+main.o: main.cpp main.h performance_index.o load_init_countries_statistics.o load_save.o tutorial.o linkedlist.o
+	g++ $(FLAGS) -c $<
+
+command.o : command.cpp command.h main.o
+	g++ $(FLAGS) $^ -o $@
+
+main: main.cpp main.h performance_index.o load_init_countries_statistics.o load_save.o tutorial.o linkedlist.o
+	g++ $(FLAGS) $^ -o $@
 #-----------------------------for debugging-------------------------------------
 
 

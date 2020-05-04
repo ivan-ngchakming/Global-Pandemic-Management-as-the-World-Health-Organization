@@ -1,14 +1,5 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <cstdlib>
+#include "load_save.h"
 using namespace std;
-
-#include "main.h"
-#include "linkedlist.h"
-#include "encryptdecrypt.h"
-#include "command.h"
-#include "dynamic_array.h"
 
 //deck_head,deck_tail,trash_head,trash_tail,record_head,reccord_tail,day,who,country,country_size,action_card,random_event_card
 
@@ -21,14 +12,16 @@ string gen_key(string s){
   return answer;
 }
 
-bool savegame(string filename, int day, WHO who, string c[], int country_size, string ac[], int ac_size, string rec[], int rec_size, Node * & dh, Node * & th, Node * &record){
+bool savegame(string filename, int day, WHO who, string c[], int country_size,
+  string ac[], int ac_size, string rec[], int rec_size, Node * & dh, Node * & th, Node * &record)
+{
    Node * head = new Node;
    head = NULL;
    Node * tail = new Node;
    tail = NULL;
 
  //---------------------------day---------------------------
-  insertlist(head,tail,to_string(day));
+ insertlist(head,tail,to_string(day));
   //---------------------------day---------------------------
 
 //---------------------------WHO---------------------------
@@ -92,9 +85,6 @@ bool savegame(string filename, int day, WHO who, string c[], int country_size, s
 
  encryption(filename,head);
  //store all the variables into the a txt file
-
- delete_list(head);
- //free the whole temporary list dynamic memory
 
   return true;
   //return true means the program runs smootly without halt the function
