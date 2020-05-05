@@ -1,0 +1,37 @@
+0
+0,0,0,0,0,0,0
+China,1438192092,0,0,0,0,0,0,0,0,0,0
+France,65244234,0,0,0,0,0,0,0,0,0,0
+India,1380004385,0,0,0,0,0,0,0,0,0,0
+United States,331002651,0,0,0,0,0,0,0,0,0,0
+Indonesia,273523615,0,0,0,0,0,0,0,0,0,0
+Pakistan,220892340,0,0,0,0,0,0,0,0,0,0
+Brazil,212559417,0,0,0,0,0,0,0,0,0,0
+Nigeria,206139589,0,0,0,0,0,0,0,0,0,0
+Bangladesh,164689383,0,0,0,0,0,0,0,0,0,0
+Russia,145934462,0,0,0,0,0,0,0,0,0,0
+Mexico,128932753,0,0,0,0,0,0,0,0,0,0
+Japan,126476461,0,0,0,0,0,0,0,0,0,0
+Ethiopia,114963588,0,0,0,0,0,0,0,0,0,0
+Philippines,109581078,0,0,0,0,0,0,0,0,0,0
+Egypt,102334404,0,0,0,0,0,0,0,0,0,0
+Vietnam,97338579,0,0,0,0,0,0,0,0,0,0
+Turkey,84339067,0,0,0,0,0,0,0,0,0,0
+Iran,83992949,0,0,0,0,0,0,0,0,0,0
+Germany,83783942,0,0,0,0,0,0,0,0,0,0
+Thailand,69799978,0,0,0,0,0,0,0,0,0,0
+end
+1
+3
+0.4,0.1,0.1,0.3
+0.7
+United States Economic Shutdown,country,United States,economy,false,100,capital,10
+Indonesia Increase Mask Production,country,Indonesia,infection_factor,false,0.3,staff,2
+end
+United States Economic Shutdown,country,United States,economy,false,100,capital,10
+Indonesia Increase Mask Production,country,Indonesia,infection_factor,false,0.3,staff,2
+end
+United States Economic Shutdown,country,United States,economy,false,100,capital,10
+Indonesia Increase Mask Production,country,Indonesia,infection_factor,false,0.3,staff,2
+end
+end

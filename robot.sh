@@ -1,8 +1,7 @@
 #!/bin/bash
-
-make debug_load_save
+rm main
+make main
 make clean
-./debug_load_save < robot.txt
 
-rm debug_load_save
-rm temp.txt
+./main
+rm main

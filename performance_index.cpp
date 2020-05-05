@@ -1,11 +1,11 @@
 #include "performance_index.h"
 
 
-void calculate_performance_by_country(struct country AllCountries[], float country_pi_settings[], int country_count)
+void calculate_performance_by_country(country AllCountries[],int number_of_countries, float country_pi_settings[])
 {
-  for (int i=0;i<country_count;i++)
+  for (int i=0;i<number_of_countries;i++)
   {
-    // std::cout << "Error Check" << '\n';
+
     AllCountries[i].pi = AllCountries[i].deaths / AllCountries[i].population * country_pi_settings[0];
     AllCountries[i].pi += ( AllCountries[i].infections - AllCountries[i].deaths - AllCountries[i].recovered ) / AllCountries[i].population * country_pi_settings[1];
     AllCountries[i].pi += AllCountries[i].recovered / AllCountries[i].population * country_pi_settings[2];
@@ -15,12 +15,12 @@ void calculate_performance_by_country(struct country AllCountries[], float count
   }
 }
 
-float calculate_overall_performance_index(struct country AllCountries[], float country_pi_settings[], int country_count)
+float calculate_overall_performance_index(struct country AllCountries[], int country_count, float country_pi_settings[])
 {
   double overall_pi=0;
   double average_pi=0;
 
-  calculate_performance_by_country(AllCountries, country_pi_settings, country_count);
+  calculate_performance_by_country(AllCountries, country_count, country_pi_settings);
   long long int total_population = 0;
   for (int i=0;i<country_count;i++)
   {
