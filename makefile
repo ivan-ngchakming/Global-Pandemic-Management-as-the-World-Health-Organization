@@ -27,7 +27,8 @@ load_save.o: load_save.cpp load_save.h
 resources_management.o: resources_management.cpp resources_management.h
 	g++ $(FLAGS) -c $<
 
-apply_effects.o: apply_effects.cpp apply_effects.h resources_management.o
+
+apply_effects.o: apply_effects.cpp apply_effects.h
 	g++ $(FLAGS) -c $<
 
 dynamic_array.o: dynamic_array.cpp dynamic_array.h
@@ -76,7 +77,7 @@ debug_load_save: debug_load_save.o load_save.o linkedlist.o encryptdecrypt.o com
 main.o: main.cpp main.h
 	g++ $(FLAGS) -c $<
 
-main: main.o linkedlist.o load_save.o encryptdecrypt.o command.o dynamic_array.o performance_index.o ui.o resources_management.o infection_rate_calculator.o
+main: main.o linkedlist.o load_save.o encryptdecrypt.o command.o dynamic_array.o performance_index.o ui.o resources_management.o infection_rate_calculator.o apply_effects.o
 	g++ $(FLAGS) $^ -o $@
 #-------------------------------------main------------------------------------
 

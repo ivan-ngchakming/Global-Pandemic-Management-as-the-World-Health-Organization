@@ -40,6 +40,31 @@ void swaplist (Node * & list_head, Node *& trashhead){
   trashhead=temp;
 }
 
+// output the linked list number of Node
+int countlist(Node * & head){
+    int answer=0;
+    Node * current = head;
+    while (current != NULL)
+    {
+        answer+=1;
+        current = current->next;
+    }
+    return answer;
+}
+
+// output the linked list
+void printlist(Node * & head){
+    Node * current = head;
+    while (current != NULL)
+    {
+        // process the current node, e.g., print the content
+        cout << current->content << " -> ";
+        current = current->next;
+    }
+    cout << "NULL\n";
+}
+
+
 void random_insert_to_trash(Node *& firstnode, Node * & trashhead,int & no_trash){
   Node * current=trashhead;
   Node * previous=trashhead;
@@ -57,7 +82,6 @@ void random_insert_to_trash(Node *& firstnode, Node * & trashhead,int & no_trash
     }
     current=previous->next;
   }
-  cout<<"debugging: random_number: "<<random_number<<endl;
   if (random_number==0){
     Node * temp = new Node;
     temp->content=firstnode->content;
@@ -83,19 +107,6 @@ void random_insert_to_trash(Node *& firstnode, Node * & trashhead,int & no_trash
   //the nodes in trash list increase by 1
 }
 
-
-// output the linked list number of Node
-int countlist(Node * & head){
-    int answer=0;
-    Node * current = head;
-    while (current != NULL)
-    {
-        answer+=1;
-        current = current->next;
-    }
-    return answer;
-}
-
 //pop the first three node from the delete_list
 //and put into rubbish_bin_list randomly
 //if the list only contains less than 3 nodes,
@@ -105,33 +116,29 @@ int countlist(Node * & head){
 void pop3(Node * & list_head, Node * & trashhead, string s[]){
   int no_list=countlist(list_head);
   int no_trash=countlist(trashhead);
-  int count=0;
-  bool shiffle=false;
-  srand(time(NULL));
-  while (count<3){
-    if (list_head==NULL){
-      swaplist(list_head, trashhead);
-      no_list=no_list;
-      no_trash=0;
-      //as the deck list is empty, then swap trash list with deck list
-      s[count]=list_head->content;
-      //store the content of the first node into array
-      // random_insert_to_trash(list_head,trashhead,no_trash);
-      //and pop the first card from the deck list.
-      no_list-=1;
 
-    count+=1;
-    //loop three times
+  printlist(list_head);
+  printlist(trashhead);
+  cout<<no_list<<":"<<no_trash<<endl;
+
+  int count=0;
+  while (count<3){
+    if (no_list==0){
+      swaplist(list_head,trashhead);
+      no_list=no_trash;
+      no_trash=0;
+      //if the deck list is empty, then the trash list will become deck list
+      //and trash list is empty
     }
-    else{
-      s[count]=list_head->content;
-      //store the content of the first node into the array
-      // random_insert_to_trash(list_head,trashhead,no_trash);
-      //pop the first node in list_head and put into the trash list
-      no_list-=1;
+    s[count]=list_head->content;
+    //store the content of the first node into the array
+    random_insert_to_trash(list_head,trashhead,no_trash);
+    //pop the first node in list_head and put into the trash list
+    no_list-=1;
+    count+=1;
   }
 }
-}
+
 //pop the first node of the list
 //and the node is free
 string pop1(Node *&  list){
@@ -146,17 +153,4 @@ string pop1(Node *&  list){
     delete temp;
     return s;
   }
-}
-
-
-// output the linked list
-void printlist(Node * & head){
-    Node * current = head;
-    while (current != NULL)
-    {
-        // process the current node, e.g., print the content
-        cout << current->content << " -> ";
-        current = current->next;
-    }
-    cout << "NULL\n";
 }

@@ -13,12 +13,10 @@ int main(){
   Node * trash_tail=NULL;
   string input="";
   cout<<"deck list: "<<endl;
-  int no_list=0;
   while (input!="exit"){
     //loop until user enter exit
     cin>>input;
     if (input!="exit"){
-      no_list+=1;
       Node * temp = new Node;
       temp->content=input;
       temp->next=NULL;
@@ -34,12 +32,10 @@ int main(){
   }
   input="";
   cout<<"trash list: "<<endl;
-  int no_trash=0;
   while (input!="exit"){
     //loop until user enter exit
     cin>>input;
     if (input!="exit"){
-      no_trash+=1;
       Node * temp = new Node;
       temp->content=input;
       temp->next=NULL;
@@ -55,9 +51,7 @@ int main(){
   }
   input="";
   printlist(list_head);
-  cout<<"no_list: "<<no_list<<endl;
   printlist(trash_head);
-  cout<<"no_trash: "<<no_trash<<endl;
   cout<<"It is time to test"<<endl;
   int number_of_loops=0;
   cin>>number_of_loops;
@@ -70,9 +64,7 @@ int main(){
     for (int j=0;j<3;++j){
       cout<<s[j]<<endl;
     }
-    cout<<"deck: "<<no_list<<endl;
     printlist(list_head);
-    cout<<"trash: "<<no_trash<<endl;
     printlist(trash_head);
   }
   delete_list(list_head);

@@ -51,7 +51,7 @@ unsigned long int unsigned_long_int_net_magnitude(struct card c)
 bool apply_card_effect_on_who(struct WHO who, struct card c)
 {
   if (c.target_type=="who") {
-    if (c.target == capital) {
+    if (c.target == "capital") {
       who.capital += int_net_magnitude(c);
       return true;
     }
