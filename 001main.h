@@ -1,28 +1,16 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef DEBUG_MAIN_H
+#define DEBUG_MAIN_H
+
 #include <iostream>
 #include <string>
-#include <stdlib.h>
-#include <cstdlib>
-#include <time.h>
-#include <iomanip>
-
 using namespace std;
-
-//--------------------------functions header files------------------------------
-#include "performance_index.h"
-#include "load_init_countries_statistics.h"
-#include "tutorial.h"
-#include "load_save.h"
-#include "linkedlist.h"
-#include "encryptdecrypt.h"
-//--------------------------functions header files------------------------------
 
 //--------------------------------txt document----------------------------------
 const string store_game="storegame.txt";
 const string init_game="initgame.txt";
 //--------------------------------txt document----------------------------------
 
+//------------------------------------struct------------------------------------
 struct Node{
   string content;
   Node * next;
@@ -32,15 +20,15 @@ struct Node{
 struct country
 {
   string name;
-  unsigned long population;
-  unsigned long infections;
-  unsigned long deaths;
-  unsigned long recovered;
+  unsigned long int population;
+  unsigned long int infections;
+  unsigned int deaths;
+  unsigned int recovered;
   float infected_percentage;
   double economy;
   double pi; //pi: performance index
   float infection_factor; // Range 0.0 - 5.0
-  unsigned long infection_increase;
+  unsigned long int infection_increase;
   int death_probability; // Range 0 - 100
   int recover_probability; // Range 0 - 100
 };
@@ -69,7 +57,7 @@ struct WHO{
   int medical_increment;
   int income_frequency; // # of days until the next income received
 };
-
+//------------------------------------struct------------------------------------
 
 //-----------------------data type conversion----------------------------------
 int str_to_int(string s);
@@ -78,11 +66,20 @@ double str_to_double(string s);
 string doubletostr(double num);
 void printcounrty(country c);
 void printcard(card c);
+unsigned long int STRtoULI(string s);
 //-----------------------data type conversion----------------------------------
 
 //-----------------------for UI----------------------------------
 void clearscreen();
 void printruler();
-void printeverything(int & day, WHO & who, string c[], int & country_size, string ac[], int & ac_size, string rec[], int & rec_size, Node * & dh, Node * & dt, Node * & th, Node * & tt, Node * & rec_h, Node * & rec_t);
 //-----------------------for UI----------------------------------
+
+//-----------------------debug----------------------------------
+void printeverything(int day, WHO who, int max_country_size, int no_of_country, string c[],
+  int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
+  string ac[], int ac_size, int ac_num,
+  string rec[], int rec_size, int rec_num,
+  Node * & dh, Node * & dt, Node * & th, Node * & tt);
+//-----------------------debug----------------------------------
+
 #endif

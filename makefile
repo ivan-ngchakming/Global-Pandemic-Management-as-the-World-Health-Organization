@@ -81,10 +81,13 @@ main: main.o linkedlist.o load_save.o encryptdecrypt.o command.o dynamic_array.o
 	g++ $(FLAGS) $^ -o $@
 #-------------------------------------main------------------------------------
 
+001main.o: 001main.cpp 001main.h
+	g++ $(FLAGS) -c $<
+
 encryptionmachine.o: encryptionmachine.cpp
 	g++ $(FLAGS) -c $<
 
-encryptionmachine : encryptionmachine.o main.o linkedlist.o encryptdecrypt.o command.o load_save.o dynamic_array.o
+encryptionmachine : encryptionmachine.o 001main.o linkedlist.o load_save.o encryptdecrypt.o command.o dynamic_array.o performance_index.o ui.o resources_management.o infection_rate_calculator.o apply_effects.o
 	g++ $(FLAGS) $^ -o $@
 
 clean:

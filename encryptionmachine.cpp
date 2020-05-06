@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace std;
 
-#include "main.h"
+#include "001main.h"
 #include "command.h"
 #include "encryptdecrypt.h"
 #include "linkedlist.h"
@@ -45,7 +45,7 @@ int main(){
   //++++++++++coutnry++++++++
 
   //++++++++++action_card++++++++
-  int action_card_size=40;
+  int action_card_size=100;
   int number_of_action_card=0;
   string * action_card = new string[action_card_size];
   //++++++++++action_card++++++++
@@ -172,6 +172,7 @@ int main(){
       random_event_card,random_event_card_size,number_of_random_event_card,
       deck_head,deck_tail,trash_head,trash_tail);
 
+    printruler();
 
     Node * head=new Node;
     head=NULL;
