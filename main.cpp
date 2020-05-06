@@ -564,7 +564,7 @@ while ((overall_pi<=winning_pi) && (exit==false)){
            cout<<"error in read card"<<endl;
          }
        }
-    
+
       //---------------user choose---------------
       cout << "Input 1/2/3" << endl;
       printruler();

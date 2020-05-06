@@ -66,6 +66,7 @@ bool apply_card_effect_on_who(struct WHO who, struct card c)
 bool apply_card_effects_on_country(struct country AllCountries[], struct card c, int no_of_countries)
 {
   // This function apply the effects of a action card onto individual countries.
+  int index;
   // check if card target is country
   if (c.target_type == "country") {
     for (int i=0;i<no_of_countries;i++)
@@ -97,7 +98,7 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
       AllCountries[index].infection_factor = new_factor;
     else if (new_factor <= 0)
       AllCountries[index].infection_factor = 0;
-    else (new_factor >= 5)
+    else
       AllCountries[index].infection_factor = 5;
     return true;
   }
@@ -135,9 +136,9 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
     int new_probability = AllCountries[index].recover_probability + int_net_magnitude(c);
     if (new_probability < 100 || new_probability > 0)
       AllCountries[index].recover_probability = new_probability;
-    else if (new_factor <= 0)
+    else if (new_probability <= 0)
       AllCountries[index].recover_probability = 0;
-    else (new_factor >= 100)
+    else
       AllCountries[index].recover_probability = 100;
     return true;
   }
@@ -147,9 +148,9 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
     double new_economy = AllCountries[index].economy + double_net_magnitude(c);
     if (new_economy < 100 || new_economy > 0)
       AllCountries[index].economy = new_economy;
-    else if (new_factor <= 0)
+    else if (new_economy <= 0)
       AllCountries[index].economy = 0;
-    else (new_factor >= 100)
+    else
       AllCountries[index].economy = 100;
     return true;
   }
