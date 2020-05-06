@@ -1,14 +1,60 @@
-#include "main.h"
-
-
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
 using namespace std;
-//--------------------for debug--------------------------------------------
 
-void printruller(){
-  cout<<"--------------------------------------------------"<<endl;
+#include "main.h"
+#include "linkedlist.h"
+#include "load_save.h"
+#include "performance_index.h"
+#include "command.h"
+
+
+//--------------------------------- UI------------------------------------------
+void clearscreen(){
+  system("clear");
+}
+
+void printruler(){
+  cout<<"---------------------------------------------------------------"<<endl;
   //synchronized every ruller have the same length
 }
 
+void printnewcountry(country c[], int no_of_country){
+  cout<<"no. of country: "<<no_of_country<<endl;
+  cout<<"Country: "<<endl;
+  for(int i=0;i<no_of_country;++i){
+    cout<<i+1<<":\n";
+    cout<<"Name: "<<c[i].name<<endl;
+    cout<<"Population: "<<c[i].population<<endl;
+    cout<<"Infections: "<<c[i].infections<<endl;
+    cout<<"Deaths: "<<c[i].deaths<<endl;
+    cout<<"Recovered: "<<c[i].recovered<<endl;
+    cout<<"Infected_percentage: "<<c[i].infected_percentage<<endl;
+    cout<<"Economy: "<<c[i].economy<<endl;
+    cout<<"Pi: "<<c[i].pi<<endl;
+    cout<<"Infection_factor: "<<c[i].infection_factor<<endl;
+    cout<<"Infection_increase: "<<c[i].infection_increase<<endl;
+    cout<<"Death_probability: "<<c[i].death_probability<<endl;
+    cout<<"Recover_probability: "<<c[i].recover_probability<<endl;
+    cout<<endl;
+  }
+}
+
+void printcard(card c){
+  cout<<"Name: "<<c.name;
+  cout<<"Target_type: "<<c.target_type;
+  cout<<"Target: "<<c.target;
+  cout<<"Variable: "<<c.variable;
+
+  cout<<"Add: "<<boolalpha<<c.add;
+  cout<<"Magnitude: "<<c.magnitude;
+  cout<<"Cost_type: "<<c.cost_type;
+  cout<<"Cost: "<<c.cost;
+}
 
 void printcounrty(country c){
   cout<<"nation: "<<c.name<<endl;
@@ -20,53 +66,12 @@ void printcounrty(country c){
   cout<<"pi: "<<doubletostr(c.pi)<<endl;
   cout<<"infection_factor: "<<doubletostr(c.infection_factor)<<endl;
 }
-
-void printcard(card c){
-  cout<<"card: "<<c.name<<endl;
-  cout<<"target: "<<c.target<<endl;
-  cout<<"variable: "<<c.variable<<endl;
-  cout<<"add: "<<boolalpha<<c.add<<endl;
-  cout<<"magnitude: "<<doubletostr(c.magnitude)<<endl;
-}
-
-void printeverything(int & day, struct WHO & who, string c[], int & nation_size,
-  string ac[], int & ac_size, string rec[], int & rec_size, Node * & dh,
-  Node * & dt, Node * & th, Node * & tt, Node * & rec_h, Node * & rec_t){
-  printruller();
-  cout<<"Day: "<<day<<endl;
-  printruller();
-  cout<<"WHO: "<<endl;
-  cout<<"capital: "<<who.capital<<endl;
-  cout<<"staff: "<<who.staff<<endl;
-  cout<<"medical: "<<who.medical<<endl;
-  printruller();
-  cout<<"nation: "<<nation_size<<endl;
-  for(int i=0;i<nation_size;++i){
-    cout<<i<<" : "<<c[i]<<endl;
-  }
-  printruller();
-  cout<<"action cards: "<<ac_size<<endl;
-  for(int i=0;i<ac_size;++i){
-    cout<<i<<" : "<<ac[i]<<endl;
-  }
-  printruller();
-  cout<<"random event cards: "<<rec_size<<endl;
-  for(int i=0;i<rec_size;++i){
-    cout<<i<<" : "<<rec[i]<<endl;
-  }
-  printruller();
-  // printlist(dh);
-  printruller();
-  // printlist(th);
-  printruller();
-  // printlist(rec_h);
-}
-//--------------------for debug-------------------------------------------
+//--------------------------------- UI------------------------------------------
 
 //--------------------data type conversion--------------------------------------
 bool is_digits(const std::string &str)
 {
-    return str.find_first_not_of("0123456789") == std::string::npos;
+    return str.find_first_not_of("0123456789.") == std::string::npos;
 }
 
 
@@ -97,35 +102,169 @@ double str_to_double(string s){
 string doubletostr(double num){
   return to_string(num);
 }
+
+unsigned long int STRtoULI(string s){
+  return stoul(s,nullptr,0);
+}
 //--------------------data type conversion--------------------------------------
 
-//--------------------------------- UI------------------------------------------
-void clearscreen(){
-  system("CLS");
+//--------------------for debug--------------------------------------------
+
+void printeverything(int day, WHO who, int max_country_size, int no_of_country, string c[],
+  int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
+  string ac[], int ac_size, int ac_num,
+  string rec[], int rec_size, int rec_num,
+  Node * & dh, Node * & dt, Node * & th, Node * & tt){
+
+  printruler();
+
+  cout<<"Day: "<<day<<endl;
+  cout<<endl;
+
+  cout<<"WHO: "<<endl;
+  cout<<"capital: "<<who.capital<<endl;
+  cout<<"staff: "<<who.staff<<endl;
+  cout<<"medical: "<<who.medical<<endl;
+  cout<<"capital_income: "<<who.capital_income<<endl;
+  cout<<"staff_increment: "<<who.staff_increment<<endl;
+  cout<<"medical_increment: "<<who.medical_increment<<endl;
+  cout<<"income_frequency: "<<who.income_frequency<<endl;
+  cout<<endl;
+
+  cout<<"Maximum country size: "<<max_country_size<<endl;
+  cout<<"no of country: "<<no_of_country<<endl;
+  cout<<"Country: "<<endl;
+  for(int i=0;i<no_of_country;++i){
+    cout<<i+1<<" : "<<c[i]<<endl;
+  }
+  cout<<endl;
+
+  cout<<"init_death_probability: "<<init_death_probability<<endl;
+  cout<<endl;
+
+  cout<<"init_recover_probability: "<<init_recover_probability<<endl;
+  cout<<endl;
+
+  cout<<"country_pi_settings: "<<endl;
+  cout<<"{";
+  for(int i=0;i<4;++i){
+    cout<<country_pi_settings[i]<<" , ";
+  }
+  cout<<"}"<<endl;
+  cout<<endl;
+
+  cout<<"infection_factor: "<<infection_factor<<endl;
+  cout<<endl;
+
+
+  cout<<"action cards: "<<"(Max: "<<ac_size<<" : no. "<<ac_num<<")"<<endl;
+  for(int i=0;i<ac_size;++i){
+    cout<<i<<" : "<<ac[i]<<endl;
+  }
+  cout<<endl;
+
+  cout<<"random event cards: "<<"(Max: "<<rec_size<<" : no. "<<rec_num<<")"<<endl;
+  for(int i=0;i<rec_size;++i){
+    cout<<i<<" : "<<rec[i]<<endl;
+  }
+  cout<<endl;
+
+  cout<<"deck: "<<endl;
+  printlist(dh);
+  cout<<endl;
+
+  cout<<"trash: "<<endl;
+  printlist(th);
+  cout<<endl;
+
+  printruler();
 }
 
+void printeverything002(int day, WHO who, int no_of_country, country c[],
+  int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
+  string ac[], int ac_size, int ac_num,
+  string rec[], int rec_size, int rec_num,
+  Node * & dh, Node * & dt, Node * & th, Node * & tt){
+
+  printruler();
+
+  cout<<"Day: "<<day<<endl;
+  cout<<endl;
+
+  cout<<"WHO: "<<endl;
+  cout<<"capital: "<<who.capital<<endl;
+  cout<<"staff: "<<who.staff<<endl;
+  cout<<"medical: "<<who.medical<<endl;
+  cout<<"capital_income: "<<who.capital_income<<endl;
+  cout<<"staff_increment: "<<who.staff_increment<<endl;
+  cout<<"medical_increment: "<<who.medical_increment<<endl;
+  cout<<"income_frequency: "<<who.income_frequency<<endl;
+  cout<<endl;
+
+  printnewcountry(c,no_of_country);
+  cout<<endl;
+
+  cout<<"init_death_probability: "<<init_death_probability<<endl;
+  cout<<endl;
+
+  cout<<"init_recover_probability: "<<init_recover_probability<<endl;
+  cout<<endl;
+
+  cout<<"country_pi_settings: "<<endl;
+  cout<<"{";
+  for(int i=0;i<4;++i){
+    cout<<country_pi_settings[i]<<" , ";
+  }
+  cout<<"}"<<endl;
+  cout<<endl;
+
+  cout<<"infection_factor: "<<infection_factor<<endl;
+  cout<<endl;
+
+
+  cout<<"action cards: "<<"(Max: "<<ac_size<<" : no. "<<ac_num<<")"<<endl;
+  for(int i=0;i<ac_size;++i){
+    cout<<i<<" : "<<ac[i]<<endl;
+  }
+  cout<<endl;
+
+  cout<<"random event cards: "<<"(Max: "<<rec_size<<" : no. "<<rec_num<<")"<<endl;
+  for(int i=0;i<rec_size;++i){
+    cout<<i<<" : "<<rec[i]<<endl;
+  }
+  cout<<endl;
+
+  cout<<"deck: "<<endl;
+  printlist(dh);
+  cout<<endl;
+
+  cout<<"trash: "<<endl;
+  printlist(th);
+  cout<<endl;
+
+  printruler();
+}
+
+//--------------------for debug-------------------------------------------
+
+
 int main(){
-  //**************************declare variables*********************************
+  srand(time(NULL));
+  //randomise
+  //-----------------------------declare variables-----------------------------
   //----------------deck and trash list------------------------
   Node * deck_head = new Node;
   deck_head=NULL;
-  //initialize deck list and it is empty
-  Node * trash_tail = new Node;
-  trash_tail=NULL;
   Node * deck_tail = new Node;
   deck_tail=NULL;
+  //initialize deck list and it is empty
+
   Node * trash_head = new Node;
   trash_head=NULL;
+  Node * trash_tail = new Node;
+  trash_tail=NULL;
   //initialize trash list and it is empty
   //----------------deck and trash list------------------------
-
-  //-----------------record histroy----------------------------
-  Node * record_head = new Node;
-  record_head = NULL;
-  //stores the game history record
-  Node * record_tail = new Node;
-  record_tail = NULL;
-  //-----------------record histroy----------------------------
 
   //------------------game status------------------------------
   int day;
@@ -137,65 +276,56 @@ int main(){
 
   //---------load all nation, cards, randomeventcard----------
   //++++++++++coutnry++++++++
-  int nation_size = 20;
-  string * nation = new string[nation_size];
-  struct country AllCountries[20];
-  int number_of_countries;
+  int max_country_size = 20;
+  int number_of_countries=0;
+  string * countries = new string[max_country_size];
+
   int init_death_probability = 1;
   int init_recover_probability = 3;
   float country_pi_settings[4] = {0.4, 0.1, 0.1, 0.3};
   float infection_factor = 0.7;
-
-  load_countries_statistics(AllCountries, init_death_probability,
-    nation_size, infection_factor, init_recover_probability);
   //++++++++++coutnry++++++++
 
   //++++++++++action_card++++++++
   int action_card_size=40;
+  int number_of_action_card=0;
   string * action_card = new string[action_card_size];
   //++++++++++action_card++++++++
 
   //++++++++++random_event_card++++++++
   int random_event_card_size=40;
+  int number_of_random_event_card=0;
   string * random_event_card = new string[random_event_card_size];
   //++++++++++random_event_card++++++++
   //---------load all nation, cards, randomeventcard----------
-  //**************************declare variables*********************************
+  //-----------------------------declare variables-----------------------------
 
-  srand(time(NULL));
-  //randomise
-
-  //**************************initialization************************************
+  //---------------------------------initialize---------------------------------
   //---------check if the user had saved game before----------
-  bool saved_game_flag=false;
+  bool saved_game_flag;
   ifstream fin;
   fin.open(store_game.c_str());
   if (fin.fail()){
+    saved_game_flag=false;
     //which means fail to open storegame.txt
-    // system("touch"+store_game);
-    //if there is no store game file, then create a new one
   }
   else{
-    // if (!is_empty(fin)){
-    //   //if the file is empty, which means the only way is to create new game
-    //   saved_game_flag=true;
-    // }
+    //if there is txt file, the game is saved
+    saved_game_flag=true;
   }
-  //the current directory must have a txt file which is for storing file
   //if saved_game_flag is true, which means there is saved game
   //and the program will ask user if he want to continue the game
 
-  //---------check if the user had saved game before----------
-
+  //---------ask user play saved game or not----------
   if (saved_game_flag==true){
     string s="0";
     while ((s!="1")&&(s!="2")){
-      clearscreen();
+      //clearscreen();
       cout<<"Menu:"<<endl;
-      printruller();
+      printruler();
       cout<<"1. New game"<<endl;
       cout<<"2. Load game"<<endl;
-      printruller();
+      printruler();
       cin>>s;
     }
     //ask ueser load or new game
@@ -203,233 +333,292 @@ int main(){
       saved_game_flag=false;
     }
   }
-  Node * temp = new Node;
-  temp=NULL;
   string filename;
   if (saved_game_flag==false){
     //new game
-    //ask for tutorial
-    //can skip tutorial
-    tutorial(); //unfinish
     filename=init_game;
   }
   else{
+    //load previous saved game
     filename=store_game;
   }
-  loadgame(filename,day,who,nation,nation_size,action_card,action_card_size,random_event_card,random_event_card_size,deck_head,deck_tail,trash_head,trash_tail,record_head,record_tail);
-  //for debug
-  printeverything(day,who,nation,nation_size,action_card,action_card_size,random_event_card,random_event_card_size,deck_head,deck_tail,trash_head,trash_tail,record_head,record_tail);
-  //for debug
-  //**************************initialization************************************
 
-  //---------------------------the game ----------------------------------
-  bool exit=false;
-  float winning_pi = 90;
-  while ((calculate_overall_performance_index(AllCountries, country_pi_settings, nation_size) <= winning_pi) || (exit==false)){
-    //loop when the PI is not enough and the user not yet want to exit
+  loadgame(init_game,day,who,max_country_size,number_of_countries,countries,
+    init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+    action_card,action_card_size,number_of_action_card,
+    random_event_card,random_event_card_size,number_of_random_event_card,
+    deck_head,deck_tail,trash_head,trash_tail);
 
-    clearscreen();
-    string answer;
-    //storing the answer from user
-    day+=1;
-    //the next day
-    bool action=false;
-    while ((action==false)&&(exit==false)){
-      clearscreen();
-      //----------printing all country statistic in simple way----------
-      printruller();
-      cout<<left;
-      cout<<setw(20)<<"Country Name"<<setw(10)<<"performance Index"<<endl;
-      for (int i=0;i<nation_size;++i){
-        country temp;
-        // country_command(c[i],temp);
-        cout<<setw(20)<<temp.name;
-        cout<<setw(10)<<temp.pi;
-        cout<<endl;
+
+  //---------------------------------initialize---------------------------------
+
+  printeverything(day,who,max_country_size,number_of_countries,countries,
+    init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+    action_card,action_card_size,number_of_action_card,
+    random_event_card,random_event_card_size,number_of_random_event_card,
+    deck_head,deck_tail,trash_head,trash_tail);
+  //debug
+
+
+  country * AllCountries = new country[number_of_countries];
+  for (int i=0;i<number_of_countries;++i){
+    if (country_command(countries[i],AllCountries[i])==false){
+      cout<<"Error in input country"<<endl;
+    }
+  }
+  delete [] countries;
+
+  printeverything002(day,who,number_of_countries,AllCountries,
+    init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+    action_card,action_card_size,number_of_action_card,
+    random_event_card,random_event_card_size,number_of_random_event_card,
+    deck_head,deck_tail,trash_head,trash_tail);
+
+
+//---------------------------the game ----------------------------------
+bool exit=false;
+float winning_pi = 90;
+while ((calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings)<=90) && (exit==false)){
+  //loop when the PI is not enough and the user not yet want to exit
+
+  //clearscreen();
+  string answer;
+  //storing the answer from user
+  day+=1;
+  //the next day
+  bool action=false;
+
+  string * temp5card = new string[5];
+  for (int i=0;i<5;++i){
+    temp5card[i]=action_card[rand()%number_of_action_card];
+  }
+
+  while ((action==false)&&(exit==false)){
+    //loop until the user quit or perform action
+    //clearscreen();
+    //----------printing all country statistic in simple way----------
+    printruler();
+    cout<<left;
+    cout<<setw(20)<<"Country Name"<<setw(10)<<"performance Index"<<endl;
+    for (int i=0;i<number_of_countries;++i){
+      cout<<setw(20)<<AllCountries[i].name;
+      cout<<setw(10)<<AllCountries[i].pi;
+      cout<<endl;
+    }
+    printruler();
+    //----------printing all country statistic in simple way----------
+    //------------------------------menu------------------------------
+    cout<<endl;
+    cout<<"Day: "<<day<<endl;
+    cout<<"1: View statistics of all Countries"<<endl;
+    cout<<"2: View market"<<endl;
+    cout<<"3: Use Action card"<<endl;
+    cout<<"0: Exit game"<<endl;
+    printruler();
+    //------------------------------menu------------------------------
+    //----------------user input----------------
+    answer="-1";
+    while (!((answer=="0")||(answer=="1")||(answer=="2")||(answer=="3"))){
+      cout<<endl;
+      cout<<"Input: ";
+      cin>>answer;
+      if (!((answer=="0")||(answer=="1")||(answer=="2")||(answer=="3"))){
+        cout<<"Invalid input!"<<endl;
       }
-      printruller();
-      //----------printing all country statistic in simple way----------
-      cout<<"Day: "<<day<<endl;
-      cout<<"1: View statistics of all Countries"<<endl;
-      cout<<"2: View market"<<endl;
-      cout<<"3: Use Action card"<<endl;
-      cout<<"0: Exit game"<<endl;
-      printruller();
-      //*****************user input*****************
-      answer="-1";
-      while ((answer=="0")&&(answer=="1")&&(answer=="2")&&(answer=="3")){
+    }
+    //clearscreen();
+    //----------------user input----------------
+
+    if (answer=="0"){
+      //quit game
+      //-------------user input-------------
+      cout<<"Are you you want to exit (Y/N)"<<endl;
+      answer="a";
+      while ((answer!="Y")&&(answer!="N")){
+        //loop until answer is not Y or N
         cout<<"Input: ";
         cin>>answer;
-        if (!((answer=="0")||(answer=="1")||(answer=="2")||(answer=="3"))){
+        if ((answer!="Y")&&(answer!="N")){
           cout<<"Invalid input!"<<endl;
         }
       }
-      //*****************user input*****************
-      clearscreen();
+      //clearscreen();
+      //-------------user input-------------
+      if (answer=="Y"){
+        //user really want to exit the game
+        //-------------user input-------------
+        //clearscreen();
+        cout<<"Save game? (Y/N)"<<endl;
+        answer="a";
+        while ((answer!="Y")&&(answer!="N")){
+          cout<<"Input: ";
+          cin>>answer;
+          if ((answer!="Y")&&(answer!="N")){
+            cout<<"Invalid input!"<<endl;
+          }
+        }
+        //clearscreen();
+        //-------------user input-------------
 
-      if (answer=="1"){
-        //printing all country in detail way
+        if (answer=="Y"){
+          //user want to save game
 
-        //----------------print table----------------
-        clearscreen();
-        cout<<left;
-        cout<<setw(15)<<"Country Name"<<setw(10)<<"Population"<<setw(10)<<"Infection"<<setw(10)<<"Death"<<setw(10)<<"Recovered"<<setw(10)<<"Economy"<<setw(20)<<"performance Index"<<endl;
-        for (int i=0;i<nation_size;++i){
-          country temp;
-          // country_command(c[i],temp);
+          string command="touch "+store_game;
+          system(command.c_str());
 
-          cout<<setw(15)<<temp.name;
-          cout<<setw(15)<<temp.population;
-          cout<<setw(15)<<temp.infections;
-          cout<<setw(15)<<temp.deaths;
-          cout<<setw(15)<<temp.recovered;
-          cout<<setw(15)<<temp.economy;
-          cout<<setw(15)<<temp.pi;
+          filename=store_game;
+          savegame002(filename,day,who,number_of_countries,AllCountries,
+            init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+            action_card,action_card_size,number_of_action_card,
+            random_event_card,random_event_card_size,number_of_random_event_card,
+            deck_head,deck_tail,trash_head,trash_tail);
+        }
+        //if answer=="N", the program will not save the game
+        exit=true;
+        //turn exit to true then out the loop so end the game
+      }
+      //if answer is No then nothing happen
+    }
+
+    if (answer=="1"){
+      //printing all country in detail way
+      //----------------print table----------------
+      printnewcountry(AllCountries, number_of_countries);
+      //----------------print table----------------
+
+      //---------------quit the table---------------
+      cout << endl;
+      cout << "Input 0 to exit" << endl;
+      printruler();
+      answer="-1";
+      while (answer!="0"){
+        cout<<endl;
+        cout<<"Input: ";
+        cin >> answer;
+        if (!(answer=="0")){
+          cout << "Invalid input!" << endl;
+        }
+      }
+      //---------------quit the table---------------
+    }
+
+    if (answer=="2"){ //???
+      //purchase from the market
+      //------------print market------------
+      cout<<"Market:"<<endl;
+      printruler();
+      cout<<setw(50)<<" 1: Hire 50 staffs"<<setw(15)<<"Cost:$100"<<endl;
+      cout<<setw(50)<<" 2: Hire 100 staffs"<<setw(15)<<"Cost:$200"<<endl;
+      cout<<setw(50)<<" 3: Buy 50 medical equipment"<<setw(15)<<"Cost:$100"<<endl;
+      cout<<setw(50)<<" 4: Buy 100 medical equipment"<<setw(15)<<"Cost:$200"<<endl;
+      //buy action cards
+      for (int i=0;i<5;++i){
+        int pos=0;
+        string temps;
+        int next_pos=temp5card[i].find(",");
+        temps=temp5card[i].substr(pos,next_pos);
+        cout<<setw(50)<<" "+to_string(i+5)+": "+temps<<setw(15)<<"Cost:$300"<<endl;
+      }
+      printruler();
+      //------------print market------------
+      //-------------user input-------------
+      answer="a";
+      while (!((answer.length()==1)&&((answer[0]>='0')&&(answer[0]<='9')))){
+        cout<<"Input: ";
+        cin>>answer;
+        if (!((answer.length()==1)&&((answer[0]>='0')&&(answer[0]<='9')))){
+          cout<<"Invalid input!"<<endl;
+        }
+      }
+      //-------------user input-------------
+
+      //---------------effect---------------
+
+      //---------------effect---------------
+    }
+
+
+
+
+    if (answer=="3"){
+      //action card
+      action=true;
+      string a[3];
+      pop3(deck_head,trash_head,a);
+      //3 cards store in array of string a in string format
+
+      card a3[3];
+      for (int i=0;i<3;++i){
+        if (card_command(a[i],a3[i])==true){
+          cout<<i+1<<":"<<endl;
+          printcard(a3[i]);
           cout<<endl;
         }
-        //----------------print table----------------
+        else{
+          cout<<"error in read card"<<endl;
+        }
+      }
 
-        //---------------quit the table---------------
-        cout << endl;
-        cout << "Input 0 to exit" << endl;
-        printruller();
-        answer="-1";
-        while (answer=="0"){
-          cout<<"Input: ";
-          cin >> answer;
-          if (!(answer=="0")){
+      //---------------user choose---------------
+      cout << "Input 1/2/3" << endl;
+      printruler();
+      answer="-1";
+      bool pass=false;
+      while (pass==false){
+        cout<<endl;
+        cout<<"Input: ";
+        cin >> answer;
+        if (answer.length()==1){
+          if ((answer[0]>='1')&&(answer[0]<='3')){
+            pass=true;
+          }
+          else{
             cout << "Invalid input!" << endl;
           }
         }
-        //---------------quit the table---------------
-        clearscreen();
-      }
-
-      if (answer=="2"){
-        //purchase from the market
-
-        clearscreen();
-        //------------print market------------
-        cout<<"Market:"<<endl;
-        printruller();
-        //buy for who or ???
-        cout<<" 1: ???"<<endl;
-        cout<<" 2: ???"<<endl;
-        cout<<" 3: ???"<<endl;
-        cout<<" 4: ???"<<endl;
-        cout<<" 5: ???"<<endl;
-        //buy action cards
-        cout<<" 6: ???"<<endl;
-        cout<<" 7: ???"<<endl;
-        cout<<" 8: ???"<<endl;
-        cout<<" 9: ???"<<endl;
-        cout<<"10: ???"<<endl;
-        cout<<endl;
-        cout<<"0: quit"<<endl;
-
-        printruller();
-        //------------print market------------
-        //-------------user input-------------
-        answer="a";
-        while ((answer.length()==1)&&((answer[0]>=0)&&(answer[0]<=9))){
-          cout<<"Input: ";
-          cin>>answer;
-          if (!((answer.length()==1)&&((answer[0]>=0)&&(answer[0]<=9)))){
-            cout<<"Invalid input!"<<endl;
-          }
+        else{
+          cout << "Invalid input!" << endl;
         }
-        clearscreen();
-        //-------------user input-------------
       }
-
-      if (answer=="3"){
-        //action card
-        action=true;
-        string a[3];
-        pop3(deck_head,trash_head,a);
-        //???
-        //3 cards store in array of string a in string format
-      }
-
-      if (answer=="0"){
-        //quit game
-        //-------------user input-------------
-        clearscreen();
-        cout<<"Are you you want to exit (Y/N)"<<endl;
-        answer="a";
-        while ((answer>="Y")&&(answer<="N")){
-          cout<<"Input: ";
-          cin>>answer;
-          if (!((answer>="Y")&&(answer<="N"))){
-            cout<<"Invalid input!"<<endl;
-          }
-        }
-        clearscreen();
-        //-------------user input-------------
-        if (answer=="Y"){
-          //which user really want to exit the game
-
-          //-------------user input-------------
-          clearscreen();
-          cout<<"Save game? (Y/N)"<<endl;
-          answer="a";
-          while ((answer>="Y")&&(answer<="N")){
-            cout<<"Input: ";
-            cin>>answer;
-            if (!((answer>="Y")&&(answer<="N"))){
-              cout<<"Invalid input!"<<endl;
-            }
-          }
-          clearscreen();
-          //-------------user input-------------
-
-          if (answer=="Y"){
-            //user want to save game
-            filename=store_game;
-            savegame(filename,day,who,nation,nation_size,action_card,action_card_size,random_event_card,random_event_card_size,deck_head,trash_head,record_head);
-          }
-          //if answer=="N", the program will not save the game
-          exit=true;
-          //turn exit to true then out the loop so end the game
-        }
-        //if answer is No then nothing happen
-        clearscreen();
-      }
-
+      //---------------user choose---------------
     }
-    //finish one day by using one action card
-    //-------------------------random event card-------------------------------
-    //???
-    //-------------------------random event card-------------------------------
+
+
+
+
   }
-  //finish whole game
-  if (exit==false){
-    //exit == false means the user out the loop because he win the game
-    //as PI over the graduation mark
+  //finish one day by using one action card
+  //-------------------------random event card-------------------------------
+  //???
+  //-------------------------random event card-------------------------------
 
-    //??? congrat to the user ha ha
-    // system("rm "+store_game)
-    //remove the store_game txt file because the user had win the game
-    //if the user like the game, he should play new game as he finish the game
-  }
-  clearscreen();
+  delete [] temp5card;
+}
+//finish whole game
+if (exit==false){
+  //exit == false means the user out the loop because he win the game
+  //as PI over the graduation mark
+
+  string command="rm "+store_game;
+  system(command.c_str());
+  //remove the stored game status because user had win the game
+}
+//clearscreen();
+//---------------------------the game ----------------------------------
 
 
-  //---------------------------the game ----------------------------------
-  //**************************free dynamic memory*******************************
-
+  //----------------------------free dynamic memory-----------------------------
   //-------------deck, trash and record list-------------------
   delete_list(deck_head);
-  // deltet_list(trash_head);
-  // delete_list(record);
+  delete_list(trash_head);
   //-------------deck, trash and record list-------------------
 
   //----------------------dynamic array------------------------
-  delete [] nation;
+  delete [] countries;
   delete [] action_card ;
   delete [] random_event_card;
   //----------------------dynamic array------------------------
+  //----------------------------free dynamic memory-----------------------------
 
-  //**************************free dynamic memory*******************************
   return 0;
 }

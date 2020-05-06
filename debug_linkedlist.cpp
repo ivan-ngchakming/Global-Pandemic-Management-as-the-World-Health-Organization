@@ -65,7 +65,7 @@ int main(){
     cout<<"________________________________________________"<<endl;
     cout<<"loop: "<<i<<endl;
     string s[3];
-    pop3(list_head,trash_head,s,no_list,no_trash);
+    pop3(list_head,trash_head,s);
     cout<<"Pop 3: "<<endl;
     for (int j=0;j<3;++j){
       cout<<s[j]<<endl;

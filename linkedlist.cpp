@@ -1,5 +1,9 @@
-#include "linkedlist.h"
+#include <iostream>
+#include <string>
 using namespace std;
+
+#include "main.h"
+
 //delete the head node from a linked list
 void delete_head (Node * & head){
   if (head !=NULL){
@@ -79,27 +83,42 @@ void random_insert_to_trash(Node *& firstnode, Node * & trashhead,int & no_trash
   //the nodes in trash list increase by 1
 }
 
+
+// output the linked list number of Node
+int countlist(Node * & head){
+    int answer=0;
+    Node * current = head;
+    while (current != NULL)
+    {
+        answer+=1;
+        current = current->next;
+    }
+    return answer;
+}
+
 //pop the first three node from the delete_list
 //and put into rubbish_bin_list randomly
 //if the list only contains less than 3 nodes,
 //the remaining node will be randomly put into rubbish_bin_list
 //swap the list with rubbish_bin_list
 //the return 3 string is stored in s which s is an array of 3 slots
-void pop3(Node * & list_head, Node * & trashhead, string s[3]){
+void pop3(Node * & list_head, Node * & trashhead, string s[]){
+  int no_list=countlist(list_head);
+  int no_trash=countlist(trashhead);
   int count=0;
   bool shiffle=false;
   srand(time(NULL));
   while (count<3){
     if (list_head==NULL){
       swaplist(list_head, trashhead);
-      // no_list=no_trash;
-      // no_trash=0;
+      no_list=no_list;
+      no_trash=0;
       //as the deck list is empty, then swap trash list with deck list
       s[count]=list_head->content;
       //store the content of the first node into array
       // random_insert_to_trash(list_head,trashhead,no_trash);
       //and pop the first card from the deck list.
-      // no_list-=1;
+      no_list-=1;
 
     count+=1;
     //loop three times
@@ -109,7 +128,7 @@ void pop3(Node * & list_head, Node * & trashhead, string s[3]){
       //store the content of the first node into the array
       // random_insert_to_trash(list_head,trashhead,no_trash);
       //pop the first node in list_head and put into the trash list
-      // no_list-=1;
+      no_list-=1;
   }
 }
 }
@@ -141,13 +160,3 @@ void printlist(Node * & head){
     }
     cout << "NULL\n";
 }
-
-/*
-void init_deck_trash_list(Node * & deck_head, Node * & trashhead){
-  delete_list(deck_head);
-  delete_list(trash_head);
-  for (int i=0;i<no_cards){
-
-  }
-}
-*/

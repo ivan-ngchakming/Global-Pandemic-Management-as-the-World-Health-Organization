@@ -53,7 +53,11 @@ int chartoint(char answer){
   if (answer==','){
     return 63;
   }
-  //63 storing '3'
+  //63 storing ','
+  if (answer=='.'){
+    return 64;
+  }
+  //64 storing '.'
 }
 
 char shift_decrypt(char inputchar, int shiftingpos){
@@ -77,6 +81,7 @@ bool decryption(string filename, Node * &head){
   ifstream fin;
   fin.open(filename.c_str());
   if (fin.fail()){
+    cout<<"open file error"<<endl;
     return false;
     //if fail to open the file, halt the program
     //return false to the main program
@@ -84,7 +89,7 @@ bool decryption(string filename, Node * &head){
   else{
     string previousline="";
     string currentline="";
-    fin>>previousline;
+    getline(fin,previousline);
     //the first line of the file is the key to decrypt second line
     delete_list(head);
     head=NULL;
@@ -92,7 +97,6 @@ bool decryption(string filename, Node * &head){
     Node * tail = NULL;
 
     //get the previousline first
-    getline(fin,currentline);
 
     while (getline(fin,currentline)){
       //loop until eof
