@@ -238,7 +238,7 @@ int main(){
   //++++++++++coutnry++++++++
 
   //++++++++++action_card++++++++
-  int action_card_size=40;
+  int action_card_size=100;
   int number_of_action_card=0;
   string * action_card = new string[action_card_size];
   //++++++++++action_card++++++++
@@ -319,11 +319,12 @@ int main(){
   }
   delete [] countries;
 
-  // printeverything002(day,who,number_of_countries,AllCountries,
-  //   init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
-  //   action_card,action_card_size,number_of_action_card,
-  //   random_event_card,random_event_card_size,number_of_random_event_card,
-  //   deck_head,deck_tail,trash_head,trash_tail);
+
+//   printeverything002(day,who,number_of_countries,AllCountries,
+//     init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+//     action_card,action_card_size,number_of_action_card,
+//     random_event_card,random_event_card_size,number_of_random_event_card,
+//     deck_head,deck_tail,trash_head,trash_tail);
 
 
 //---------------------------the game ----------------------------------
