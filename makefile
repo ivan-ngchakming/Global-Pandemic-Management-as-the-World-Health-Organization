@@ -24,7 +24,10 @@ infection_rate_calculator.o: infection_rate_calculator.cpp infection_rate_calcul
 load_save.o: load_save.cpp load_save.h
 	g++ $(FLAGS) -c $<
 
-apply_effects.o: apply_effects.cpp apply_effects.h
+resources_management.o: resources_management.cpp resources_management.h
+	g++ $(FLAGS) -c $<
+
+apply_effects.o: apply_effects.cpp apply_effects.h resources_management.o
 	g++ $(FLAGS) -c $<
 
 dynamic_array.o: dynamic_array.cpp dynamic_array.h

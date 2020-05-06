@@ -293,7 +293,7 @@ int main(){
     filename=store_game;
   }
 
-  loadgame(init_game,day,who,max_country_size,number_of_countries,countries,
+  loadgame(filename,day,who,max_country_size,number_of_countries,countries,
     init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
     action_card,action_card_size,number_of_action_card,
     random_event_card,random_event_card_size,number_of_random_event_card,
@@ -334,7 +334,7 @@ while ((overall_pi<=winning_pi) && (exit==false)){
   // when the PI is not enough and the user not yet want to exit
   // Start loop of the day.
 
-  clearscreen();
+  // clearscreen();
   string answer;
   //storing the answer from user
   day+=1;
@@ -348,11 +348,15 @@ while ((overall_pi<=winning_pi) && (exit==false)){
 
   while ((action==false)&&(exit==false)){
     //loop until the user quit or perform action
-    //clearscreen();
+    clearscreen();
     //----------printing all country statistic in simple way----------
     printruler();
     cout<<left;
-    cout<<setw(20) << " Overall Performance Index: " << overall_pi << endl;
+    cout << " Overall Performance Index: " << overall_pi << endl;
+    printruler();
+    who.income_frequency = 7; // Temperary for debug
+    cout << " Days left until the next resources income arrive: " << who.income_frequency - day % who.income_frequency << endl;
+    cout << " Capital: " << who.capital << "| Staff: " << who.staff << "| Medical Equipment: " << who.medical << endl;
     printruler();
     cout<<setw(20)<<"Country Name"<<setw(10)<<"performance Index"<<endl;
     for (int i=0;i<number_of_countries;++i){
@@ -445,6 +449,7 @@ while ((overall_pi<=winning_pi) && (exit==false)){
     {
       //purchase from the market
       //------------print market------------
+      clearscreen();
       cout<<"Market:"<<endl;
       printruler();
       cout<<setw(50)<<" 1: Hire 50 staffs"<<setw(15)<<"Cost:$100"<<endl;
@@ -463,11 +468,78 @@ while ((overall_pi<=winning_pi) && (exit==false)){
       printruler();
       //------------print market------------
       //-------------user input-------------
-      answer = get_user_input(5);
+      answer = get_user_input(9);
       //-------------user input-------------
 
       //---------------effect---------------
-
+      if (answer=="1") {
+        if (who.capital >= 100) {
+          who.staff += 50;
+          who.capital -= 100;
+        }
+        else
+        {
+          clearscreen();
+          cout << "Not enough capital" << endl;
+          cout << "Press 0 to Continue" << endl;
+          get_user_input(0);
+        }
+      }
+      else if (answer=="2") {
+        if (who.capital >= 200) {
+          who.staff += 100;
+          who.capital -= 200;
+        }
+        else
+        {
+          clearscreen();
+          cout << "Not enough capital" << endl;
+          cout << "Press 0 to Continue" << endl;
+          get_user_input(0);
+        }
+      }
+      else if (answer=="3") {
+        if (who.capital >= 100) {
+          who.medical += 50;
+          who.capital -= 100;
+        }
+        else
+        {
+          clearscreen();
+          cout << "Not enough capital" << endl;
+          cout << "Press 0 to Continue" << endl;
+          get_user_input(0);
+        }
+      }
+      else if (answer=="4") {
+        if (who.capital >= 200) {
+          who.medical += 100;
+          who.capital -= 200;
+        }
+        else
+        {
+          clearscreen();
+          cout << "Not enough capital" << endl;
+          cout << "Press 0 to Continue" << endl;
+          get_user_input(0);
+        }
+      }
+      else if (str_to_int(answer) > 4)
+      {
+        if (who.capital >= 300) {
+          // MIKE: Move card back into deck
+        }
+        else
+        {
+          clearscreen();
+          cout << "Not enough capital" << endl;
+          cout << "Press 0 to Continue" << endl;
+          get_user_input(0);
+        }
+      }
+      else if (answer == "0") {
+        // Return to menu.
+      }
       //---------------effect---------------
     }
 
@@ -476,7 +548,7 @@ while ((overall_pi<=winning_pi) && (exit==false)){
       cout << "Debug: start action card menu" << endl;
       //action card
       action=true;
-      string a[3];
+      // string a[3];
       // pop3(deck_head,trash_head,a);
       // //3 cards store in array of string a in string format
       // card a3[3];
@@ -495,38 +567,27 @@ while ((overall_pi<=winning_pi) && (exit==false)){
       cout << "Input 1/2/3" << endl;
       printruler();
       answer = get_user_input(3);
-      // answer="-1";
-      // bool pass=false;
-      // while (pass==false){
-      //   cout<<endl;
-      //   cout<<"Input: ";
-      //   cin >> answer;
-      //   if (answer.length()==1){
-      //     if ((answer[0]>='1')&&(answer[0]<='3')){
-      //       pass=true;
-      //     }
-      //     else{
-      //       cout << "Invalid input!" << endl;
-      //     }
-      //   }
-      //   else{
-      //     cout << "Invalid input!" << endl;
-      //   }
-      // }
       //---------------user choose---------------
+      //---------------effect---------------
+      // if (use_action_card(a[str_to_int(answer)], who, AllCountries, number_of_countries)) {
+      //   ;
+      // }
+      // else{
+      //   cout << setw(50) << "Not enough resource to use this card." << endl;
+      // }
+      //---------------effect---------------
     }
 
 
   }
   //finish one day by using one action card
   //-------------------------random event card-------------------------------
-  //???
+  // use_random_card(random_event_card[0], who, AllCountries, number_of_countries);
   //-------------------------random event card-------------------------------
 
   delete [] temp5card;
 
   //-------------------------Update Game Status-------------------------------
-  who.income_frequency = 7; // Temperary for debug
   daily_resources_income(day, who, overall_pi);
   calculate_daily_infection(AllCountries, number_of_countries);
   calculate_daily_economic_impact(AllCountries, number_of_countries, lockdown_economy_threshold);
