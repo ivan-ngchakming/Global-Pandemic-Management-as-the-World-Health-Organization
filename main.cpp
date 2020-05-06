@@ -549,6 +549,7 @@ while ((overall_pi<=winning_pi) && (exit==false)){
       cout << "Debug: start action card menu" << endl;
       //action card
       action=true;
+
       string a[3];
       pop3(deck_head,trash_head,a);
       //3 cards store in array of string a in string format
@@ -563,16 +564,18 @@ while ((overall_pi<=winning_pi) && (exit==false)){
            cout<<"error in read card"<<endl;
          }
        }
-
+    
       //---------------user choose---------------
       cout << "Input 1/2/3" << endl;
       printruler();
       answer = get_user_input(3);
       //---------------user choose---------------
       //---------------effect---------------
+
        if (!(use_action_card(a3[str_to_int(answer)], who, AllCountries, number_of_countries))) {
          cout << setw(50) << "Not enough resource to use this card." << endl;
        }
+
       //---------------effect---------------
     }
 
@@ -580,11 +583,13 @@ while ((overall_pi<=winning_pi) && (exit==false)){
   }
   //finish one day by using one action card
   //-------------------------random event card-------------------------------
+
   card tempcard;
   if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
     cout<<"Error in reading random event card"<<endl;
   }
   use_random_card(tempcard, who, AllCountries, number_of_countries);
+
   //-------------------------random event card-------------------------------
 
   delete [] temp5card;

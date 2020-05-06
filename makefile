@@ -27,6 +27,7 @@ load_save.o: load_save.cpp load_save.h
 resources_management.o: resources_management.cpp resources_management.h
 	g++ $(FLAGS) -c $<
 
+
 apply_effects.o: apply_effects.cpp apply_effects.h
 	g++ $(FLAGS) -c $<
 
