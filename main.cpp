@@ -11,69 +11,16 @@ using namespace std;
 #include "load_save.h"
 #include "performance_index.h"
 #include "command.h"
+#include "ui.h"
+#include "resources_management.h"
+#include "infection_rate_calculator.h"
 
-
-//--------------------------------- UI------------------------------------------
-void clearscreen(){
-  system("clear");
-}
-
-void printruler(){
-  cout<<"---------------------------------------------------------------"<<endl;
-  //synchronized every ruller have the same length
-}
-
-void printnewcountry(country c[], int no_of_country){
-  cout<<"no. of country: "<<no_of_country<<endl;
-  cout<<"Country: "<<endl;
-  for(int i=0;i<no_of_country;++i){
-    cout<<i+1<<":\n";
-    cout<<"Name: "<<c[i].name<<endl;
-    cout<<"Population: "<<c[i].population<<endl;
-    cout<<"Infections: "<<c[i].infections<<endl;
-    cout<<"Deaths: "<<c[i].deaths<<endl;
-    cout<<"Recovered: "<<c[i].recovered<<endl;
-    cout<<"Infected_percentage: "<<c[i].infected_percentage<<endl;
-    cout<<"Economy: "<<c[i].economy<<endl;
-    cout<<"Pi: "<<c[i].pi<<endl;
-    cout<<"Infection_factor: "<<c[i].infection_factor<<endl;
-    cout<<"Infection_increase: "<<c[i].infection_increase<<endl;
-    cout<<"Death_probability: "<<c[i].death_probability<<endl;
-    cout<<"Recover_probability: "<<c[i].recover_probability<<endl;
-    cout<<endl;
-  }
-}
-
-void printcard(card c){
-  cout<<"Name: "<<c.name;
-  cout<<"Target_type: "<<c.target_type;
-  cout<<"Target: "<<c.target;
-  cout<<"Variable: "<<c.variable;
-
-  cout<<"Add: "<<boolalpha<<c.add;
-  cout<<"Magnitude: "<<c.magnitude;
-  cout<<"Cost_type: "<<c.cost_type;
-  cout<<"Cost: "<<c.cost;
-}
-
-void printcounrty(country c){
-  cout<<"nation: "<<c.name<<endl;
-  cout<<"population: "<<doubletostr(c.population)<<endl;
-  cout<<"infection: "<<doubletostr(c.infections)<<endl;
-  cout<<"deaths: "<<doubletostr(c.deaths)<<endl;
-  cout<<"recovered: "<<doubletostr(c.recovered)<<endl;
-  cout<<"economy: "<<doubletostr(c.economy)<<endl;
-  cout<<"pi: "<<doubletostr(c.pi)<<endl;
-  cout<<"infection_factor: "<<doubletostr(c.infection_factor)<<endl;
-}
-//--------------------------------- UI------------------------------------------
 
 //--------------------data type conversion--------------------------------------
 bool is_digits(const std::string &str)
 {
     return str.find_first_not_of("0123456789.") == std::string::npos;
 }
-
 
 int str_to_int(string s){
   if (is_digits(s)){
@@ -114,7 +61,8 @@ void printeverything(int day, WHO who, int max_country_size, int no_of_country, 
   int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
   string ac[], int ac_size, int ac_num,
   string rec[], int rec_size, int rec_num,
-  Node * & dh, Node * & dt, Node * & th, Node * & tt){
+  Node * & dh, Node * & dt, Node * & th, Node * & tt)
+{
 
   printruler();
 
@@ -184,7 +132,8 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
   int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
   string ac[], int ac_size, int ac_num,
   string rec[], int rec_size, int rec_num,
-  Node * & dh, Node * & dt, Node * & th, Node * & tt){
+  Node * & dh, Node * & dt, Node * & th, Node * & tt)
+{
 
   printruler();
 
@@ -284,6 +233,7 @@ int main(){
   int init_recover_probability = 3;
   float country_pi_settings[4] = {0.4, 0.1, 0.1, 0.3};
   float infection_factor = 0.7;
+  float lockdown_economy_threshold = 0.8;
   //++++++++++coutnry++++++++
 
   //++++++++++action_card++++++++
@@ -352,12 +302,12 @@ int main(){
 
   //---------------------------------initialize---------------------------------
 
-  printeverything(day,who,max_country_size,number_of_countries,countries,
-    init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
-    action_card,action_card_size,number_of_action_card,
-    random_event_card,random_event_card_size,number_of_random_event_card,
-    deck_head,deck_tail,trash_head,trash_tail);
-  //debug
+  // printeverything(day,who,max_country_size,number_of_countries,countries,
+  //   init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+  //   action_card,action_card_size,number_of_action_card,
+  //   random_event_card,random_event_card_size,number_of_random_event_card,
+  //   deck_head,deck_tail,trash_head,trash_tail);
+  // //debug
 
 
   country * AllCountries = new country[number_of_countries];
@@ -368,20 +318,23 @@ int main(){
   }
   delete [] countries;
 
-  printeverything002(day,who,number_of_countries,AllCountries,
-    init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
-    action_card,action_card_size,number_of_action_card,
-    random_event_card,random_event_card_size,number_of_random_event_card,
-    deck_head,deck_tail,trash_head,trash_tail);
+  // printeverything002(day,who,number_of_countries,AllCountries,
+  //   init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+  //   action_card,action_card_size,number_of_action_card,
+  //   random_event_card,random_event_card_size,number_of_random_event_card,
+  //   deck_head,deck_tail,trash_head,trash_tail);
 
 
 //---------------------------the game ----------------------------------
 bool exit=false;
 float winning_pi = 90;
-while ((calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings)<=90) && (exit==false)){
-  //loop when the PI is not enough and the user not yet want to exit
+float overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+while ((overall_pi<=winning_pi) && (exit==false)){
+  overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+  // when the PI is not enough and the user not yet want to exit
+  // Start loop of the day.
 
-  //clearscreen();
+  clearscreen();
   string answer;
   //storing the answer from user
   day+=1;
@@ -399,6 +352,8 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
     //----------printing all country statistic in simple way----------
     printruler();
     cout<<left;
+    cout<<setw(20) << " Overall Performance Index: " << overall_pi << endl;
+    printruler();
     cout<<setw(20)<<"Country Name"<<setw(10)<<"performance Index"<<endl;
     for (int i=0;i<number_of_countries;++i){
       cout<<setw(20)<<AllCountries[i].name;
@@ -409,7 +364,7 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
     //----------printing all country statistic in simple way----------
     //------------------------------menu------------------------------
     cout<<endl;
-    cout<<"Day: "<<day<<endl;
+    cout<<"Day: "<< day << endl;
     cout<<"1: View statistics of all Countries"<<endl;
     cout<<"2: View market"<<endl;
     cout<<"3: Use Action card"<<endl;
@@ -417,15 +372,7 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
     printruler();
     //------------------------------menu------------------------------
     //----------------user input----------------
-    answer="-1";
-    while (!((answer=="0")||(answer=="1")||(answer=="2")||(answer=="3"))){
-      cout<<endl;
-      cout<<"Input: ";
-      cin>>answer;
-      if (!((answer=="0")||(answer=="1")||(answer=="2")||(answer=="3"))){
-        cout<<"Invalid input!"<<endl;
-      }
-    }
+    answer = get_user_input(3);
     //clearscreen();
     //----------------user input----------------
 
@@ -490,19 +437,12 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
       cout << endl;
       cout << "Input 0 to exit" << endl;
       printruler();
-      answer="-1";
-      while (answer!="0"){
-        cout<<endl;
-        cout<<"Input: ";
-        cin >> answer;
-        if (!(answer=="0")){
-          cout << "Invalid input!" << endl;
-        }
-      }
+      answer = answer = get_user_input(0);
       //---------------quit the table---------------
     }
 
-    if (answer=="2"){ //???
+    if (answer=="2")
+    {
       //purchase from the market
       //------------print market------------
       cout<<"Market:"<<endl;
@@ -517,19 +457,13 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
         string temps;
         int next_pos=temp5card[i].find(",");
         temps=temp5card[i].substr(pos,next_pos);
-        cout<<setw(50)<<" "+to_string(i+5)+": "+temps<<setw(15)<<"Cost:$300"<<endl;
+        cout<<setw(50)<<" "+to_string(i+5)+": CARD - "+temps<<setw(15)<<"Cost:$300"<<endl;
       }
+      cout << setw(50) << " 0: Exit." << endl;
       printruler();
       //------------print market------------
       //-------------user input-------------
-      answer="a";
-      while (!((answer.length()==1)&&((answer[0]>='0')&&(answer[0]<='9')))){
-        cout<<"Input: ";
-        cin>>answer;
-        if (!((answer.length()==1)&&((answer[0]>='0')&&(answer[0]<='9')))){
-          cout<<"Invalid input!"<<endl;
-        }
-      }
+      answer = get_user_input(5);
       //-------------user input-------------
 
       //---------------effect---------------
@@ -537,53 +471,50 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
       //---------------effect---------------
     }
 
-
-
-
-    if (answer=="3"){
+    if (answer=="3")
+    {
+      cout << "Debug: start action card menu" << endl;
       //action card
       action=true;
       string a[3];
-      pop3(deck_head,trash_head,a);
-      //3 cards store in array of string a in string format
-
-      card a3[3];
-      for (int i=0;i<3;++i){
-        if (card_command(a[i],a3[i])==true){
-          cout<<i+1<<":"<<endl;
-          printcard(a3[i]);
-          cout<<endl;
-        }
-        else{
-          cout<<"error in read card"<<endl;
-        }
-      }
+      // pop3(deck_head,trash_head,a);
+      // //3 cards store in array of string a in string format
+      // card a3[3];
+      // for (int i=0;i<3;++i){
+      //   if (card_command(a[i],a3[i])==true){
+      //     cout<<i+1<<":"<<endl;
+      //     printcard(a3[i]);
+      //     cout<<endl;
+      //   }
+      //   else{
+      //     cout<<"error in read card"<<endl;
+      //   }
+      // }
 
       //---------------user choose---------------
       cout << "Input 1/2/3" << endl;
       printruler();
-      answer="-1";
-      bool pass=false;
-      while (pass==false){
-        cout<<endl;
-        cout<<"Input: ";
-        cin >> answer;
-        if (answer.length()==1){
-          if ((answer[0]>='1')&&(answer[0]<='3')){
-            pass=true;
-          }
-          else{
-            cout << "Invalid input!" << endl;
-          }
-        }
-        else{
-          cout << "Invalid input!" << endl;
-        }
-      }
+      answer = get_user_input(3);
+      // answer="-1";
+      // bool pass=false;
+      // while (pass==false){
+      //   cout<<endl;
+      //   cout<<"Input: ";
+      //   cin >> answer;
+      //   if (answer.length()==1){
+      //     if ((answer[0]>='1')&&(answer[0]<='3')){
+      //       pass=true;
+      //     }
+      //     else{
+      //       cout << "Invalid input!" << endl;
+      //     }
+      //   }
+      //   else{
+      //     cout << "Invalid input!" << endl;
+      //   }
+      // }
       //---------------user choose---------------
     }
-
-
 
 
   }
@@ -593,6 +524,16 @@ while ((calculate_overall_performance_index(AllCountries,number_of_countries,cou
   //-------------------------random event card-------------------------------
 
   delete [] temp5card;
+
+  //-------------------------Update Game Status-------------------------------
+  who.income_frequency = 7; // Temperary for debug
+  daily_resources_income(day, who, overall_pi);
+  calculate_daily_infection(AllCountries, number_of_countries);
+  calculate_daily_economic_impact(AllCountries, number_of_countries, lockdown_economy_threshold);
+  overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+  //-------------------------Update Game Status-------------------------------
+
+  // End loop of the day
 }
 //finish whole game
 if (exit==false){
