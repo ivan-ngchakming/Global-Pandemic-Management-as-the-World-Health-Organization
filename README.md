@@ -1,5 +1,19 @@
 # ENGG1340-COMP2113-Course-Project
 
+------------------------------------------------------------
+A game description with basic game rules.
+In the start of the game, player can choose to start a new game, or load an old save from the previous game.
+
+
+A list of features / functions that you have implemented, vis-a-vis each of the items 1 to 5 listed under coding requirements above.
+
+Generation of random game sets or events
+Data structures for storing game status
+Dynamic memory management
+File input/output (e.g., for loading/saving game status)
+Program codes in multiple files
+
+------------------------------------------------------------
 ## Team Information
 Team Number: 96
 
@@ -38,7 +52,7 @@ Medical equipment is obtained by using capital to produce from the factory. Pric
 The player will need to use varying amounts of capitals and medical equipment to use action cards. Detail costs and effects of each action card are listed in the next section.
 
 ### Cards
-Cards are a major component of the game. There are two types of cards, action cards and random event cards. Action cards will be drawn randomly to the player each day where the player can choose one to use. Each action card will have different money, staff and equipment cost, they will also have different benefits and drawbacks, such as slowing down infection rate, or inducing more panic. Players will have  the option to get 3 new action cards before the day ends by sacrificing money. Random event cards on the other hand will be drawn once everyday, players will not have control over which card to use, each random event card will also have its own effect. 
+Cards are a major component of the game. There are two types of cards, action cards and random event cards. Action cards will be drawn randomly to the player each day where the player can choose one to use. Each action card will have different money, staff and equipment cost, they will also have different benefits and drawbacks, such as slowing down infection rate, or inducing more panic. Players will have  the option to get 3 new action cards before the day ends by sacrificing money. Random event cards on the other hand will be drawn once everyday, players will not have control over which card to use, each random event card will also have its own effect.
 
 ### game flow
 The game is divided into different days. Each day, the player will draw 3 new action cards from the deck. The player will select 1 card to use, and then the cards will be discarded to the bin. Once an action card is selected, a random event card will be drawn, and the day will end. The effect of the action card or any random event card will be reflected in the next day. Players can enter the production centre to produce more medical equipment or hire new staff anytime during the day. If there are no more card in the deck, cards from the bin will be shuffled and returned to the deck.
@@ -53,7 +67,7 @@ Header <Random> http://www.cplusplus.com/reference/random/
 Exponential distribution http://www.cplusplus.com/reference/random/exponential_distribution/
 
 ###Data structures for storing game status
-An array of struct variables will be used to store infection statistics of different countries. Game status like number of days passed, amount of capital, medical equipment and number of staff are stored in another array. 
+An array of struct variables will be used to store infection statistics of different countries. Game status like number of days passed, amount of capital, medical equipment and number of staff are stored in another array.
 
 ###Dynamic memory management
 Dynamic memory will be used to store the cards in the deck or in the trash bin, lists will be used for the deck so constant time insertion and erasing can be performed anywhere within the sequence. Another dynamic memory will also be used to keep track of the game's status history, so the player’s performance can be shown after the game is over. Dynamic memory is used as the number of days of each game is unknown.
