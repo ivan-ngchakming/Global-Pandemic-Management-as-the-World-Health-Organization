@@ -69,6 +69,12 @@ debug_load_save.o: debug_load_save.cpp
 
 debug_load_save: debug_load_save.o load_save.o linkedlist.o encryptdecrypt.o command.o dynamic_array.o
 	g++ $(FLAGS) $^ -o $@
+
+debug_infection_rate_calculator.o: debug_infection_rate_calculator.cpp
+	g++ $(FLAGS) -c $<
+
+debug_infection_rate_calculator: debug_infection_rate_calculator.o infection_rate_calculator.o
+	g++ $(FLAGS) $^ -o $@
 #----------------------------end debugging--------------------------------------
 
 

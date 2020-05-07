@@ -1,7 +1,7 @@
 #!/bin/bash
-rm debug_linkedlist
-make debug_linkedlist
+rm debug_infection_rate_calculator
+make debug_infection_rate_calculator
 make clean
 
-./debug_linkedlist
-rm debug_linkedlist
+./debug_infection_rate_calculator < debug_infection_rate_calculator.txt
+rm debug_infection_rate_calculator
