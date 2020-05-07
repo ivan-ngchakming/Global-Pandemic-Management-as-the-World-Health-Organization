@@ -75,7 +75,6 @@ void random_insert_to_trash(Node *& firstnode, Node * & trashhead,int & no_trash
       //the random position to put the node into the list must be 0
   }
   else{
-    srand(time(NULL));
     random_number=rand()%no_trash;
     //generating the pos of the new node randomly
     for (int i=1;i<random_number;++i){
