@@ -1,7 +1,7 @@
 #!/bin/bash
-rm debug_performance_index
-make debug_performance_index
+rm debug_linkedlist
+make debug_linkedlist
 make clean
 
-./debug_performance_index < debug_performance_index.txt
-rm debug_performance_index
+./debug_linkedlist
+rm debug_linkedlist
