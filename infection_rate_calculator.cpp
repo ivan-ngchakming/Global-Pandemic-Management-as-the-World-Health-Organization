@@ -35,8 +35,12 @@ unsigned int increase_in_deaths(struct country country)
   random_device rd;
   mt19937 generator(rd());
   poisson_distribution<unsigned int> deaths_distribution(average_deaths);
-
-  return deaths_distribution(generator);
+  unsigned int deaths = deaths_distribution(generator);
+  if (deaths > country.infections - country.deaths) {
+    return country.infections - country.deaths;
+  }
+  else
+    return deaths;
 }
 
 unsigned int increase_in_recoveries(struct country country)
@@ -64,15 +68,15 @@ void calculate_daily_infection(struct country AllCountries[], int country_count)
     AllCountries[i].deaths += deaths;
     AllCountries[i].recovered += recoveries;
 
-    if (i==0)
-    {
-      double percent = (double)AllCountries[i].infections/ (double)AllCountries[i].population * 100;
-      unsigned long int healthy = AllCountries[i].population - AllCountries[i].infections;
-      printf( "Infection in %s is %.2f, infected: %lu, healthy: %lu, pop: %lu\n",
-      AllCountries[i].name.c_str(), percent,
-      AllCountries[i].infections, healthy, AllCountries[i].population);
-      printf("Increase: %lu\n", AllCountries[i].infection_increase);
-    }
+
+    double percent = (double)AllCountries[i].infections / (double)AllCountries[i].population * 100;
+    unsigned long int healthy = AllCountries[i].population - AllCountries[i].infections;
+    printf( "\nInfection in %s is %.2f, infected: %lu, healthy: %lu, pop: %lu\n",
+    AllCountries[i].name.c_str(), percent,
+    AllCountries[i].infections, healthy, AllCountries[i].population);
+    cout << "death increase is " << deaths << " to " << AllCountries[i].deaths << endl;
+    printf("Increase: %lu\n", AllCountries[i].infection_increase);
+
   }
 
 }

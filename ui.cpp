@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <iomanip>
+#include <limits>
 
 // void printruler(int length)
 // {
@@ -14,6 +15,12 @@
 
 void clearscreen(){
   system("clear");
+}
+
+void pressentertocontinue()
+{
+  cout << "Press Enter to Continue";
+  cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
 }
 
 void printruler(){
@@ -77,23 +84,47 @@ void printcounrty(country c){
 
 string get_user_input(int choices)
 {
-  string answer="-1";
-  bool flag = false;
-    while (!flag)
-    {
-      cout << endl;
-      cout << "Input: ";
-      cin>>answer;
-      for (int i = 0; i < choices+1; i++)
+  if (choices != -1) {
+    string answer="-1";
+    bool flag = false;
+      while (!flag)
       {
-        if (answer == to_string(i))
-          flag = true;
+        cout << endl;
+        cout << "Input: ";
+        cin>>answer;
+        for (int i = 0; i < choices+1; i++)
+        {
+          if (answer == to_string(i))
+            flag = true;
+        }
+        if (!flag) {
+          cout<<"Invalid input!"<<endl;
+        }
       }
-      if (!flag) {
-        cout<<"Invalid input!"<<endl;
-      }
-    }
+      return answer;
+  }
+  else
+  {
+    string answer="-1";
+    cout << endl;
+    cout << "Input: ";
+    cin >> answer;
     return answer;
+  }
+
+}
+
+void printmainmenu()
+{
+  clearscreen();
+  printruler();
+  cout << endl << endl << endl;
+  cout << "WELCOME TO" << endl;
+  cout << "Global Pandemic Management as the World Health Organization" << endl;
+  cout << "The GAME" << endl;
+  cout << endl << endl << endl;
+  printruler();
+  pressentertocontinue();
 }
 
 void printgamescreenheader(float overall_pi, int day, struct WHO who, int number_of_countries)
@@ -114,9 +145,10 @@ void printsimplecountrystat(struct country AllCountries[], int number_of_countri
   cout<<setw(20) << "Country" << setw(10)<<"PI"<< setw(18) << "Infections" << setw(18) << "infected %" << endl;
   for (int i=0;i<number_of_countries;++i){
     cout<<setw(20)<<AllCountries[i].name;
-    cout<<setw(10)<<AllCountries[i].pi;
+    printf("%.2f     ", AllCountries[i].pi);
     cout<<setw(18)<<AllCountries[i].infections;
-    cout<<setw(18)<<AllCountries[i].infected_percentage;
+    printf("%.2f", AllCountries[i].infected_percentage);
+    // cout<<setw(18)<<AllCountries[i].infected_percentage;
     cout<<endl;
   }
   printruler();
@@ -135,4 +167,9 @@ void printmaingamescreen(float overall_pi, int day, struct WHO who, struct count
   cout<<"3: Use Action card"<<endl;
   cout<<"0: Exit game"<<endl;
   printruler();
+}
+
+void printwingamescreen()
+{
+  cout << "Congratulations! You have won!" << endl;
 }

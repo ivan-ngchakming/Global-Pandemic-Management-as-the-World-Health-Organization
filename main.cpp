@@ -199,6 +199,7 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
 
 
 int main(){
+  printmainmenu();
   srand(time(NULL));
   //randomise
   //-----------------------------declare variables-----------------------------
@@ -299,8 +300,6 @@ int main(){
     action_card,action_card_size,number_of_action_card,
     random_event_card,random_event_card_size,number_of_random_event_card,
     deck_head,deck_tail,trash_head,trash_tail);
-
-
   //---------------------------------initialize---------------------------------
 
   // printeverything(day,who,max_country_size,number_of_countries,countries,
@@ -309,7 +308,6 @@ int main(){
   //   random_event_card,random_event_card_size,number_of_random_event_card,
   //   deck_head,deck_tail,trash_head,trash_tail);
   // //debug
-
 
   country * AllCountries = new country[number_of_countries];
   for (int i=0;i<number_of_countries;++i){
@@ -326,16 +324,14 @@ int main(){
 //     random_event_card,random_event_card_size,number_of_random_event_card,
 //     deck_head,deck_tail,trash_head,trash_tail);
 
-
 //---------------------------the game ----------------------------------
 bool exit=false;
+bool win = false;
 float winning_pi = 90;
 float overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
-while ((overall_pi<=winning_pi) && (exit==false)){
+while ((!win) && (exit==false)){
   overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
-  // when the PI is not enough and the user not yet want to exit
   // Start loop of the day.
-
   // clearscreen();
   string answer;
   //storing the answer from user
@@ -558,8 +554,8 @@ while ((overall_pi<=winning_pi) && (exit==false)){
       {
         printgamescreenheader(overall_pi, day, who, number_of_countries);
         printsimplecountrystat(AllCountries, number_of_countries);
-        cout << "Enter 0 to continue to the Random Effect Card of the day" << endl;
-        get_user_input(0);
+        cout << "Enter to continue to the Random Effect Card of the day" << endl;
+        pressentertocontinue();
       }
 
       //---------------effect---------------
@@ -568,9 +564,10 @@ while ((overall_pi<=winning_pi) && (exit==false)){
   }
   //finish one day by using one action card
   //-------------------------random event card-------------------------------
-
-  card tempcard;
+  cout << "error check" << endl;
   cout << number_of_random_event_card << endl;
+  card tempcard;
+
   if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
     cout<<"Error in reading random event card"<<endl;
   }
@@ -581,22 +578,33 @@ while ((overall_pi<=winning_pi) && (exit==false)){
   delete [] temp5card;
 
   //-------------------------Update Game Status-------------------------------
+  pressentertocontinue();
   daily_resources_income(day, who, overall_pi);
   calculate_daily_infection(AllCountries, number_of_countries);
   calculate_daily_economic_impact(AllCountries, number_of_countries, lockdown_economy_threshold);
   overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+  pressentertocontinue();
   //-------------------------Update Game Status-------------------------------
+
+  //-------------------------Check if player won-------------------------------
+  if ( (overall_pi > winning_pi) && day > 10 ) {
+    /* code */
+  }
+  //-------------------------Check if player won-------------------------------
 
   // End loop of the day
 }
-//finish whole game
-if (exit==false){
+//won and finished the game
+if (win==true){
   //exit == false means the user out the loop because he win the game
+  printwingamescreen();
   //as PI over the graduation mark
-
-  string command="rm "+store_game;
-  system(command.c_str());
-  //remove the stored game status because user had win the game
+  ifstream infile(store_game);
+  if (infile.good()) {
+    string command="rm "+store_game;
+    system(command.c_str());
+  }
+  //remove the stored game status if exist because user had win the game
 }
 //clearscreen();
 //---------------------------the game ----------------------------------

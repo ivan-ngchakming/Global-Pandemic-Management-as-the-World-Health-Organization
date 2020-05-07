@@ -42,8 +42,7 @@ command.o : command.cpp command.h
 
 
 #for debugging
-test: test.cpp load_init_countries_statistics.o performance_index.o infection_rate_calculator.o
-	g++ $(FLAGS) $^ -o $@
+
 
 debug_linkedlist.o: debug_linkedlist.cpp linkedlist.h
 	g++ $(FLAGS) -c $<
@@ -88,6 +87,9 @@ encryptionmachine.o: encryptionmachine.cpp
 	g++ $(FLAGS) -c $<
 
 encryptionmachine : encryptionmachine.o 001main.o linkedlist.o load_save.o encryptdecrypt.o command.o dynamic_array.o performance_index.o ui.o resources_management.o infection_rate_calculator.o apply_effects.o
+	g++ $(FLAGS) $^ -o $@
+
+test: test.cpp main.h main.o linkedlist.o load_save.o encryptdecrypt.o command.o dynamic_array.o performance_index.o ui.o resources_management.o infection_rate_calculator.o apply_effects.o
 	g++ $(FLAGS) $^ -o $@
 
 clean:
