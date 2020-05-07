@@ -117,9 +117,9 @@ void pop3(Node * & list_head, Node * & trashhead, string s[]){
   int no_list=countlist(list_head);
   int no_trash=countlist(trashhead);
 
-  printlist(list_head);
-  printlist(trashhead);
-  cout<<no_list<<":"<<no_trash<<endl;
+  // printlist(list_head);
+  // printlist(trashhead);
+  // cout<<no_list<<":"<<no_trash<<endl;
 
   int count=0;
   while (count<3){

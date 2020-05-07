@@ -66,22 +66,22 @@ bool apply_card_effect_on_who(struct WHO who, struct card c)
 bool apply_card_effects_on_country(struct country AllCountries[], struct card c, int no_of_countries)
 {
   // This function apply the effects of a action card onto individual countries.
-  int index;
+  int index; // Index of the target country in AllCountries[]
   // check if card target is country
   if (c.target_type == "country") {
+    bool flag = false;
     for (int i=0;i<no_of_countries;i++)
     {
-      int index; // Index of the target country in AllCountries[]
       if (AllCountries[i].name == c.target)
       {
         index = i;
-        return true;
+        flag = true;
+        break;
       }
-      else
-      {
-        cout << "Error using card: Country does not exist..." << endl;
-        return false;
-      }
+    }
+    if (!flag) {
+      cout << "Error using card: Country does not exist..." << endl;
+      return false;
     }
   }
   else
@@ -145,6 +145,9 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
 
   if (c.variable == "economy")
   {
+    cout << index << endl;
+    // cout << "modifying " << c.variable << " in " << AllCountries[index].name << endl;
+    // cout << "Old economy is " << AllCountries[index].economy << endl;
     double new_economy = AllCountries[index].economy + double_net_magnitude(c);
     if (new_economy < 100 || new_economy > 0)
       AllCountries[index].economy = new_economy;
@@ -152,6 +155,9 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
       AllCountries[index].economy = 0;
     else
       AllCountries[index].economy = 100;
+
+    // cout << "New economy is " << AllCountries[index].economy << endl;
+
     return true;
   }
   return false;
@@ -161,7 +167,7 @@ bool use_action_card(struct card c, struct WHO who, struct country AllCountries[
 {
   if (use_card_resource_cost(who, c)) {
     if (apply_card_effects_on_country(AllCountries, c, no_of_countries)) {
-      cout << "Effect applied on country" << endl;
+      cout << "Effect applied... " << endl;
       return true;
     }
     else
@@ -180,6 +186,7 @@ bool use_action_card(struct card c, struct WHO who, struct country AllCountries[
 
 bool use_random_card(struct card c, struct WHO who, struct country AllCountries[], int no_of_countries)
 {
+  cout << "Processing random card of the day..." << endl;
   if (apply_card_effects_on_country(AllCountries, c, no_of_countries)) {
     cout << "Effect applied on country" << endl;
     return true;

@@ -351,32 +351,7 @@ while ((overall_pi<=winning_pi) && (exit==false)){
   while ((action==false)&&(exit==false)){
     //loop until the user quit or perform action
     clearscreen();
-    //----------printing all country statistic in simple way----------
-    printruler();
-    cout<<left;
-    cout << " Overall Performance Index: " << overall_pi << endl;
-    printruler();
-    who.income_frequency = 7; // Temperary for debug
-    cout << " Days left until the next resources income arrive: " << who.income_frequency - day % who.income_frequency << endl;
-    cout << " Capital: " << who.capital << "| Staff: " << who.staff << "| Medical Equipment: " << who.medical << endl;
-    printruler();
-    cout<<setw(20)<<"Country Name"<<setw(10)<<"performance Index"<<endl;
-    for (int i=0;i<number_of_countries;++i){
-      cout<<setw(20)<<AllCountries[i].name;
-      cout<<setw(10)<<AllCountries[i].pi;
-      cout<<endl;
-    }
-    printruler();
-    //----------printing all country statistic in simple way----------
-    //------------------------------menu------------------------------
-    cout<<endl;
-    cout<<"Day: "<< day << endl;
-    cout<<"1: View statistics of all Countries"<<endl;
-    cout<<"2: View market"<<endl;
-    cout<<"3: Use Action card"<<endl;
-    cout<<"0: Exit game"<<endl;
-    printruler();
-    //------------------------------menu------------------------------
+    printmaingamescreen(overall_pi, day, who, AllCountries, number_of_countries);
     //----------------user input----------------
     answer = get_user_input(3);
     //clearscreen();
@@ -547,17 +522,20 @@ while ((overall_pi<=winning_pi) && (exit==false)){
 
     if (answer=="3")
     {
-      cout << "Debug: start action card menu" << endl;
       //action card
+      clearscreen();
       action=true;
 
       string a[3];
       pop3(deck_head,trash_head,a);
       //3 cards store in array of string a in string format
       card a3[3];
+      printgamescreenheader(overall_pi, day, who, number_of_countries);
+      cout << "Please choose an Action card..." << endl;
+      printruler();
       for (int i=0;i<3;++i){
          if (card_command(a[i],a3[i])==true){
-           cout<<i+1<<":"<<endl;
+           cout << " Card " << i+1 << endl;
            printcard(a3[i]);
            cout<<endl;
          }
@@ -567,25 +545,32 @@ while ((overall_pi<=winning_pi) && (exit==false)){
        }
 
       //---------------user choose---------------
-      cout << "Input 1/2/3" << endl;
+      cout << "\nPlease enter 1/2/3 to select a card..." << endl;
       printruler();
       answer = get_user_input(3);
       //---------------user choose---------------
       //---------------effect---------------
-
-       if (!(use_action_card(a3[str_to_int(answer)], who, AllCountries, number_of_countries))) {
-         cout << setw(50) << "Not enough resource to use this card." << endl;
-       }
+      clearscreen();
+      if (!(use_action_card(a3[str_to_int(answer) - 1], who, AllCountries, number_of_countries))) {
+        cout << setw(50) << "Not enough resource to use this card." << endl;
+      }
+      else
+      {
+        printgamescreenheader(overall_pi, day, who, number_of_countries);
+        printsimplecountrystat(AllCountries, number_of_countries);
+        cout << "Enter 0 to continue to the Random Effect Card of the day" << endl;
+        get_user_input(0);
+      }
 
       //---------------effect---------------
     }
-
 
   }
   //finish one day by using one action card
   //-------------------------random event card-------------------------------
 
   card tempcard;
+  cout << number_of_random_event_card << endl;
   if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
     cout<<"Error in reading random event card"<<endl;
   }

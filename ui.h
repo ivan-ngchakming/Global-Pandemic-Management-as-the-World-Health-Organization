@@ -8,17 +8,14 @@
 using namespace std;
 
 void clearscreen();
-
 void printruler();
-
 void printnewcountry(struct country c[], int no_of_country);
-
 void printcard(struct card c);
-
 void printcounrty(struct country c);
-
 string get_user_input(int choices);
-
+void printgamescreenheader(float overall_pi, int day, struct WHO who, int number_of_countries);
+void printsimplecountrystat(struct country AllCountries[], int number_of_countries);
+void printmaingamescreen(float overall_pi, int day, struct WHO who, struct country AllCountries[], int number_of_countries);
 
 
 #endif

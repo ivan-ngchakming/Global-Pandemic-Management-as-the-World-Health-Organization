@@ -19,7 +19,10 @@ bool use_card_resource_cost(WHO who, card c)
       return true;
     }
     else
+    {
+      cout << "Not enough capital to use this card" << endl;
       return false;
+    }
   }
 
   else if (c.cost_type == "staff")
@@ -30,7 +33,10 @@ bool use_card_resource_cost(WHO who, card c)
       return true;
     }
     else
+    {
+      cout << "Not enough staff to use this card" << endl;
       return false;
+    }
   }
 
   else if (c.cost_type == "medical")
@@ -41,6 +47,9 @@ bool use_card_resource_cost(WHO who, card c)
       return true;
     }
     else
+    {
+      cout << "Not enough medical equipment to use this card" << endl;
       return false;
+    }
   }
 }

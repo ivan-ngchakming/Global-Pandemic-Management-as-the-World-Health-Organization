@@ -131,7 +131,7 @@ bool card_command(string command, card & c){
   c.target=command.substr(pos+1,next_pos-pos-1);
   //extract target
 
-  pos=next_pos;cout<<"target: "<<c.target<<endl;
+  pos=next_pos;  // cout<<"target: "<<c.target<<endl;
   next_pos=command.find(",",pos+1);
   c.variable=command.substr(pos+1,next_pos-pos-1);
   //extract variable
@@ -153,12 +153,13 @@ bool card_command(string command, card & c){
   }
   //extract add (true means add / false means minus)
 
-  pos=next_pos;cout<<"target: "<<c.target<<endl;
+  pos=next_pos;
+  // cout<<"target: "<<c.target<<endl;
   next_pos=command.find(",",pos+1);
   c.magnitude=str_to_double(command.substr(pos+1,next_pos-pos-1));
   //extract magnitude
 
-  pos=next_pos;cout<<"target: "<<c.target<<endl;
+  pos=next_pos;  // cout<<"target: "<<c.target<<endl;
   next_pos=command.find(",",pos+1);
   c.cost_type=command.substr(pos+1,next_pos-pos-1);
   //extract cost_type

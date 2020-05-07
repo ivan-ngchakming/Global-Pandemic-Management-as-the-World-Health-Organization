@@ -1,6 +1,7 @@
 #include "ui.h"
 
 #include <cstdlib>
+#include <iomanip>
 
 // void printruler(int length)
 // {
@@ -42,15 +43,25 @@ void printnewcountry(country c[], int no_of_country){
 }
 
 void printcard(card c){
-  cout<<"Name: "<<c.name;
-  cout<<"Target_type: "<<c.target_type;
-  cout<<"Target: "<<c.target;
-  cout<<"Variable: "<<c.variable;
-
-  cout<<"Add: "<<boolalpha<<c.add;
-  cout<<"Magnitude: "<<c.magnitude;
-  cout<<"Cost_type: "<<c.cost_type;
-  cout<<"Cost: "<<c.cost;
+  cout << " Card Name: " << c.name << endl;
+  cout << " Card Affect: ";
+  if (c.add) {
+    cout << c.variable << " will increase by " << c.magnitude << " for " << c.target<< endl;
+  }
+  else
+  {
+    cout << c.variable << " will decrease by " << c.magnitude << " for " << c.target<< endl;
+  }
+  if (c.cost_type == "capital") {
+    cout << " Card Cost: $" << c.cost << endl;
+  }
+  else if (c.cost_type == "staff") {
+    cout << " Card Cost: " << c.cost << " staff" << endl;
+  }
+  else
+  {
+    cout << " Card Cost: " << c.cost << " medical equipment" << endl;
+  }
 }
 
 void printcounrty(country c){
@@ -83,4 +94,45 @@ string get_user_input(int choices)
       }
     }
     return answer;
+}
+
+void printgamescreenheader(float overall_pi, int day, struct WHO who, int number_of_countries)
+{
+  printruler();
+  cout<<left;
+  cout << " Overall Performance Index: " << overall_pi << endl;
+  printruler();
+  who.income_frequency = 7; // Temperary for debug
+  cout << " Days left until the next resources income arrive: " << who.income_frequency - day % who.income_frequency << endl;
+  cout << " Capital: " << who.capital << " | Staff: " << who.staff << " | Medical Equipment: " << who.medical << endl;
+  printruler();
+}
+
+void printsimplecountrystat(struct country AllCountries[], int number_of_countries)
+{
+  //----------printing all country statistic in simple way----------
+  cout<<setw(20) << "Country" << setw(10)<<"PI"<< setw(18) << "Infections" << setw(18) << "infected %" << endl;
+  for (int i=0;i<number_of_countries;++i){
+    cout<<setw(20)<<AllCountries[i].name;
+    cout<<setw(10)<<AllCountries[i].pi;
+    cout<<setw(18)<<AllCountries[i].infections;
+    cout<<setw(18)<<AllCountries[i].infected_percentage;
+    cout<<endl;
+  }
+  printruler();
+  //----------printing all country statistic in simple way----------
+}
+
+void printmaingamescreen(float overall_pi, int day, struct WHO who, struct country AllCountries[], int number_of_countries)
+{
+  printgamescreenheader(overall_pi, day, who, number_of_countries);
+  printsimplecountrystat(AllCountries, number_of_countries);
+  //------------------------------menu------------------------------
+  cout<<endl;
+  cout<<"Day: "<< day << endl;
+  cout<<"1: View statistics of all Countries"<<endl;
+  cout<<"2: View market"<<endl;
+  cout<<"3: Use Action card"<<endl;
+  cout<<"0: Exit game"<<endl;
+  printruler();
 }
