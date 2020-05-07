@@ -198,7 +198,6 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
 
 //--------------------for debug-------------------------------------------
 
-/*
 int main(){
   printmainmenu();
 
@@ -666,4 +665,4 @@ if (win==true){
 
   return 0;
 }
-*/
+
