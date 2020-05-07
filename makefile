@@ -9,7 +9,7 @@ linkedlist.o: linkedlist.cpp linkedlist.h
 encryptdecrypt.o: encryptdecrypt.cpp encryptdecrypt.h
 	g++ $(FLAGS) -c $<
 
-load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_countries_statistics.h performance_index.h
+load_init_countries_statistics.o: load_init_countries_statistics.cpp load_init_countries_statistics.h
 	g++ $(FLAGS) -c $<
 
 performance_index.o: performance_index.cpp performance_index.h
@@ -74,6 +74,12 @@ debug_infection_rate_calculator.o: debug_infection_rate_calculator.cpp
 	g++ $(FLAGS) -c $<
 
 debug_infection_rate_calculator: debug_infection_rate_calculator.o infection_rate_calculator.o
+	g++ $(FLAGS) $^ -o $@
+
+debug_performance_index.o: debug_performance_index.cpp
+	g++ $(FLAGS) -c $<
+
+debug_performance_index: debug_performance_index.o performance_index.o ui.o main.o linkedlist.o
 	g++ $(FLAGS) $^ -o $@
 #----------------------------end debugging--------------------------------------
 

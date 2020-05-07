@@ -1,40 +1,41 @@
-#include "performance_index.h"
-
+#include <string>
+#include <iostream>
 using namespace std;
+
+#include "main.h"
 
 void calculate_performance_by_country(country AllCountries[],int number_of_countries, float country_pi_settings[])
 {
   for (int i=0;i<number_of_countries;i++)
   {
-    // cout << AllCountries[i].name << ": " << '\n';
+    cout<<"debug001: "<<i<<endl;
+    cout << AllCountries[i].name << ": " << '\n';
     AllCountries[i].pi = 0;
-    // AllCountries[i].pi += (double) ( ( 100 - ( AllCountries[i].infections - AllCountries[i].deaths - AllCountries[i].recovered ) / AllCountries[i].population * 100 ) * country_pi_settings[1] );
-    // cout << "Adding infections of  " <<  ( 100 - ( AllCountries[i].infections - AllCountries[i].deaths - AllCountries[i].recovered ) / AllCountries[i].population * 100 ) << " to " << AllCountries[i].pi << '\n';
+    AllCountries[i].pi += (double) ( ( 100 - ( AllCountries[i].infections - AllCountries[i].deaths - AllCountries[i].recovered ) / AllCountries[i].population * 100 ) * country_pi_settings[1] );
+    cout << "Adding infections of  " <<  ( 100 - ( AllCountries[i].infections - AllCountries[i].deaths - AllCountries[i].recovered ) / AllCountries[i].population * 100 ) << " to " << AllCountries[i].pi << '\n';
     AllCountries[i].pi += (double) ( 100 - ( AllCountries[i].infections / AllCountries[i].population * 100 ) * country_pi_settings[1] );
-    // cout << "Adding infections of  " <<  ( 100 - AllCountries[i].infections  / AllCountries[i].population * 100 ) << " to " << AllCountries[i].pi << '\n';
-    //
-    // //debugging
-    // cout << "Infections: " << AllCountries[i].infections << endl;
-    // cout << "deaths: " << AllCountries[i].deaths << endl;
-    // cout << "recovered: " << AllCountries[i].recovered << endl;
-    // cout << "population: " << AllCountries[i].population << endl;
+    cout << "Adding infections of  " <<  ( 100 - AllCountries[i].infections  / AllCountries[i].population * 100 ) << " to " << AllCountries[i].pi << '\n';
+    cout << "Infections: " << AllCountries[i].infections << endl;
+    cout << "deaths: " << AllCountries[i].deaths << endl;
+    cout << "recovered: " << AllCountries[i].recovered << endl;
+    cout << "population: " << AllCountries[i].population << endl;
 
-    //
-    //
-    // if (AllCountries[i].infections != 0 ) {
-    //   AllCountries[i].pi += (double) (AllCountries[i].recovered / AllCountries[i].infections * country_pi_settings[2]);
-    //   cout << "Adding recovered of " << AllCountries[i].recovered / AllCountries[i].infections << " to " << AllCountries[i].pi << '\n';
-    //   AllCountries[i].pi += (double) ( (100 - AllCountries[i].deaths / AllCountries[i].infections) * country_pi_settings[0]);
-    //   cout << "Adding deaths of  " << (100 - AllCountries[i].deaths / AllCountries[i].infections) << " to " <<  AllCountries[i].pi << '\n';
-    // }
-    // else
-    // {
-    //   AllCountries[i].pi += (double) ( 100 * country_pi_settings[2]);
-    //   AllCountries[i].pi += (double) ( 100 * country_pi_settings[0]);
-    // }
-    //
-    // AllCountries[i].pi += (double) ( AllCountries[i].economy * country_pi_settings[3]);
-    // cout << "Adding economy " << AllCountries[i].pi << '\n';
+
+
+    if (AllCountries[i].infections != 0 ) {
+      AllCountries[i].pi += (double) (AllCountries[i].recovered / AllCountries[i].infections * country_pi_settings[2]);
+      cout << "Adding recovered of " << AllCountries[i].recovered / AllCountries[i].infections << " to " << AllCountries[i].pi << '\n';
+      AllCountries[i].pi += (double) ( (100 - AllCountries[i].deaths / AllCountries[i].infections) * country_pi_settings[0]);
+      cout << "Adding deaths of  " << (100 - AllCountries[i].deaths / AllCountries[i].infections) << " to " <<  AllCountries[i].pi << '\n';
+    }
+    else
+    {
+      AllCountries[i].pi += (double) ( 100 * country_pi_settings[2]);
+      AllCountries[i].pi += (double) ( 100 * country_pi_settings[0]);
+    }
+
+    AllCountries[i].pi += (double) ( AllCountries[i].economy * country_pi_settings[3]);
+    cout << "Adding economy " << AllCountries[i].pi << '\n';
 
 
   }

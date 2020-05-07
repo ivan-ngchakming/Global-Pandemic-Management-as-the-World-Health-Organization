@@ -197,7 +197,7 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
 
 //--------------------for debug-------------------------------------------
 
-
+/*
 int main(){
   printmainmenu();
   srand(time(NULL));
@@ -588,7 +588,7 @@ while ((!win) && (exit==false)){
 
   //-------------------------Check if player won-------------------------------
   if ( (overall_pi > winning_pi) && day > 10 ) {
-    /* code */
+    //code 
   }
   //-------------------------Check if player won-------------------------------
 
@@ -625,3 +625,4 @@ if (win==true){
 
   return 0;
 }
+*/
