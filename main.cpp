@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <limits>
 using namespace std;
 
 #include "main.h"
@@ -200,6 +201,7 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
 
 int main(){
   printmainmenu();
+
   srand(time(NULL));
   //randomise
   //-----------------------------declare variables-----------------------------
@@ -366,12 +368,12 @@ while ((!win) && (exit==false)){
           cout<<"Invalid input!"<<endl;
         }
       }
-      //clearscreen();
+      clearscreen();
       //-------------user input-------------
       if (answer=="Y"){
         //user really want to exit the game
         //-------------user input-------------
-        //clearscreen();
+        clearscreen();
         cout<<"Save game? (Y/N)"<<endl;
         answer="a";
         while ((answer!="Y")&&(answer!="N")){
@@ -381,7 +383,7 @@ while ((!win) && (exit==false)){
             cout<<"Invalid input!"<<endl;
           }
         }
-        //clearscreen();
+        clearscreen();
         //-------------user input-------------
 
         if (answer=="Y"){
@@ -518,12 +520,12 @@ while ((!win) && (exit==false)){
 
     if (answer=="3")
     {
-      //action card
+      // action card
       clearscreen();
-      action=true;
-
+      bool used_action_card = false;
       string a[3];
       pop3(deck_head,trash_head,a);
+
       //3 cards store in array of string a in string format
       card a3[3];
       printgamescreenheader(overall_pi, day, who, number_of_countries);
@@ -547,16 +549,41 @@ while ((!win) && (exit==false)){
       //---------------user choose---------------
       //---------------effect---------------
       clearscreen();
-      if (!(use_action_card(a3[str_to_int(answer) - 1], who, AllCountries, number_of_countries))) {
-        cout << setw(50) << "Not enough resource to use this card." << endl;
+      if (!(use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
+        while (!used_action_card) {
+          clearscreen();
+          cout << "Please choose an Action card..." << endl;
+          printruler();
+          for (int i=0;i<3;++i){
+             if (card_command(a[i],a3[i])==true){
+               cout << " Card " << i+1 << endl;
+               printcard(a3[i]);
+               cout<<endl;
+             }
+             else{
+               cout<<"error in read card"<<endl;
+             }
+           }
+          cout << "Please choose another card." << endl;
+          cout << "\nPlease enter 1/2/3 to select a card..." << endl;
+          printruler();
+          answer = get_user_input(3);
+          if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
+            used_action_card = true;
+          }
+        }
       }
       else
       {
-        printgamescreenheader(overall_pi, day, who, number_of_countries);
-        printsimplecountrystat(AllCountries, number_of_countries);
+        action=true;
+        used_action_card = true;
+        printcard(a3[str_to_int(answer) - 1]);
+        // printgamescreenheader(overall_pi, day, who, number_of_countries);
+        // printsimplecountrystat(AllCountries, number_of_countries);
         cout << "Enter to continue to the Random Effect Card of the day" << endl;
-        pressentertocontinue();
+        printruler();
       }
+      pressentertocontinue();
 
       //---------------effect---------------
     }
@@ -564,31 +591,45 @@ while ((!win) && (exit==false)){
   }
   //finish one day by using one action card
   //-------------------------random event card-------------------------------
-  cout << "error check" << endl;
-  cout << number_of_random_event_card << endl;
   card tempcard;
-
   if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
     cout<<"Error in reading random event card"<<endl;
   }
-  use_random_card(tempcard, who, AllCountries, number_of_countries);
+  clearscreen();
+  if (use_random_card(tempcard, who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
+    printruler();
+    cout << "Random card of the day is:" << endl << endl;
+    cout << "Card Name: " << tempcard.name << endl;
+    cout << "Card Effects: ";
+    if (tempcard.add) {
+      cout << tempcard.variable << " will increase by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    }
+    else
+    {
+      cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    }
+    printruler();
+  }
+  else
+  {
+    cout << "Random card error..." << endl;
+  }
+  pressentertocontinue();
 
   //-------------------------random event card-------------------------------
 
   delete [] temp5card;
 
   //-------------------------Update Game Status-------------------------------
-  pressentertocontinue();
-  daily_resources_income(day, who, overall_pi);
+  daily_resources_income(who, day, who.capital, who.staff, who.medical, overall_pi);
   calculate_daily_infection(AllCountries, number_of_countries);
   calculate_daily_economic_impact(AllCountries, number_of_countries, lockdown_economy_threshold);
   overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
-  pressentertocontinue();
   //-------------------------Update Game Status-------------------------------
 
   //-------------------------Check if player won-------------------------------
   if ( (overall_pi > winning_pi) && day > 10 ) {
-    /* code */
+    win = true;
   }
   //-------------------------Check if player won-------------------------------
 

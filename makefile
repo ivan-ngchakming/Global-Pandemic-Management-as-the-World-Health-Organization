@@ -69,6 +69,7 @@ debug_load_save.o: debug_load_save.cpp
 
 debug_load_save: debug_load_save.o load_save.o linkedlist.o encryptdecrypt.o command.o dynamic_array.o
 	g++ $(FLAGS) $^ -o $@
+
 #----------------------------end debugging--------------------------------------
 
 
