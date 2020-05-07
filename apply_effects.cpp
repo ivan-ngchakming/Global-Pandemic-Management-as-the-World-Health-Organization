@@ -48,11 +48,11 @@ unsigned long int unsigned_long_int_net_magnitude(struct card c)
     return -1 * c.magnitude;
 }
 
-bool apply_card_effect_on_who(struct WHO who, struct card c)
+bool apply_card_effect_on_who(int & capital, int & staff, int & medical, struct card c)
 {
   if (c.target_type=="who") {
     if (c.target == "capital") {
-      who.capital += int_net_magnitude(c);
+        capital += int_net_magnitude(c);
       return true;
     }
   }
@@ -105,19 +105,41 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
 
   if (c.variable == "infections")
   {
-    AllCountries[index].infections += unsigned_long_int_net_magnitude(c);
+    unsigned long int new_infections = AllCountries[index].infections + unsigned_long_int_net_magnitude(c);
+    if (new_infections > AllCountries[index].population)
+    {
+      AllCountries[index].infections = AllCountries[index].population;
+    }
+    else
+    {
+      AllCountries[index].infections = new_infections;
+    }
     return true;
   }
 
   if (c.variable == "deaths")
   {
-    AllCountries[index].deaths += unsigned_int_net_magnitude(c);
+    unsigned int new_deaths = AllCountries[index].deaths += unsigned_int_net_magnitude(c);
+    if (new_deaths > AllCountries[index].infections) {
+      AllCountries[index].deaths = AllCountries[index].infections;
+    }
+    else
+    {
+      AllCountries[index].deaths = new_deaths;
+    }
     return true;
   }
 
   if (c.variable == "recovered")
   {
-    AllCountries[index].recovered += unsigned_int_net_magnitude(c);
+    unsigned int new_recovers = AllCountries[index].recovered + unsigned_int_net_magnitude(c);
+    if (new_recovers > AllCountries[index].infections - AllCountries[index].deaths) {
+      AllCountries[index].deaths = AllCountries[index].infections - AllCountries[index].deaths;
+    }
+    else
+    {
+      AllCountries[index].deaths = new_recovers;
+    }
     return true;
   }
 
@@ -163,9 +185,9 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
   return false;
 }
 
-bool use_action_card(struct card c, struct WHO who, struct country AllCountries[], int no_of_countries)
+bool use_action_card(struct card c, int & capital, int & staff, int & medical, struct country AllCountries[], int no_of_countries)
 {
-  if (use_card_resource_cost(who, c)) {
+  if (use_card_resource_cost(capital, staff, medical, c)) {
     if (apply_card_effects_on_country(AllCountries, c, no_of_countries)) {
       cout << "Effect applied... " << endl;
       return true;
@@ -184,14 +206,14 @@ bool use_action_card(struct card c, struct WHO who, struct country AllCountries[
   }
 }
 
-bool use_random_card(struct card c, struct WHO who, struct country AllCountries[], int no_of_countries)
+bool use_random_card(struct card c, int & capital, int & staff, int & medical, struct country AllCountries[], int no_of_countries)
 {
   cout << "Processing random card of the day..." << endl;
   if (apply_card_effects_on_country(AllCountries, c, no_of_countries)) {
     cout << "Effect applied on country" << endl;
     return true;
   }
-  else if (apply_card_effect_on_who(who, c))
+  else if (apply_card_effect_on_who(capital, staff, medical, c))
   {
     cout << "Effect applied on WHO" << endl;
     return true;

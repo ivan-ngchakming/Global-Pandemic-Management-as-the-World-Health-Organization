@@ -20,7 +20,8 @@ void clearscreen(){
 void pressentertocontinue()
 {
   cout << "Press Enter to Continue";
-  cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+  // cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+  cin.ignore();
 }
 
 void printruler(){
@@ -43,7 +44,7 @@ void printnewcountry(country c[], int no_of_country){
     cout<<"Pi: "<<c[i].pi<<endl;
     cout<<"Infection_factor: "<<c[i].infection_factor<<endl;
     cout<<"Infection_increase: "<<c[i].infection_increase<<endl;
-    cout<<"Death_probability: "<<c[i].death_probability<<endl;
+    cout<<"Death_probability: " << c[i].death_probability<<endl;
     cout<<"Recover_probability: "<<c[i].recover_probability<<endl;
     cout<<endl;
   }
@@ -142,11 +143,12 @@ void printgamescreenheader(float overall_pi, int day, struct WHO who, int number
 void printsimplecountrystat(struct country AllCountries[], int number_of_countries)
 {
   //----------printing all country statistic in simple way----------
-  cout<<setw(20) << "Country" << setw(10)<<"PI"<< setw(18) << "Infections" << setw(18) << "infected %" << endl;
+  cout<<setw(20) << "Country" << setw(9) << "PI" << setw(12) << "Infections"  << setw(12) << "Deaths" << setw(18) << "infected %" << endl;
   for (int i=0;i<number_of_countries;++i){
     cout<<setw(20)<<AllCountries[i].name;
-    printf("%.2f     ", AllCountries[i].pi);
-    cout<<setw(18)<<AllCountries[i].infections;
+    printf("%.2f    ", AllCountries[i].pi);
+    cout<<setw(12)<<AllCountries[i].infections;
+    cout<<setw(12)<<AllCountries[i].deaths;
     printf("%.2f", AllCountries[i].infected_percentage);
     // cout<<setw(18)<<AllCountries[i].infected_percentage;
     cout<<endl;

@@ -46,7 +46,7 @@ float calculate_overall_performance_index(struct country AllCountries[], int cou
   double overall_pi=0;
   double average_pi=0;
 
-  cout << "Start of the pi calculations..." << endl;
+  // cout << "Start of the pi calculations..." << endl;
 
   calculate_performance_by_country(AllCountries, country_count, country_pi_settings);
   long long int total_population = 0;
@@ -65,7 +65,7 @@ float calculate_overall_performance_index(struct country AllCountries[], int cou
     average_pi += AllCountries[i].pi / 20;
   }
 
-  cout << "End of the pi calculations..." << endl;
+  // cout << "End of the pi calculations..." << endl;
 
   // std::cout << "\noverall pi is : " << overall_pi << '\n';
   // std::cout << "average pi is : " << average_pi << '\n';

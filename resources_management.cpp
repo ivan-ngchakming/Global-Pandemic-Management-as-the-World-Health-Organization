@@ -1,21 +1,21 @@
 #include "resources_management.h"
 
-void daily_resources_income(int day, WHO who, float overall_pi)
+void daily_resources_income(WHO who, int day, int & capital, int & staff, int & medical, float overall_pi)
 {
-  if (day % who.income_frequency == 0) {
-    who.capital += who.capital_income;
-    who.staff += who.staff_increment;
-    who.medical += who.medical_increment;
+  if (day %   who.income_frequency == 0) {
+      capital += who.capital_income;
+      staff +=  who.staff_increment;
+      medical +=  who.medical_increment;
   }
 }
 
-bool use_card_resource_cost(WHO who, card c)
+bool use_card_resource_cost(int & capital, int & staff, int & medical, card c)
 {
   if (c.cost_type == "capital")
   {
-    if (who.capital >= c.cost)
+    if ( capital >= c.cost)
     {
-      who.capital -= c.cost;
+       capital -= c.cost;
       return true;
     }
     else
@@ -27,9 +27,9 @@ bool use_card_resource_cost(WHO who, card c)
 
   else if (c.cost_type == "staff")
   {
-    if (who.staff >= c.cost)
+    if ( staff >= c.cost)
     {
-      who.staff -= c.cost;
+       staff -= c.cost;
       return true;
     }
     else
@@ -41,9 +41,9 @@ bool use_card_resource_cost(WHO who, card c)
 
   else if (c.cost_type == "medical")
   {
-    if (who.medical >= c.cost)
+    if (  medical >= c.cost)
     {
-      who.medical -= c.cost;
+        medical -= c.cost;
       return true;
     }
     else

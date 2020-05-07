@@ -77,12 +77,13 @@ void calculate_daily_infection(country AllCountries[], int country_count)
 
 
     double percent = (double)AllCountries[i].infections / (double)AllCountries[i].population * 100;
-    unsigned long int healthy = AllCountries[i].population - AllCountries[i].infections;
-    printf( "\nInfection in %s is %.2f, infected: %lu, healthy: %lu, pop: %lu\n",
-    AllCountries[i].name.c_str(), percent,
-    AllCountries[i].infections, healthy, AllCountries[i].population);
-    cout << "death increase is " << deaths << " to " << AllCountries[i].deaths << endl;
-    printf("Increase: %lu\n", AllCountries[i].infection_increase);
+    AllCountries[i].infected_percentage = (float)percent;
+
+    // printf( "\nInfection in %s is %.2f, infected: %lu, healthy: %lu, pop: %lu\n",
+    // AllCountries[i].name.c_str(), percent,
+    // AllCountries[i].infections, healthy, AllCountries[i].population);
+    // cout << "death increase is " << deaths << " to " << AllCountries[i].deaths << endl;
+    // printf("Increase: %lu\n", AllCountries[i].infection_increase);
 
   }
 
