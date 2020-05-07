@@ -1,7 +1,7 @@
 #!/bin/bash
-rm debug_infection_rate_calculator
-make debug_infection_rate_calculator
+rm debug_performance_index
+make debug_performance_index
 make clean
 
-./debug_infection_rate_calculator < debug_infection_rate_calculator.txt
-rm debug_infection_rate_calculator
+./debug_performance_index < debug_performance_index.txt
+rm debug_performance_index

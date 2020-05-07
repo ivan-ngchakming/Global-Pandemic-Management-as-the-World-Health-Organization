@@ -4,24 +4,7 @@
 
 using namespace std;
 
-//debug
-struct country
-{
-  string name;
-  unsigned long int population;
-  unsigned long int infections;
-  unsigned int deaths;
-  unsigned int recovered;
-  float infected_percentage;
-  double economy;
-  double pi; //pi: performance index
-  float infection_factor; // Range 0.0 - 5.0
-  unsigned long int infection_increase;
-  int death_probability; // Range 0 - 100
-  int recover_probability; // Range 0 - 100
-};
-//debug
-//#include "main.h"
+#include "main.h"
 #include "infection_rate_calculator.h"
 
 
