@@ -123,6 +123,11 @@ bool card_command(string command, card & c){
 
   pos=next_pos;
   next_pos=command.find(",",pos+1);
+  c.target_type=command.substr(pos+1,next_pos-pos-1);
+  //extract target_type
+
+  pos=next_pos;
+  next_pos=command.find(",",pos+1);
   c.target=command.substr(pos+1,next_pos-pos-1);
   //extract target
 
@@ -148,10 +153,20 @@ bool card_command(string command, card & c){
   }
   //extract add (true means add / false means minus)
 
+  pos=next_pos;cout<<"target: "<<c.target<<endl;
+  next_pos=command.find(",",pos+1);
+  c.magnitude=str_to_double(command.substr(pos+1,next_pos-pos-1));
+  //extract magnitude
+
+  pos=next_pos;cout<<"target: "<<c.target<<endl;
+  next_pos=command.find(",",pos+1);
+  c.cost_type=command.substr(pos+1,next_pos-pos-1);
+  //extract cost_type
+
   pos=next_pos;
   temp=command.substr(pos+1);
-  c.magnitude=str_to_double(temp);
-  //extract magnitude
+  c.cost=str_to_int(temp);
+  //extract cost
 
   return true;
   //means the function runs smoothly
