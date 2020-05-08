@@ -320,66 +320,51 @@ int main(){
   delete [] countries;
 
 
-//   printeverything002(day,who,number_of_countries,AllCountries,
-//     init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
-//     action_card,action_card_size,number_of_action_card,
-//     random_event_card,random_event_card_size,number_of_random_event_card,
-//     deck_head,deck_tail,trash_head,trash_tail);
+  //   printeverything002(day,who,number_of_countries,AllCountries,
+  //     init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+  //     action_card,action_card_size,number_of_action_card,
+  //     random_event_card,random_event_card_size,number_of_random_event_card,
+  //     deck_head,deck_tail,trash_head,trash_tail);
 
-//---------------------------the game ----------------------------------
-bool exit=false;
-bool win = false;
-bool loose = false; 
-float winning_pi = 80;
-float loosing_pi = 30;
+  //---------------------------the game ----------------------------------
+  bool exit=false;
+  bool win = false;
+  bool loose = false;
+  float winning_pi = 80;
+  float loosing_pi = 30;
 
-float overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
-while ((!win) && (exit==false)){
-  overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+  float overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
   // Start loop of the day.
-  // clearscreen();
-  string answer;
-  //storing the answer from user
-  day+=1;
-  //the next day
-  bool action=false;
+  while ((!win) && (exit==false)){
+    overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+    // clearscreen();
+    string answer;
+    //storing the answer from user
+    day+=1;
+    //the next day
+    bool action=false;
 
-  string * temp5card = new string[5];
-  for (int i=0;i<5;++i){
-    temp5card[i]=action_card[rand()%number_of_action_card];
-  }
+    string * temp5card = new string[5];
+    for (int i=0;i<5;++i){
+      temp5card[i]=action_card[rand()%number_of_action_card];
+    }
 
-  while ((action==false)&&(exit==false)){
-    //loop until the user quit or perform action
-    clearscreen();
-    printmaingamescreen(overall_pi, day, who, AllCountries, number_of_countries);
-    //----------------user input----------------
-    answer = get_user_input(3);
-    //clearscreen();
-    //----------------user input----------------
-
-    if (answer=="0"){
-      //quit game
-      //-------------user input-------------
-      cout<<"Are you you want to exit (Y/N)"<<endl;
-      answer="a";
-      while ((answer!="Y")&&(answer!="N")){
-        //loop until answer is not Y or N
-        cout<<"Input: ";
-        cin>>answer;
-        if ((answer!="Y")&&(answer!="N")){
-          cout<<"Invalid input!"<<endl;
-        }
-      }
+    while ((action==false)&&(exit==false)){
+      //loop until the user quit or perform action
       clearscreen();
-      //-------------user input-------------
-      if (answer=="Y"){
-        //user really want to exit the game
+      printmaingamescreen(overall_pi, day, who, AllCountries, number_of_countries);
+      //----------------user input----------------
+      answer = get_user_input(3);
+      //clearscreen();
+      //----------------user input----------------
+
+      if (answer=="0"){
+        //quit game
         //-------------user input-------------
-        clearscreen();
-        cout<<"Save game? (Y/N)"<<endl;
+        cout<<"Are you you want to exit (Y/N)"<<endl;
         answer="a";
         while ((answer!="Y")&&(answer!="N")){
+          //loop until answer is not Y or N
           cout<<"Input: ";
           cin>>answer;
           if ((answer!="Y")&&(answer!="N")){
@@ -388,320 +373,337 @@ while ((!win) && (exit==false)){
         }
         clearscreen();
         //-------------user input-------------
-
         if (answer=="Y"){
-          //user want to save game
-
-          string command="touch "+store_game;
-          system(command.c_str());
-
-          filename=store_game;
-          savegame002(filename,day,who,number_of_countries,AllCountries,
-            init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
-            action_card,action_card_size,number_of_action_card,
-            random_event_card,random_event_card_size,number_of_random_event_card,
-            deck_head,deck_tail,trash_head,trash_tail);
-        }
-        //if answer=="N", the program will not save the game
-        exit=true;
-        //turn exit to true then out the loop so end the game
-      }
-      //if answer is No then nothing happen
-    }
-
-    if (answer=="1"){
-      while (answer != "0")
-      {
-        clearscreen();
-        printruler();
-        //printing all country in detail way
-        //----------------print table----------------
-        printcountry(AllCountries, str_to_int(answer) - 1, number_of_countries);
-        printruler();
-        //----------------print table----------------
-
-        cout << endl;
-        cout << " Enter the number of the Country to see detail information" << endl;
-        cout << " Enter 0 to Exit" << endl;
-        printruler();
-        answer = get_user_input(number_of_countries);
-
-      }
-
-    }
-
-    if (answer=="2")
-    {
-      //purchase from the market
-      //------------print market------------
-      clearscreen();
-      cout<<"Market:"<<endl;
-      printruler();
-      cout<<setw(50)<<" 1: Hire 50 staffs"<<setw(15)<<"Cost:$100"<<endl;
-      cout<<setw(50)<<" 2: Hire 100 staffs"<<setw(15)<<"Cost:$200"<<endl;
-      cout<<setw(50)<<" 3: Buy 50 medical equipment"<<setw(15)<<"Cost:$100"<<endl;
-      cout<<setw(50)<<" 4: Buy 100 medical equipment"<<setw(15)<<"Cost:$200"<<endl;
-      //buy action cards
-      for (int i=0;i<5;++i){
-        int pos=0;
-        string temps;
-        int next_pos=temp5card[i].find(",");
-        temps=temp5card[i].substr(pos,next_pos);
-        cout<<setw(50)<<" "+to_string(i+5)+": CARD - "+temps<<setw(15)<<"Cost:$300"<<endl;
-      }
-      cout << setw(50) << " 0: Exit." << endl;
-      printruler();
-      //------------print market------------
-      //-------------user input-------------
-      answer = get_user_input(9);
-      //-------------user input-------------
-
-      //---------------effect---------------
-      if (answer=="1") {
-        if (who.capital >= 100) {
-          who.staff += 50;
-          who.capital -= 100;
-        }
-        else
-        {
+          //user really want to exit the game
+          //-------------user input-------------
           clearscreen();
-          cout << "Not enough capital" << endl;
-          cout << "Press 0 to Continue" << endl;
-          get_user_input(0);
-        }
-      }
-      else if (answer=="2") {
-        if (who.capital >= 200) {
-          who.staff += 100;
-          who.capital -= 200;
-        }
-        else
-        {
-          clearscreen();
-          cout << "Not enough capital" << endl;
-          cout << "Press 0 to Continue" << endl;
-          get_user_input(0);
-        }
-      }
-      else if (answer=="3") {
-        if (who.capital >= 100) {
-          who.medical += 50;
-          who.capital -= 100;
-        }
-        else
-        {
-          clearscreen();
-          cout << "Not enough capital" << endl;
-          cout << "Press 0 to Continue" << endl;
-          get_user_input(0);
-        }
-      }
-      else if (answer=="4") {
-        if (who.capital >= 200) {
-          who.medical += 100;
-          who.capital -= 200;
-        }
-        else
-        {
-          clearscreen();
-          cout << "Not enough capital" << endl;
-          cout << "Press 0 to Continue" << endl;
-          get_user_input(0);
-        }
-      }
-      else if (str_to_int(answer) > 4)
-      {
-        if (who.capital >= 300) {
-          card temp1card[2];
-          if (card_command(temp5card[str_to_int(answer)-5],temp1card[0])){
-            temp1card[0].cost = 0;
-            if (use_action_card(temp1card[0], who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
-              action = true;
-              clearscreen();
-              cout << endl;
-              cout << " Card Selected" << endl;
-              printruler();
-              printcard(temp1card[0]);
-              cout << "Moving card to trash" << endl;
-              insertlist(trash_head, trash_tail, temp5card[str_to_int(answer)-5]);
-            }
-            else
-            {
-              cout << "Use card error" << endl;
+          cout<<"Save game? (Y/N)"<<endl;
+          answer="a";
+          while ((answer!="Y")&&(answer!="N")){
+            cout<<"Input: ";
+            cin>>answer;
+            if ((answer!="Y")&&(answer!="N")){
+              cout<<"Invalid input!"<<endl;
             }
           }
+          clearscreen();
+          //-------------user input-------------
+
+          if (answer=="Y"){
+            //user want to save game
+
+            string command="touch "+store_game;
+            system(command.c_str());
+
+            filename=store_game;
+            savegame002(filename,day,who,number_of_countries,AllCountries,
+              init_death_probability,init_recover_probability,country_pi_settings,infection_factor,
+              action_card,action_card_size,number_of_action_card,
+              random_event_card,random_event_card_size,number_of_random_event_card,
+              deck_head,deck_tail,trash_head,trash_tail);
+          }
+          //if answer=="N", the program will not save the game
+          exit=true;
+          //turn exit to true then out the loop so end the game
         }
-        else
+        //if answer is No then nothing happen
+      }
+
+      if (answer=="1"){
+        while (answer != "0")
         {
           clearscreen();
-          cout << "Not enough capital" << endl;
-          cout << "Press 0 to Continue" << endl;
-          get_user_input(0);
+          printruler();
+          //printing all country in detail way
+          //----------------print table----------------
+          printcountry(AllCountries, str_to_int(answer) - 1, number_of_countries);
+          printruler();
+          //----------------print table----------------
+
+          cout << endl;
+          cout << " Enter the number of the Country to see detail information" << endl;
+          cout << " Enter 0 to Exit" << endl;
+          printruler();
+          answer = get_user_input(number_of_countries);
+
         }
+
       }
-      else if (answer == "0") {
-        // Return to menu.
-      }
-      //---------------effect---------------
-    }
 
-    if (answer=="3")
-    {
-      // action card
-      clearscreen();
-      bool used_action_card = false;
-      string a[3];
-      pop3(deck_head,trash_head,a);
+      if (answer=="2")
+      {
+        //purchase from the market
+        //------------print market------------
+        clearscreen();
+        cout<<"Market:"<<endl;
+        printruler();
+        cout<<setw(50)<<" 1: Hire 50 staffs"<<setw(15)<<"Cost:$100"<<endl;
+        cout<<setw(50)<<" 2: Hire 100 staffs"<<setw(15)<<"Cost:$200"<<endl;
+        cout<<setw(50)<<" 3: Buy 50 medical equipment"<<setw(15)<<"Cost:$100"<<endl;
+        cout<<setw(50)<<" 4: Buy 100 medical equipment"<<setw(15)<<"Cost:$200"<<endl;
+        //buy action cards
+        for (int i=0;i<5;++i){
+          int pos=0;
+          string temps;
+          int next_pos=temp5card[i].find(",");
+          temps=temp5card[i].substr(pos,next_pos);
+          cout<<setw(50)<<" "+to_string(i+5)+": CARD - "+temps<<setw(15)<<"Cost:$300"<<endl;
+        }
+        cout << setw(50) << " 0: Exit." << endl;
+        printruler();
+        //------------print market------------
+        //-------------user input-------------
+        answer = get_user_input(9);
+        //-------------user input-------------
 
-      //3 cards store in array of string a in string format
-      card a3[3];
-      printgamescreenheader(overall_pi, day, who, number_of_countries);
-      cout << "Please choose an Action card..." << endl;
-      printruler();
-      for (int i=0;i<3;++i){
-         if (card_command(a[i],a3[i])==true){
-           cout << " Card " << i+1 << endl;
-           printcard(a3[i]);
-           cout<<endl;
-         }
-         else{
-           cout<<"error in read card"<<endl;
-         }
-       }
-
-      //---------------user choose---------------
-      cout << "\nPlease enter 1, 2 or 3 to select a card..." << endl;
-      cout << "To Exit, enter 0" << endl;
-      printruler();
-      answer = get_user_input(3);
-      if (answer != "0") {
-        //---------------user choose---------------
         //---------------effect---------------
-        clearscreen();
-        if (!(use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
-
-          while (!used_action_card) {
+        if (answer=="1") {
+          if (who.capital >= 100) {
+            who.staff += 50;
+            who.capital -= 100;
+          }
+          else
+          {
             clearscreen();
-            cout << "Please choose an Action card..." << endl;
-            printruler();
-            for (int i=0;i<3;++i){
-               if (card_command(a[i],a3[i])==true){
-                 cout << " Card " << i+1 << endl;
-                 printcard(a3[i]);
-                 cout<<endl;
-               }
-               else{
-                 cout<<"error in read card"<<endl;
-               }
-             }
-            cout << "Please choose another card." << endl;
-            cout << "\nPlease enter 1/2/3 to select a card..." << endl;
-            printruler();
-            answer = get_user_input(3);
-            if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
-              used_action_card = true;
-              printusecardresult(a3[str_to_int(answer) - 1]);
-            }
+            cout << "Not enough capital" << endl;
+            cout << "Press 0 to Continue" << endl;
+            get_user_input(0);
           }
         }
-        else if ( answer != "0" )
-        {
-          action=true;
-          printusecardresult(a3[str_to_int(answer) - 1]);
-          cout << "Enter to continue to the Random Effect Card of the day" << endl;
+        else if (answer=="2") {
+          if (who.capital >= 200) {
+            who.staff += 100;
+            who.capital -= 200;
+          }
+          else
+          {
+            clearscreen();
+            cout << "Not enough capital" << endl;
+            cout << "Press 0 to Continue" << endl;
+            get_user_input(0);
+          }
         }
+        else if (answer=="3") {
+          if (who.capital >= 100) {
+            who.medical += 50;
+            who.capital -= 100;
+          }
+          else
+          {
+            clearscreen();
+            cout << "Not enough capital" << endl;
+            cout << "Press 0 to Continue" << endl;
+            get_user_input(0);
+          }
+        }
+        else if (answer=="4") {
+          if (who.capital >= 200) {
+            who.medical += 100;
+            who.capital -= 200;
+          }
+          else
+          {
+            clearscreen();
+            cout << "Not enough capital" << endl;
+            cout << "Press 0 to Continue" << endl;
+            get_user_input(0);
+          }
+        }
+        else if (str_to_int(answer) > 4)
+        {
+          if (who.capital >= 300) {
+            card temp1card[2];
+            if (card_command(temp5card[str_to_int(answer)-5],temp1card[0])){
+              temp1card[0].cost = 0;
+              if (use_action_card(temp1card[0], who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
+                action = true;
+                clearscreen();
+                cout << endl;
+                cout << " Card Selected" << endl;
+                printruler();
+                printcard(temp1card[0]);
+                cout << "Moving card to trash" << endl;
+                insertlist(trash_head, trash_tail, temp5card[str_to_int(answer)-5]);
+              }
+              else
+              {
+                cout << "Use card error" << endl;
+              }
+            }
+          }
+          else
+          {
+            clearscreen();
+            cout << "Not enough capital" << endl;
+            cout << "Press 0 to Continue" << endl;
+            get_user_input(0);
+          }
+        }
+        else if (answer == "0") {
+          // Return to menu.
+        }
+        //---------------effect---------------
       }
-      //---------------effect---------------
+
+      if (answer=="3")
+      {
+        // action card
+        clearscreen();
+        bool used_action_card = false;
+        string a[3];
+        pop3(deck_head,trash_head,a);
+
+        //3 cards store in array of string a in string format
+        card a3[3];
+        printgamescreenheader(overall_pi, day, who, number_of_countries);
+        cout << "Please choose an Action card..." << endl;
+        printruler();
+        for (int i=0;i<3;++i){
+           if (card_command(a[i],a3[i])==true){
+             cout << " Card " << i+1 << endl;
+             printcard(a3[i]);
+             cout<<endl;
+           }
+           else{
+             cout<<"error in read card"<<endl;
+           }
+         }
+
+        //---------------user choose---------------
+        cout << "\nPlease enter 1, 2 or 3 to select a card..." << endl;
+        cout << "To Exit, enter 0" << endl;
+        printruler();
+        answer = get_user_input(3);
+        if (answer != "0") {
+          //---------------user choose---------------
+          //---------------effect---------------
+          clearscreen();
+          if (!(use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
+
+            while (!used_action_card) {
+              clearscreen();
+              cout << "Please choose an Action card..." << endl;
+              printruler();
+              for (int i=0;i<3;++i){
+                 if (card_command(a[i],a3[i])==true){
+                   cout << " Card " << i+1 << endl;
+                   printcard(a3[i]);
+                   cout<<endl;
+                 }
+                 else{
+                   cout<<"error in read card"<<endl;
+                 }
+               }
+              cout << "Please choose another card." << endl;
+              cout << "\nPlease enter 1/2/3 to select a card..." << endl;
+              printruler();
+              answer = get_user_input(3);
+              if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
+                used_action_card = true;
+                printusecardresult(a3[str_to_int(answer) - 1]);
+              }
+            }
+          }
+          else if ( answer != "0" )
+          {
+            action=true;
+            printusecardresult(a3[str_to_int(answer) - 1]);
+            cout << "Enter to continue to the Random Effect Card of the day" << endl;
+          }
+        }
+        //---------------effect---------------
+      }
+      if (!exit) {
+        cin.ignore();
+        cout << endl;
+        printruler();
+        pressentertocontinue();
+        clearscreen();
+        //finish one day by using one action card
+        //-------------------------random event card-------------------------------
+        card tempcard;
+        if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
+          cout<<"Error in reading random event card"<<endl;
+        }
+        if (use_random_card(tempcard, who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
+          printruler();
+          cout << "Random card of the day is:" << endl << endl;
+          cout << "Card Name: " << tempcard.name << endl;
+          cout << "Card Effects: ";
+          if (tempcard.add) {
+            cout << tempcard.variable << " will increase by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+          }
+          else
+          {
+            cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+          }
+          printruler();
+        }
+        else
+        {
+          cout << "Random card error..." << endl;
+
+          if (tempcard.add) {
+            cout << tempcard.variable << " will increase by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+          }
+          else
+          {
+            cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+          }
+
+        }
+        pressentertocontinue();
+      }
+
+
+    //-------------------------random event card-------------------------------
+
+    delete [] temp5card;
+
+    //-------------------------Update Game Status-------------------------------
+    daily_resources_income(who, day, who.capital, who.staff, who.medical, overall_pi);
+    calculate_daily_infection(AllCountries, number_of_countries);
+    calculate_daily_economic_impact(AllCountries, number_of_countries, lockdown_economy_threshold);
+    overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
+    //-------------------------Update Game Status-------------------------------
+
+    //-------------------------Check if player won-------------------------------
+    if ( (overall_pi > winning_pi) && day > 10 ) {
+      win = true;
     }
-  }
-  cin.ignore();
-  cout << endl;
-  printruler();
-  pressentertocontinue();
-  clearscreen();
-  //finish one day by using one action card
-  //-------------------------random event card-------------------------------
-  card tempcard;
-  if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
-    cout<<"Error in reading random event card"<<endl;
-  }
-  if (use_random_card(tempcard, who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
-    printruler();
-    cout << "Random card of the day is:" << endl << endl;
-    cout << "Card Name: " << tempcard.name << endl;
-    cout << "Card Effects: ";
-    if (tempcard.add) {
-      cout << tempcard.variable << " will increase by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    if ( (overall_pi < loosing_pi) && day > 10 ) {
+      loose = true;
     }
-    else
-    {
-      cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    //-------------------------Check if player won-------------------------------
+
+    // End loop of the day
+  }
+    //won and finished the game
+    if (win==true){
+      //exit == false means the user out the loop because he win the game
+      printwingamescreen();
+      //as PI over the graduation mark
+      ifstream infile(store_game);
+      if (infile.good()) {
+      string command="rm "+store_game;
+      system(command.c_str());
     }
-    printruler();
+    //remove the stored game status if exist because user had win the game
   }
-  else
-  {
-    cout << "Random card error..." << endl;
-
-    if (tempcard.add) {
-      cout << tempcard.variable << " will increase by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    else if (loose==true){
+      //exit == false means the user out the loop because he win the game
+      printloosegamescreen();
+      //as PI over the graduation mark
+      ifstream infile(store_game);
+      if (infile.good()) {
+        string command="rm "+store_game;
+        system(command.c_str());
+      }
+      //remove the stored game status if exist because user had lost the game
     }
-    else
-    {
-      cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
-    }
-
+    //clearscreen();
+    //---------------------------the game ----------------------------------
   }
-  pressentertocontinue();
-
-  //-------------------------random event card-------------------------------
-
-  delete [] temp5card;
-
-  //-------------------------Update Game Status-------------------------------
-  daily_resources_income(who, day, who.capital, who.staff, who.medical, overall_pi);
-  calculate_daily_infection(AllCountries, number_of_countries);
-  calculate_daily_economic_impact(AllCountries, number_of_countries, lockdown_economy_threshold);
-  overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
-  //-------------------------Update Game Status-------------------------------
-
-  //-------------------------Check if player won-------------------------------
-  if ( (overall_pi > winning_pi) && day > 10 ) {
-    win = true;
-  }
-  if ( (overall_pi < loosing_pi) && day > 10 ) {
-    loose = true;
-  }
-  //-------------------------Check if player won-------------------------------
-
-  // End loop of the day
-}
-//won and finished the game
-if (win==true){
-  //exit == false means the user out the loop because he win the game
-  printwingamescreen();
-  //as PI over the graduation mark
-  ifstream infile(store_game);
-  if (infile.good()) {
-    string command="rm "+store_game;
-    system(command.c_str());
-  }
-  //remove the stored game status if exist because user had win the game
-}
-else if (loose==true){
-  //exit == false means the user out the loop because he win the game
-  printloosegamescreen();
-  //as PI over the graduation mark
-  ifstream infile(store_game);
-  if (infile.good()) {
-    string command="rm "+store_game;
-    system(command.c_str());
-  }
-  //remove the stored game status if exist because user had lost the game
-}
-//clearscreen();
-//---------------------------the game ----------------------------------
-
 
   //----------------------------free dynamic memory-----------------------------
   //-------------deck, trash and record list-------------------
@@ -717,4 +719,6 @@ else if (loose==true){
   //----------------------------free dynamic memory-----------------------------
 
   return 0;
+
+
 }
