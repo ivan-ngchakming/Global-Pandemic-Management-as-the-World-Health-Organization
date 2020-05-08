@@ -108,6 +108,14 @@ void random_insert_to_trash(Node *& firstnode, Node * & trashhead,int & no_trash
   //the nodes in trash list increase by 1
 }
 
+void new_card_to_trash(string s, Node * & trashtail){
+  Node * temp = new Node;
+  temp->content=s;
+  temp->next=NULL;
+  trashtail->next=temp;
+  trashtail=temp;
+}
+
 //pop the first three node from the delete_list
 //and put into rubbish_bin_list randomly
 //if the list only contains less than 3 nodes,
