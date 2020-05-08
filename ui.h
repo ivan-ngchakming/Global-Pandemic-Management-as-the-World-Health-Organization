@@ -20,6 +20,7 @@ void printgamescreenheader(float overall_pi, int day, struct WHO who, int number
 void printsimplecountrystat(struct country AllCountries[], int number_of_countries);
 void printmaingamescreen(float overall_pi, int day, struct WHO who, struct country AllCountries[], int number_of_countries);
 void printwingamescreen();
+void printloosegamescreen();
 
 
 #endif

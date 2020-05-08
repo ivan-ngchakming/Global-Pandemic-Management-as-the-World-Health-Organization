@@ -1,50 +1,68 @@
 # ENGG1340-COMP2113-Course-Project
 
-------------------------------------------------------------
-## The Game
-This section describe the game briefly.
-
-## Instructions
-This section outline the basic game rules.
-In the start of the game, player can choose to start a new game, or load an old save from the previous game, if this is not the first time the player is playing.
-The game is divided into days, the player will enter a game menu after starting the game, where information like resources the player owns, a simplifed statistics of all countries, number of day passed, days left until the next income day, etc. will be displayed.
-The player can choose to 1. view detail statistics of all countries, 2. view the market or 3. view action cards, by entering 1, 2, or 3.
-
-
-A list of features / functions that you have implemented, vis-a-vis each of the items 1 to 5 listed under coding requirements above.
-
-Generation of random game sets or events
-Data structures for storing game status
-Dynamic memory management
-File input/output (e.g., for loading/saving game status)
-Program codes in multiple files
-
-
---mike--
-Using dynamic_array so that the size of array will change when the array is full.
-	(e.g. actions cards array and random action cards array)
-Building list and dynamic memory
-	(e.g. deck list and trash list)
-Free all dynamic memory
-	(free entire lists and dynamic arrays)
-Encryption and Decyrption in store and read file
-	(prevent player change their game status from txt files)
-generate random number(randomise at the first part of main.cpp by srand(time(NULL))
-Use find function to find the position of specific character(i.e. ',')
-Use system() to perform linux command to shell
-	(e.g. clear [clear screen], rm [remove txt files], touch [create txt files])
-Building structs
-	(e.g. country, card and who)
---mike end--
-
-
-------------------------------------------------------------
 ## Team Information
 Team Number: 96
 
 Members: Mike CHENG Mo Shun (3035688825), Ivan NG Chak Ming (3035564976)
 
 Topic: Global Pandemic Management as the World Health Organization
+
+## The Game
+This section describe the game briefly.
+
+## Instructions
+This section outline the basic game rules.
+
+The goal of the game is to reach a performance idex of 80, at the same time avoid the performance index from falling below 30.
+
+In the start of the game, you can choose to start a new game, or load an old save from the previous game, if this is not the first time you are playing.
+The game is divided into days, you will enter a game menu after starting the game, where information like resources, a simplifed statistics of all countries, number of day passed, days left until the next income day, etc. will be displayed.
+
+You then can choose to 1. view detail statistics of all countries, 2. view the market or 3. view action cards, by entering 1, 2, or 3. After using an action card, you will be brought to the random event stage. Finally the day is over and you are returned to the game menu to start day 2.
+
+### View Detail Statistics of all countries
+After entering 1, the you will be shown all the statistics of the first country, to view another country, simpily enter the corresponding number. Enter 0 to exit the detail statistics page back to the game menu.
+
+### Market
+After entering 2, you will be brought to the market, where you can purchase more staff to work for you or buy more medical equipments. These resources along with your money are required to use action cards in the later stages. You can also buy an action card from the market if you do not want to use the 3 action card you have for this round, these action cards will only cost you the capital required to buy the card with no any other costs.
+
+### Action Cards
+After entering 3, you will be shown the 3 choices action cards, you may choose to use any one of the cards given you have enough resources. Performing this action will end the day. You may exit by entering 1, or select an action card to move on to the next stage.
+
+### Random Event Cards
+After using an action card, a random event card will be used, where the effects will be shown on screen. Pressing Enter will bring you back to the game menu and day 2 will start.
+
+## Features
+This section outlines the list of features and functions that we have implemented, it is a vis-a-vis of each of the items 1 to 5 listed under coding requirements in the project guide.
+
+### Generation of random game sets or events
+generate random number(randomise at the first part of main.cpp by srand(time(NULL))
+
+### Data structures for storing game status
+Building structs
+	(e.g. country, card and who)
+
+### Dynamic memory management
+Using dynamic_array so that the size of array will change when the array is full.
+	(e.g. actions cards array and random action cards array)
+
+Building list and dynamic memory
+	(e.g. deck list and trash list)
+
+Free all dynamic memory
+	(free entire lists and dynamic arrays)
+
+### File input/output (e.g., for loading/saving game status)
+Encryption and Decyrption in store and read file
+	(prevent player change their game status from txt files)
+
+Use find function to find the position of specific character(i.e. ',')
+
+### Program codes in multiple files
+
+### Others
+Use system() to perform linux command to shell
+	(e.g. clear [clear screen], rm [remove txt files], touch [create txt files])
 
 ## Theme
 This is a single player card/strategy game, with global pandemic containment and control as theme. The player plays as the World Health Organization chairperson. The player needs to prioritize his/her objectives and try his/her best to cooperate with different nations to defeat the virus.
@@ -84,22 +102,22 @@ The game is divided into different days. Each day, the player will draw 3 new ac
 
 
 ## Code Requirement
-###Generation of random game sets or events
+### Generation of random game sets or events
 Factors affecting the ICI are modelled using various probability models, actions performed by users do not directly impact the factors affecting ICI, they only affect the parameter of the random distribution. Infection rate, recovery rate and death rates will be modelled using poisson, exponential or geometric random variables. Players will receive action cards randomly according to how common the card is. The same goes for random events.
 
 Reference:
 Header <Random> http://www.cplusplus.com/reference/random/
 Exponential distribution http://www.cplusplus.com/reference/random/exponential_distribution/
 
-###Data structures for storing game status
+### Data structures for storing game status
 An array of struct variables will be used to store infection statistics of different countries. Game status like number of days passed, amount of capital, medical equipment and number of staff are stored in another array.
 
-###Dynamic memory management
+### Dynamic memory management
 Dynamic memory will be used to store the cards in the deck or in the trash bin, lists will be used for the deck so constant time insertion and erasing can be performed anywhere within the sequence. Another dynamic memory will also be used to keep track of the game's status history, so the player’s performance can be shown after the game is over. Dynamic memory is used as the number of days of each game is unknown.
 
 
-###File input/output (e.g., for loading/saving game status)
+### File input/output (e.g., for loading/saving game status)
 Since players can start a new game or load an old game anytime, the game status will be stored using file inputs and outputs. To prevent players from changing the game status directly using a text editor, caesar shifting encryption will be used to protect the save data.
 
-###Program codes in multiple files
+### Program codes in multiple files
 Other than the main file, the program will be separated into different files that only contain limited related functions. For example, functions for game menu, game initialization, load old saves, loops of each round in game, user performing an action, printing game screen, saving games and settings will all be written in a different file.

@@ -225,3 +225,8 @@ void printwingamescreen()
 {
   cout << "Congratulations! You have won!" << endl;
 }
+
+void printloosegamescreen()
+{
+  cout << "Congratulations! You have Lost!" << endl;
+}

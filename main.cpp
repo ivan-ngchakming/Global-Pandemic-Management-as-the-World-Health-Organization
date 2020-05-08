@@ -329,7 +329,9 @@ int main(){
 //---------------------------the game ----------------------------------
 bool exit=false;
 bool win = false;
-float winning_pi = 90;
+float winning_pi = 80;
+float loosing_pi = 30;
+
 float overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
 while ((!win) && (exit==false)){
   overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
@@ -567,44 +569,47 @@ while ((!win) && (exit==false)){
        }
 
       //---------------user choose---------------
-      cout << "\nPlease enter 1/2/3 to select a card..." << endl;
+      cout << "\nPlease enter 1, 2 or 3 to select a card..." << endl;
+      cout << "To Exit, enter 0" << endl;
       printruler();
       answer = get_user_input(3);
-      //---------------user choose---------------
-      //---------------effect---------------
-      clearscreen();
-      if (!(use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
-        while (!used_action_card) {
-          clearscreen();
-          cout << "Please choose an Action card..." << endl;
-          printruler();
-          for (int i=0;i<3;++i){
-             if (card_command(a[i],a3[i])==true){
-               cout << " Card " << i+1 << endl;
-               printcard(a3[i]);
-               cout<<endl;
+      if (answer != "0") {
+        //---------------user choose---------------
+        //---------------effect---------------
+        clearscreen();
+        if (!(use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
+
+          while (!used_action_card) {
+            clearscreen();
+            cout << "Please choose an Action card..." << endl;
+            printruler();
+            for (int i=0;i<3;++i){
+               if (card_command(a[i],a3[i])==true){
+                 cout << " Card " << i+1 << endl;
+                 printcard(a3[i]);
+                 cout<<endl;
+               }
+               else{
+                 cout<<"error in read card"<<endl;
+               }
              }
-             else{
-               cout<<"error in read card"<<endl;
-             }
-           }
-          cout << "Please choose another card." << endl;
-          cout << "\nPlease enter 1/2/3 to select a card..." << endl;
-          printruler();
-          answer = get_user_input(3);
-          if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
-            used_action_card = true;
-            printusecardresult(a3[str_to_int(answer) - 1]);
+            cout << "Please choose another card." << endl;
+            cout << "\nPlease enter 1/2/3 to select a card..." << endl;
+            printruler();
+            answer = get_user_input(3);
+            if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
+              used_action_card = true;
+              printusecardresult(a3[str_to_int(answer) - 1]);
+            }
           }
         }
+        else if ( answer != "0" )
+        {
+          action=true;
+          printusecardresult(a3[str_to_int(answer) - 1]);
+          cout << "Enter to continue to the Random Effect Card of the day" << endl;
+        }
       }
-      else
-      {
-        action=true;
-        printusecardresult(a3[str_to_int(answer) - 1]);
-        cout << "Enter to continue to the Random Effect Card of the day" << endl;
-      }
-
       //---------------effect---------------
     }
   }
@@ -663,6 +668,9 @@ while ((!win) && (exit==false)){
   if ( (overall_pi > winning_pi) && day > 10 ) {
     win = true;
   }
+  if ( (overall_pi < loosing_pi) && day > 10 ) {
+    loose = true;
+  }
   //-------------------------Check if player won-------------------------------
 
   // End loop of the day
@@ -678,6 +686,17 @@ if (win==true){
     system(command.c_str());
   }
   //remove the stored game status if exist because user had win the game
+}
+else if (loose==true){
+  //exit == false means the user out the loop because he win the game
+  printloosegamescreen();
+  //as PI over the graduation mark
+  ifstream infile(store_game);
+  if (infile.good()) {
+    string command="rm "+store_game;
+    system(command.c_str());
+  }
+  //remove the stored game status if exist because user had lost the game
 }
 //clearscreen();
 //---------------------------the game ----------------------------------
