@@ -36,10 +36,12 @@ After using an action card, a random event card will be used, where the effects 
 This section outlines the list of features and functions that we have implemented, it is a vis-a-vis of each of the items 1 to 5 listed under coding requirements in the project guide.
 
 ### Generation of random game sets or events
-generate random number(randomise at the first part of main.cpp by srand(time(NULL))
+Random numbers are generate using time as the seed, it is used in function random_insert_to_trash() (found in linkedlist.cpp) to move the 3 action cards of each day randomly into a linked list trash, this allows for the reshuffle of cards after the player used up all cards in the deck.
+
+Random distribution is used for calculating the increase in number of infections, deaths and recoveries each day. A poission distribution from <random> with a Mersenne Twister pseudo-random generator of 32-bit numbers with a state size of 19937 bits as random generator. The distributions takes the current number mulitplied by a factor or probability as the mean.
 
 ### Data structures for storing game status
-Building structs
+The game status is divided into 3 main parts, countries, cards and WHO. Since all parts contains various variables with different data types, we have built a different struct for each part to consolidate all variables and data.
 	(e.g. country, card and who)
 
 ### Dynamic memory management

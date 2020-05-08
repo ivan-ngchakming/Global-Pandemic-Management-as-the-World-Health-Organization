@@ -329,6 +329,7 @@ int main(){
 //---------------------------the game ----------------------------------
 bool exit=false;
 bool win = false;
+bool loose = false; 
 float winning_pi = 80;
 float loosing_pi = 30;
 
