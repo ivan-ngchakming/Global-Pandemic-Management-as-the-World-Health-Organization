@@ -92,6 +92,36 @@ void printcard(card c){
   }
 }
 
+
+void printusecardresult(card c){
+  clearscreen();
+  cout << endl;
+  cout << " Card Selected" << endl;
+  printruler();
+  cout << endl;
+  cout << " Card Name: " << c.name << endl;
+  cout << " Card Affect: ";
+  if (c.add) {
+    cout << c.variable << " will increase by " << c.magnitude << " for " << c.target<< endl;
+  }
+  else
+  {
+    cout << c.variable << " will decrease by " << c.magnitude << " for " << c.target<< endl;
+  }
+  if (c.cost_type == "capital") {
+    cout << " Card Cost: $" << c.cost << endl;
+  }
+  else if (c.cost_type == "staff") {
+    cout << " Card Cost: " << c.cost << " staff" << endl;
+  }
+  else
+  {
+    cout << " Card Cost: " << c.cost << " medical equipment" << endl;
+  }
+  cout << endl;
+  printruler();
+}
+
 void printcounrty(country c){
   cout<<"nation: "<<c.name<<endl;
   cout<<"population: "<<doubletostr(c.population)<<endl;

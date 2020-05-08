@@ -12,6 +12,7 @@ void printruler();
 void pressentertocontinue();
 void printcountry(country c[], int index, int no_of_c);
 void printcard(struct card c);
+void printusecardresult(card c);
 void printcounrty(struct country c);
 string get_user_input(int choices);
 void printmainmenu();

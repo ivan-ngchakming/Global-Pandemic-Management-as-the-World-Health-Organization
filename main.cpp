@@ -59,142 +59,142 @@ unsigned long int STRtoULI(string s){
 
 //--------------------for debug--------------------------------------------
 
-void printeverything(int day, WHO who, int max_country_size, int no_of_country, string c[],
-  int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
-  string ac[], int ac_size, int ac_num,
-  string rec[], int rec_size, int rec_num,
-  Node * & dh, Node * & dt, Node * & th, Node * & tt)
-{
+// void printeverything(int day, WHO who, int max_country_size, int no_of_country, string c[],
+//   int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
+//   string ac[], int ac_size, int ac_num,
+//   string rec[], int rec_size, int rec_num,
+//   Node * & dh, Node * & dt, Node * & th, Node * & tt)
+// {
+//
+//   printruler();
+//
+//   cout<<"Day: "<<day<<endl;
+//   cout<<endl;
+//
+//   cout<<"WHO: "<<endl;
+//   cout<<"capital: "<<who.capital<<endl;
+//   cout<<"staff: "<<who.staff<<endl;
+//   cout<<"medical: "<<who.medical<<endl;
+//   cout<<"capital_income: "<<who.capital_income<<endl;
+//   cout<<"staff_increment: "<<who.staff_increment<<endl;
+//   cout<<"medical_increment: "<<who.medical_increment<<endl;
+//   cout<<"income_frequency: "<<who.income_frequency<<endl;
+//   cout<<endl;
+//
+//   cout<<"Maximum country size: "<<max_country_size<<endl;
+//   cout<<"no of country: "<<no_of_country<<endl;
+//   cout<<"Country: "<<endl;
+//   for(int i=0;i<no_of_country;++i){
+//     cout<<i+1<<" : "<<c[i]<<endl;
+//   }
+//   cout<<endl;
+//
+//   cout<<"init_death_probability: "<<init_death_probability<<endl;
+//   cout<<endl;
+//
+//   cout<<"init_recover_probability: "<<init_recover_probability<<endl;
+//   cout<<endl;
+//
+//   cout<<"country_pi_settings: "<<endl;
+//   cout<<"{";
+//   for(int i=0;i<4;++i){
+//     cout<<country_pi_settings[i]<<" , ";
+//   }
+//   cout<<"}"<<endl;
+//   cout<<endl;
+//
+//   cout<<"infection_factor: "<<infection_factor<<endl;
+//   cout<<endl;
+//
+//
+//   cout<<"action cards: "<<"(Max: "<<ac_size<<" : no. "<<ac_num<<")"<<endl;
+//   for(int i=0;i<ac_size;++i){
+//     cout<<i<<" : "<<ac[i]<<endl;
+//   }
+//   cout<<endl;
+//
+//   cout<<"random event cards: "<<"(Max: "<<rec_size<<" : no. "<<rec_num<<")"<<endl;
+//   for(int i=0;i<rec_size;++i){
+//     cout<<i<<" : "<<rec[i]<<endl;
+//   }
+//   cout<<endl;
+//
+//   cout<<"deck: "<<endl;
+//   printlist(dh);
+//   cout<<endl;
+//
+//   cout<<"trash: "<<endl;
+//   printlist(th);
+//   cout<<endl;
+//
+//   printruler();
+// }
 
-  printruler();
-
-  cout<<"Day: "<<day<<endl;
-  cout<<endl;
-
-  cout<<"WHO: "<<endl;
-  cout<<"capital: "<<who.capital<<endl;
-  cout<<"staff: "<<who.staff<<endl;
-  cout<<"medical: "<<who.medical<<endl;
-  cout<<"capital_income: "<<who.capital_income<<endl;
-  cout<<"staff_increment: "<<who.staff_increment<<endl;
-  cout<<"medical_increment: "<<who.medical_increment<<endl;
-  cout<<"income_frequency: "<<who.income_frequency<<endl;
-  cout<<endl;
-
-  cout<<"Maximum country size: "<<max_country_size<<endl;
-  cout<<"no of country: "<<no_of_country<<endl;
-  cout<<"Country: "<<endl;
-  for(int i=0;i<no_of_country;++i){
-    cout<<i+1<<" : "<<c[i]<<endl;
-  }
-  cout<<endl;
-
-  cout<<"init_death_probability: "<<init_death_probability<<endl;
-  cout<<endl;
-
-  cout<<"init_recover_probability: "<<init_recover_probability<<endl;
-  cout<<endl;
-
-  cout<<"country_pi_settings: "<<endl;
-  cout<<"{";
-  for(int i=0;i<4;++i){
-    cout<<country_pi_settings[i]<<" , ";
-  }
-  cout<<"}"<<endl;
-  cout<<endl;
-
-  cout<<"infection_factor: "<<infection_factor<<endl;
-  cout<<endl;
-
-
-  cout<<"action cards: "<<"(Max: "<<ac_size<<" : no. "<<ac_num<<")"<<endl;
-  for(int i=0;i<ac_size;++i){
-    cout<<i<<" : "<<ac[i]<<endl;
-  }
-  cout<<endl;
-
-  cout<<"random event cards: "<<"(Max: "<<rec_size<<" : no. "<<rec_num<<")"<<endl;
-  for(int i=0;i<rec_size;++i){
-    cout<<i<<" : "<<rec[i]<<endl;
-  }
-  cout<<endl;
-
-  cout<<"deck: "<<endl;
-  printlist(dh);
-  cout<<endl;
-
-  cout<<"trash: "<<endl;
-  printlist(th);
-  cout<<endl;
-
-  printruler();
-}
-
-void printeverything002(int day, WHO who, int no_of_country, country c[],
-  int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
-  string ac[], int ac_size, int ac_num,
-  string rec[], int rec_size, int rec_num,
-  Node * & dh, Node * & dt, Node * & th, Node * & tt)
-{
-
-  printruler();
-
-  cout<<"Day: "<<day<<endl;
-  cout<<endl;
-
-  cout<<"WHO: "<<endl;
-  cout<<"capital: "<<who.capital<<endl;
-  cout<<"staff: "<<who.staff<<endl;
-  cout<<"medical: "<<who.medical<<endl;
-  cout<<"capital_income: "<<who.capital_income<<endl;
-  cout<<"staff_increment: "<<who.staff_increment<<endl;
-  cout<<"medical_increment: "<<who.medical_increment<<endl;
-  cout<<"income_frequency: "<<who.income_frequency<<endl;
-  cout<<endl;
-
-  // printnewcountry(c,no_of_country);
-  cout<<endl;
-
-  cout<<"init_death_probability: "<<init_death_probability<<endl;
-  cout<<endl;
-
-  cout<<"init_recover_probability: "<<init_recover_probability<<endl;
-  cout<<endl;
-
-  cout<<"country_pi_settings: "<<endl;
-  cout<<"{";
-  for(int i=0;i<4;++i){
-    cout<<country_pi_settings[i]<<" , ";
-  }
-  cout<<"}"<<endl;
-  cout<<endl;
-
-  cout<<"infection_factor: "<<infection_factor<<endl;
-  cout<<endl;
-
-
-  cout<<"action cards: "<<"(Max: "<<ac_size<<" : no. "<<ac_num<<")"<<endl;
-  for(int i=0;i<ac_size;++i){
-    cout<<i<<" : "<<ac[i]<<endl;
-  }
-  cout<<endl;
-
-  cout<<"random event cards: "<<"(Max: "<<rec_size<<" : no. "<<rec_num<<")"<<endl;
-  for(int i=0;i<rec_size;++i){
-    cout<<i<<" : "<<rec[i]<<endl;
-  }
-  cout<<endl;
-
-  cout<<"deck: "<<endl;
-  printlist(dh);
-  cout<<endl;
-
-  cout<<"trash: "<<endl;
-  printlist(th);
-  cout<<endl;
-
-  printruler();
-}
+// void printeverything002(int day, WHO who, int no_of_country, country c[],
+//   int init_death_probability, int init_recover_probability, float country_pi_settings[], float infection_factor,
+//   string ac[], int ac_size, int ac_num,
+//   string rec[], int rec_size, int rec_num,
+//   Node * & dh, Node * & dt, Node * & th, Node * & tt)
+// {
+//
+//   printruler();
+//
+//   cout<<"Day: "<<day<<endl;
+//   cout<<endl;
+//
+//   cout<<"WHO: "<<endl;
+//   cout<<"capital: "<<who.capital<<endl;
+//   cout<<"staff: "<<who.staff<<endl;
+//   cout<<"medical: "<<who.medical<<endl;
+//   cout<<"capital_income: "<<who.capital_income<<endl;
+//   cout<<"staff_increment: "<<who.staff_increment<<endl;
+//   cout<<"medical_increment: "<<who.medical_increment<<endl;
+//   cout<<"income_frequency: "<<who.income_frequency<<endl;
+//   cout<<endl;
+//
+//   // printnewcountry(c,no_of_country);
+//   cout<<endl;
+//
+//   cout<<"init_death_probability: "<<init_death_probability<<endl;
+//   cout<<endl;
+//
+//   cout<<"init_recover_probability: "<<init_recover_probability<<endl;
+//   cout<<endl;
+//
+//   cout<<"country_pi_settings: "<<endl;
+//   cout<<"{";
+//   for(int i=0;i<4;++i){
+//     cout<<country_pi_settings[i]<<" , ";
+//   }
+//   cout<<"}"<<endl;
+//   cout<<endl;
+//
+//   cout<<"infection_factor: "<<infection_factor<<endl;
+//   cout<<endl;
+//
+//
+//   cout<<"action cards: "<<"(Max: "<<ac_size<<" : no. "<<ac_num<<")"<<endl;
+//   for(int i=0;i<ac_size;++i){
+//     cout<<i<<" : "<<ac[i]<<endl;
+//   }
+//   cout<<endl;
+//
+//   cout<<"random event cards: "<<"(Max: "<<rec_size<<" : no. "<<rec_num<<")"<<endl;
+//   for(int i=0;i<rec_size;++i){
+//     cout<<i<<" : "<<rec[i]<<endl;
+//   }
+//   cout<<endl;
+//
+//   cout<<"deck: "<<endl;
+//   printlist(dh);
+//   cout<<endl;
+//
+//   cout<<"trash: "<<endl;
+//   printlist(th);
+//   cout<<endl;
+//
+//   printruler();
+// }
 
 //--------------------for debug-------------------------------------------
 
@@ -510,7 +510,7 @@ while ((!win) && (exit==false)){
       {
         if (who.capital >= 300) {
           card temp1card[2];
-          if (card_command(temp5card[str_to_int(answer)-5],temp1card[0])==true){
+          if (card_command(temp5card[str_to_int(answer)-5],temp1card[0])){
             temp1card[0].cost = 0;
             if (use_action_card(temp1card[0], who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
               action = true;
@@ -519,6 +519,8 @@ while ((!win) && (exit==false)){
               cout << " Card Selected" << endl;
               printruler();
               printcard(temp1card[0]);
+              cout << "Moving card to trash" << endl;
+              new_card_to_trash(temp5card[str_to_int(answer)-5], trash_tail);
             }
             else
             {
@@ -592,20 +594,15 @@ while ((!win) && (exit==false)){
           answer = get_user_input(3);
           if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
             used_action_card = true;
-            cout << " Card Selected" << endl;
-            printruler();
-            printcard(a3[str_to_int(answer) - 1]);
+            printusecardresult(a3[str_to_int(answer) - 1]);
           }
         }
       }
       else
       {
         action=true;
-        printcard(a3[str_to_int(answer) - 1]);
-        // printgamescreenheader(overall_pi, day, who, number_of_countries);
-        // printsimplecountrystat(AllCountries, number_of_countries);
+        printusecardresult(a3[str_to_int(answer) - 1]);
         cout << "Enter to continue to the Random Effect Card of the day" << endl;
-        // printruler();
       }
 
       //---------------effect---------------
@@ -647,7 +644,7 @@ while ((!win) && (exit==false)){
     {
       cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
     }
-    
+
   }
   pressentertocontinue();
 
