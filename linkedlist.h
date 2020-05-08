@@ -12,4 +12,6 @@ void pop3(struct Node * & list_head, struct Node * & trashhead, string s[]);
 
 string pop1(struct Node * & list);
 
+void new_card_to_trash(string s, Node * & trashtail);
+
 #endif
