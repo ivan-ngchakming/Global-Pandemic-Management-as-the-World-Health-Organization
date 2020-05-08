@@ -151,7 +151,6 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
   cout<<"income_frequency: "<<who.income_frequency<<endl;
   cout<<endl;
 
-  printnewcountry(c,no_of_country);
   cout<<endl;
 
   cout<<"init_death_probability: "<<init_death_probability<<endl;
