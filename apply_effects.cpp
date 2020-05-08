@@ -51,14 +51,55 @@ unsigned long int unsigned_long_int_net_magnitude(struct card c)
 bool apply_card_effect_on_who(int & capital, int & staff, int & medical, struct card c)
 {
   if (c.target_type=="who") {
-    if (c.target == "capital") {
-        capital += int_net_magnitude(c);
-      return true;
+    if (c.variable == "capital") {
+      cout << "target correct: " << c.variable << endl;
+      int new_capital = capital + int_net_magnitude(c);
+      if (new_capital >=0) {
+        capital = new_capital;
+        return true;
+      }
+      else
+      {
+        capital = 0;
+        return true;
+      }
+    }
+    else if (c.variable == "staff") {
+      cout << "target correct: " << c.variable << endl;
+      int new_staff = staff + int_net_magnitude(c);
+      if (new_staff >=0) {
+        staff = new_staff;
+        return true;
+      }
+      else
+      {
+        staff = 0;
+        return true;
+      }
+    }
+    else if (c.variable == "medical") {
+      cout << "target correct: " << c.variable << endl;
+      int new_medical = medical + int_net_magnitude(c);
+      if (new_medical >=0) {
+        medical = new_medical;
+        return true;
+      }
+      else
+      {
+        medical = 0;
+        return true;
+      }
+    }
+    else
+    {
+      cout << "target error" << endl;
+      return false;
     }
   }
   else
   {
     // Not a card used on who
+    cout << "The card is not used on WHO" << endl;
     return false;
   }
 }
@@ -208,7 +249,10 @@ bool use_action_card(struct card c, int & capital, int & staff, int & medical, s
 
 bool use_random_card(struct card c, int & capital, int & staff, int & medical, struct country AllCountries[], int no_of_countries)
 {
-  cout << "Processing random card of the day..." << endl;
+  cout << "\nProcessing random card of the day..." << endl;
+  cout << endl;
+  cout << "Random Card Type: " << c.target_type << endl;
+  cout << endl;
   if (apply_card_effects_on_country(AllCountries, c, no_of_countries)) {
     cout << "Effect applied on country" << endl;
     return true;
@@ -220,6 +264,7 @@ bool use_random_card(struct card c, int & capital, int & staff, int & medical, s
   }
   else
   {
+    // cout << "Passed both country and who functions" << endl;
     return false;
   }
 }

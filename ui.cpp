@@ -29,25 +29,45 @@ void printruler(){
   //synchronized every ruller have the same length
 }
 
-void printnewcountry(country c[], int no_of_country){
-  cout<<"no. of country: "<<no_of_country<<endl;
-  cout<<"Country: "<<endl;
-  for(int i=0;i<no_of_country;++i){
-    cout<<i+1<<":\n";
-    cout<<"Name: "<<c[i].name<<endl;
-    cout<<"Population: "<<c[i].population<<endl;
-    cout<<"Infections: "<<c[i].infections<<endl;
-    cout<<"Deaths: "<<c[i].deaths<<endl;
-    cout<<"Recovered: "<<c[i].recovered<<endl;
-    cout<<"Infected_percentage: "<<c[i].infected_percentage<<endl;
-    cout<<"Economy: "<<c[i].economy<<endl;
-    cout<<"Pi: "<<c[i].pi<<endl;
-    cout<<"Infection_factor: "<<c[i].infection_factor<<endl;
-    cout<<"Infection_increase: "<<c[i].infection_increase<<endl;
-    cout<<"Death_probability: " << c[i].death_probability<<endl;
-    cout<<"Recover_probability: "<<c[i].recover_probability<<endl;
-    cout<<endl;
+void printcountry(country c[], int index, int no_of_c){
+  int width = 20;
+  int name_width = 25;
+  int i = index;
+  int j = 0;
+  cout << "Detail Country Statistics: " << endl;
+  printruler();
+  cout << endl;
+  cout << setw(name_width) << " Country: " << setw(width) << c[i].name << setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Population: " << setw(width) << c[i].population << setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Infections: " << setw(width) << c[i].infections << setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Deaths: " << setw(width) <<c[i].deaths<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Recovered: " << setw(width) <<c[i].recovered<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Infected %: " << setw(width);
+  printf("%.2f%%               ", c[i].infected_percentage);
+  cout <<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Economy: " << setw(width) <<c[i].economy<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Performance Index: " << setw(width) <<c[i].pi<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Infection factor: " << setw(width) <<c[i].infection_factor<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Infection increase: " << setw(width) <<c[i].infection_increase<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Death probability(%): "  << setw(width) << c[i].death_probability<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  cout << setw(name_width) << " Recover probability(%): " << setw(width) <<c[i].recover_probability<<setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
+  j++;
+  for (j;j<no_of_c;j++) {
+    cout << setw(name_width + width) << " " << setw(2) << " | " << j + 1 <<" - " << c[j].name << endl;
   }
+  cout << endl;
+
 }
 
 void printcard(card c){

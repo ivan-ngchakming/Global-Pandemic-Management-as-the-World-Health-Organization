@@ -10,7 +10,7 @@ using namespace std;
 void clearscreen();
 void printruler();
 void pressentertocontinue();
-void printnewcountry(struct country c[], int no_of_country);
+void printcountry(country c[], int index, int no_of_c);
 void printcard(struct card c);
 void printcounrty(struct country c);
 string get_user_input(int choices);

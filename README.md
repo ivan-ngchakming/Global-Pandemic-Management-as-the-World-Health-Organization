@@ -13,6 +13,25 @@ Dynamic memory management
 File input/output (e.g., for loading/saving game status)
 Program codes in multiple files
 
+
+--mike--
+Using dynamic_array so that the size of array will change when the array is full.
+	(e.g. actions cards array and random action cards array)
+Building list and dynamic memory
+	(e.g. deck list and trash list)
+Free all dynamic memory
+	(free entire lists and dynamic arrays)
+Encryption and Decyrption in store and read file
+	(prevent player change their game status from txt files)
+generate random number(randomise at the first part of main.cpp by srand(time(NULL))
+Use find function to find the position of specific character(i.e. ',')
+Use system() to perform linux command to shell
+	(e.g. clear [clear screen], rm [remove txt files], touch [create txt files])
+Building structs
+	(e.g. country, card and who)
+--mike end--
+
+
 ------------------------------------------------------------
 ## Team Information
 Team Number: 96

@@ -152,7 +152,7 @@ void printeverything002(int day, WHO who, int no_of_country, country c[],
   cout<<"income_frequency: "<<who.income_frequency<<endl;
   cout<<endl;
 
-  printnewcountry(c,no_of_country);
+  // printnewcountry(c,no_of_country);
   cout<<endl;
 
   cout<<"init_death_probability: "<<init_death_probability<<endl;
@@ -407,17 +407,24 @@ while ((!win) && (exit==false)){
     }
 
     if (answer=="1"){
-      //printing all country in detail way
-      //----------------print table----------------
-      printnewcountry(AllCountries, number_of_countries);
-      //----------------print table----------------
+      while (answer != "0")
+      {
+        clearscreen();
+        printruler();
+        //printing all country in detail way
+        //----------------print table----------------
+        printcountry(AllCountries, str_to_int(answer) - 1, number_of_countries);
+        printruler();
+        //----------------print table----------------
 
-      //---------------quit the table---------------
-      cout << endl;
-      cout << "Input 0 to exit" << endl;
-      printruler();
-      answer = answer = get_user_input(0);
-      //---------------quit the table---------------
+        cout << endl;
+        cout << " Enter the number of the Country to see detail information" << endl;
+        cout << " Enter 0 to Exit" << endl;
+        printruler();
+        answer = get_user_input(number_of_countries);
+
+      }
+
     }
 
     if (answer=="2")
@@ -502,7 +509,22 @@ while ((!win) && (exit==false)){
       else if (str_to_int(answer) > 4)
       {
         if (who.capital >= 300) {
-          // MIKE: Move card back into deck
+          card temp1card[2];
+          if (card_command(temp5card[str_to_int(answer)-5],temp1card[0])==true){
+            temp1card[0].cost = 0;
+            if (use_action_card(temp1card[0], who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
+              action = true;
+              clearscreen();
+              cout << endl;
+              cout << " Card Selected" << endl;
+              printruler();
+              printcard(temp1card[0]);
+            }
+            else
+            {
+              cout << "Use card error" << endl;
+            }
+          }
         }
         else
         {
@@ -570,32 +592,36 @@ while ((!win) && (exit==false)){
           answer = get_user_input(3);
           if ((use_action_card(a3[str_to_int(answer) - 1], who.capital, who.staff, who.medical, AllCountries, number_of_countries))) {
             used_action_card = true;
+            cout << " Card Selected" << endl;
+            printruler();
+            printcard(a3[str_to_int(answer) - 1]);
           }
         }
       }
       else
       {
         action=true;
-        used_action_card = true;
         printcard(a3[str_to_int(answer) - 1]);
         // printgamescreenheader(overall_pi, day, who, number_of_countries);
         // printsimplecountrystat(AllCountries, number_of_countries);
         cout << "Enter to continue to the Random Effect Card of the day" << endl;
-        printruler();
+        // printruler();
       }
-      pressentertocontinue();
 
       //---------------effect---------------
     }
-
   }
+  cin.ignore();
+  cout << endl;
+  printruler();
+  pressentertocontinue();
+  clearscreen();
   //finish one day by using one action card
   //-------------------------random event card-------------------------------
   card tempcard;
   if (!(card_command(random_event_card[rand()%number_of_random_event_card],tempcard))){
     cout<<"Error in reading random event card"<<endl;
   }
-  clearscreen();
   if (use_random_card(tempcard, who.capital, who.staff, who.medical, AllCountries, number_of_countries)) {
     printruler();
     cout << "Random card of the day is:" << endl << endl;
@@ -613,6 +639,15 @@ while ((!win) && (exit==false)){
   else
   {
     cout << "Random card error..." << endl;
+
+    if (tempcard.add) {
+      cout << tempcard.variable << " will increase by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    }
+    else
+    {
+      cout << tempcard.variable << " will decrease by " << tempcard.magnitude << " for " << tempcard.target<< endl;
+    }
+    
   }
   pressentertocontinue();
 
