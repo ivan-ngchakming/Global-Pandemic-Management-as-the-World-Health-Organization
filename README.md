@@ -1,8 +1,14 @@
 # ENGG1340-COMP2113-Course-Project
 
 ------------------------------------------------------------
-A game description with basic game rules.
-In the start of the game, player can choose to start a new game, or load an old save from the previous game.
+## The Game
+This section describe the game briefly.
+
+## Instructions
+This section outline the basic game rules.
+In the start of the game, player can choose to start a new game, or load an old save from the previous game, if this is not the first time the player is playing.
+The game is divided into days, the player will enter a game menu after starting the game, where information like resources the player owns, a simplifed statistics of all countries, number of day passed, days left until the next income day, etc. will be displayed.
+The player can choose to 1. view detail statistics of all countries, 2. view the market or 3. view action cards, by entering 1, 2, or 3.
 
 
 A list of features / functions that you have implemented, vis-a-vis each of the items 1 to 5 listed under coding requirements above.
