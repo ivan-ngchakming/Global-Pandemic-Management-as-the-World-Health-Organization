@@ -3,8 +3,8 @@ using namespace std;
 
 
 
-const int no_of_characters=66;
-//a-z,A-Z,0-9,' ',',','.','_'
+const int no_of_characters=67;
+//a-z,A-Z,0-9,' ',',','.','_','&'
 
 char inttochar(int num){
   if ((num>=0)&&(num<=25)){
@@ -35,6 +35,10 @@ char inttochar(int num){
     return '_';
   }
   //65 storing '_'
+  if (num==66){
+    return '&';
+  }
+  //65 storing '&'
 }
 
 int chartoint(char answer){
@@ -66,6 +70,10 @@ int chartoint(char answer){
     return 65;
   }
   //65 storing '_'
+  if (answer=='&'){
+    return 66;
+  }
+  //65 storing '&'
 }
 
 char shift_decrypt(char inputchar, int shiftingpos){
