@@ -520,7 +520,7 @@ while ((!win) && (exit==false)){
               printruler();
               printcard(temp1card[0]);
               cout << "Moving card to trash" << endl;
-              new_card_to_trash(temp5card[str_to_int(answer)-5], trash_tail);
+              insertlist(trash_head, trash_tail, temp5card[str_to_int(answer)-5]);
             }
             else
             {
