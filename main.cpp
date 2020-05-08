@@ -335,7 +335,7 @@ int main(){
 
   float overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
   // Start loop of the day.
-  while ((!win) && (exit==false)){
+  while ((!win) && (!loose) && (exit==false)){
     overall_pi = calculate_overall_performance_index(AllCountries,number_of_countries,country_pi_settings);
     // clearscreen();
     string answer;
@@ -425,9 +425,7 @@ int main(){
           cout << " Enter 0 to Exit" << endl;
           printruler();
           answer = get_user_input(number_of_countries);
-
         }
-
       }
 
       if (answer=="2")
@@ -613,7 +611,9 @@ int main(){
         }
         //---------------effect---------------
       }
-      if (!exit) {
+
+      // Process random event card if player did not exit the game
+      if (!exit && action) {
         cin.ignore();
         cout << endl;
         printruler();
@@ -655,6 +655,7 @@ int main(){
         pressentertocontinue();
       }
 
+    }
 
     //-------------------------random event card-------------------------------
 
@@ -678,32 +679,33 @@ int main(){
 
     // End loop of the day
   }
-    //won and finished the game
-    if (win==true){
-      //exit == false means the user out the loop because he win the game
-      printwingamescreen();
-      //as PI over the graduation mark
-      ifstream infile(store_game);
-      if (infile.good()) {
+
+  //won and finished the game
+  if (win==true){
+    //exit == false means the user out the loop because he win the game
+    printwingamescreen();
+    //as PI over the graduation mark
+    ifstream infile(store_game);
+    if (infile.good()) {
+    string command="rm "+store_game;
+    system(command.c_str());
+  }
+  //remove the stored game status if exist because user had win the game
+}
+  else if (loose==true){
+    //exit == false means the user out the loop because he win the game
+    printloosegamescreen();
+    //as PI over the graduation mark
+    ifstream infile(store_game);
+    if (infile.good()) {
       string command="rm "+store_game;
       system(command.c_str());
     }
-    //remove the stored game status if exist because user had win the game
+    //remove the stored game status if exist because user had lost the game
   }
-    else if (loose==true){
-      //exit == false means the user out the loop because he win the game
-      printloosegamescreen();
-      //as PI over the graduation mark
-      ifstream infile(store_game);
-      if (infile.good()) {
-        string command="rm "+store_game;
-        system(command.c_str());
-      }
-      //remove the stored game status if exist because user had lost the game
-    }
-    //clearscreen();
-    //---------------------------the game ----------------------------------
-  }
+  //clearscreen();
+  //---------------------------the game ----------------------------------
+
 
   //----------------------------free dynamic memory-----------------------------
   //-------------deck, trash and record list-------------------
