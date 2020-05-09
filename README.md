@@ -1,4 +1,8 @@
-# ENGG1340-COMP2113-Course-Project
+<p align="center">
+  <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.umweltbundesamt.de%2Fsites%2Fdefault%2Ffiles%2Fmedien%2F377%2Fbilder%2Fwho-flagge_cuneyt_fotolia.com_9332807_m.jpg&f=1&nofb=1" width="700">
+  <h1 align="center">Global-Pandemic-Management-as-the-World-Health-Organization</h1>
+  <p align="center">Course project for <b>ENGG1340-COMP2113</b> text base card and strategy game implemented in c++<p>
+<p align="center">
 
 ## Table of Content
 - [Team Infromation](#Team)
