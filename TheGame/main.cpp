@@ -116,6 +116,7 @@ int main(){
   //---------------------------------initialize---------------------------------
   //---------check if the user had saved game before----------
   bool saved_game_flag;
+  bool loadedgame=false;
   ifstream fin;
   fin.open(store_game.c_str());
   if (fin.fail()){
@@ -154,6 +155,7 @@ int main(){
   else{
     //load previous saved game
     filename=store_game;
+    loadedgame = true;
   }
 
   loadgame(filename,day,who,max_country_size,number_of_countries,countries,
@@ -162,7 +164,8 @@ int main(){
     random_event_card,random_event_card_size,number_of_random_event_card,
     deck_head,deck_tail,trash_head,trash_tail);
   //---------------------------------initialize---------------------------------
-
+  if (loadedgame)
+    day -=1;
   country * AllCountries = new country[number_of_countries];
   for (int i=0;i<number_of_countries;++i){
     if (country_command(countries[i],AllCountries[i])==false){
