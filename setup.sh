@@ -1,4 +1,4 @@
 #!/bin/bash
 # Setup the game
 
-make main clean
+make startgame clean
