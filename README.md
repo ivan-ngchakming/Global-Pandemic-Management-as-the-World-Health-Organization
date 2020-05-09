@@ -46,6 +46,14 @@ cd Global-Pandemic-Management-as-the-World-Health-Organization
 ```
 ./startgame
 ```
+### Troubleshooting
+If error occurs when comiling with the shell script provided, you may choose to use the make file and compile the game yourself.
+```
+cd TheGame
+make main clean
+mv startgame ../startgame
+cd ../
+```
 
 ## Instructions
 This section outlines the basic game rules.
