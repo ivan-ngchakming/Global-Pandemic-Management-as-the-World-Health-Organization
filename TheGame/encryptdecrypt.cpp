@@ -176,7 +176,7 @@ bool encryption(string filename, Node * &head){
     int max_length_of_the_key=20;
     //the first line is for encrypting the second line,
     //the maximum length of the first line is 20
-    int random_number=rand()%max_length_of_the_key;
+    int random_number=(rand()%(max_length_of_the_key))+1;
     for (int i=0;i<random_number;++i){
       previousline+=inttochar(rand()%no_of_characters);
     }
