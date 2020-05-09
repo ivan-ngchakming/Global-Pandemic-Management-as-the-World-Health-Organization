@@ -134,13 +134,13 @@ bool apply_card_effects_on_country(struct country AllCountries[], struct card c,
 
   if (c.variable == "infection_factor")
   {
-    int new_factor = AllCountries[index].infection_factor + float_net_magnitude(c);
+    float new_factor = AllCountries[index].infection_factor + float_net_magnitude(c);
     if (new_factor < 5 || new_factor > 0)
       AllCountries[index].infection_factor = new_factor;
     else if (new_factor <= 0)
-      AllCountries[index].infection_factor = 0;
+      AllCountries[index].infection_factor = 0.0;
     else
-      AllCountries[index].infection_factor = 5;
+      AllCountries[index].infection_factor = 5.0;
     return true;
   }
 

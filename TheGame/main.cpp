@@ -368,7 +368,25 @@ int main(){
                 printruler();
                 printcard(temp1card[0]);
                 cout << "Moving card to trash" << endl;
-                insertlist(trash_head, trash_tail, temp5card[str_to_int(answer)-5]);
+
+                card tempc=temp1card[0];
+                string temps="";
+                temps+=tempc.name+",";
+                temps+=tempc.target_type+",";
+                temps+=tempc.target+",";
+                temps+=tempc.variable+",";
+                if (tempc.add=true){
+                  temps+="true,";
+                }
+                else{
+                  temps+="false,";
+                }
+                temps+=to_string(tempc.magnitude)+",";
+                temps+=tempc.cost_type+",";
+                temps+=to_string(tempc.cost);
+
+                insertlist(trash_head,trash_tail,temps);
+
               }
               else
               {
