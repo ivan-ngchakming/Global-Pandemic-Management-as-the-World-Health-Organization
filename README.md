@@ -2,11 +2,11 @@
 
 ## Table of Content
 - [Team Infromation](#Instructions)
-- [The Game / Theme](#The Game / Theme)
+- [The Game / Theme](#Theme)
 - [Installations](#Installations)
 - [Instructions](#Instructions)
-- [Features / Code Requirement](#Features / Code Requirement)
-- [Game Mechanics](#Game Mechanics)
+- [Features / Code Requirement](#Features)
+- [Game Mechanics](#Mechanics)
 
 
 ## Team Information
@@ -16,7 +16,7 @@ Members: Mike CHENG Mo Shun (3035688825), Ivan NG Chak Ming (3035564976)
 
 Topic: Global Pandemic Management as the World Health Organization
 
-## The Game / Theme
+## Theme
 This is a single-player card/strategy game, with global pandemic containment and control as the theme. The player plays as the World Health Organization chairperson. The player needs to prioritize his/her objectives, utilize the limited resources, and try his/her best to cooperate with different nations to defeat the virus.
 
 ## Installations
@@ -51,7 +51,7 @@ After entering 3, you will be shown the 3 choices action cards, you may choose t
 ### Random Event Cards
 After using an action card, a random event card will be used, where the effects will be shown on screen. Pressing Enter will bring you back to the game menu and day 2 will start.
 
-## Features / Code Requirement
+## Features
 This section outlines the list of features and functions that we have implemented, it is a vis-a-vis of each of the items 1 to 5 listed under coding requirements in the project guide.
 
 ### Generation of random game sets or events
@@ -79,7 +79,7 @@ Since the game program contains a huge number of lines of codes, putting everyth
 ### Others
 The game UI makes use of various Linux shell commands. The system() function is used to send the commands, such as `clear` in clearscreen(), `rm` to remove game progress txt file when the game is won or lost, and `touch` to create txt files for a new game.
 
-## Game Mechanics
+## Mechanics
 ### Goal
 The player wins the game by obtaining a performance index (PI) above the winning threshold, similarly, the player loses if the PI goes below the losing threshold. The player must perform at most one action each day to respond to different random generated scenarios and try to contain the virus.
 
