@@ -1,5 +1,14 @@
 # ENGG1340-COMP2113-Course-Project
 
+## Table of Content
+- [Team Infromation](#Instructions)
+- [The Game / Theme](#The Game / Theme)
+- [Installations](#Installations)
+- [Instructions](#Instructions)
+- [Features / Code Requirement](#Features / Code Requirement)
+- [Game Mechanics](#Game Mechanics)
+
+
 ## Team Information
 Team Number: 96
 
