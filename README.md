@@ -10,6 +10,16 @@ Topic: Global Pandemic Management as the World Health Organization
 ## The Game / Theme
 This is a single-player card/strategy game, with global pandemic containment and control as the theme. The player plays as the World Health Organization chairperson. The player needs to prioritize his/her objectives, utilize the limited resources, and try his/her best to cooperate with different nations to defeat the virus.
 
+## Installations
+To install the game, simply navigate to the clone the repo and run the setup file, the game executable is named main.
+
+```
+git clone "https://github.com/ivan0313/Global-Pandemic-Management-as-the-World-Health-Organization.git"
+cd Global-Pandemic-Management-as-the-World-Health-Organization
+./setup.sh
+./main
+```
+
 ## Instructions
 This section outlines the basic game rules.
 
