@@ -30,7 +30,7 @@ To install the game, simply navigate to the clone the repo and run the setup fil
 git clone "https://github.com/ivan0313/Global-Pandemic-Management-as-the-World-Health-Organization.git"
 cd Global-Pandemic-Management-as-the-World-Health-Organization
 ./setup.sh
-./main
+./startgame
 ```
 
 ## Instructions
