@@ -200,6 +200,7 @@ unsigned long int STRtoULI(string s){
 
 
 int main(){
+  clearscreen();
   printmainmenu();
 
   srand(time(NULL));
