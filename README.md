@@ -60,17 +60,56 @@ This section outlines the list of features and functions that we have implemente
 
 ### Generation of random game sets or events
 Random numbers are generated using time as the seed, it is used in function random_insert_to_trash() (found in linkedlist.cpp) to move the 3 action cards of each day randomly into the linked list trash, this allows for the reshuffle of cards after the player used up all cards in the deck.
+```
+// main.cpp line 64
+srand(time(NULL));
+```
 
 Random distribution is used for calculating the increase in the number of infections, deaths, and recoveries each day. A Poisson distribution from <random> with a Mersenne Twister pseudo-random generator of 32-bit numbers with a state size of 19937 bits as the random generator. The distributions take the current number multiplied by a factor or probability as the mean.
+```
+// infection_rate_calculator.cpp line 10-13
+int average_domestic_infection = country.infection_factor * country.infections;
+random_device rd;
+mt19937 generator(rd());
+poisson_distribution<unsigned int> domestic_infection_distribution(average_domestic_infection);
+```
 
 ### Data structures for storing game status
 The game status is divided into 3 main parts, countries, cards, and WHO. Since all parts contain various variables with different data types, we have built a different struct for each part to consolidate all variables and data. Since there are multiple cards and countries, a dynamic array of the structs is used. This allows for the manipulation of multiple struct country and card variables at the same time.
+```
+// main.h line 20-34
+struct country
+{
+  string name;
+  unsigned long int population;
+  unsigned long int infections;
+  unsigned int deaths;
+  unsigned int recovered;
+  float infected_percentage;
+  double economy;
+  double pi; //pi: performance index
+  float infection_factor; // Range 0.0 - 5.0
+  unsigned long int infection_increase;
+  int death_probability; // Range 0 - 100
+  int recover_probability; // Range 0 - 100
+};
+```
 
 ### Dynamic memory management
 Dynamic array is used to store action cards, random event cards, and countries. This allowed us to change the size of the array when it is full.
+```
+// main.cpp line 105
+string * action_card = new string[action_card_size];
+```
 
 We have also built multiple linked lists, used in storing the list of the card deck and trash for used cards. Not only can this facilitate the random insertion of cards as previously mentioned, we are also able to free all dynamic memory, such as the linked list and the dynamic array before the game is closed.
-
+```
+// main.h
+struct Node{
+  string content;
+  Node * next;
+};
+```
 
 ### File input/output (e.g., for loading/saving game status)
 For easy editing of game settings, initial values for countries' statistics, action cards, and random event cards, these are all saved in a text file. To prevent the player from editing the text file directly, the file is encrypted using the caesar shift encryption method, using the line before as the encryption key. The encrypted file is then read into the program, decrypted, and loaded to initial a new game. Similarly, when the player saves a game, the game data are encrypted and stored in another text file, so the user may continue the game progress next time they start up the game.
