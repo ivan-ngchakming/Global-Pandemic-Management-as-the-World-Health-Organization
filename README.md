@@ -1,7 +1,7 @@
 # ENGG1340-COMP2113-Course-Project
 
 ## Table of Content
-- [Team Infromation](#Instructions)
+- [Team Infromation](#Team)
 - [The Game / Theme](#Theme)
 - [Installations](#Installations)
 - [Instructions](#Instructions)
@@ -9,7 +9,7 @@
 - [Game Mechanics](#Mechanics)
 
 
-## Team Information
+## Team
 Team Number: 96
 
 Members: Mike CHENG Mo Shun (3035688825), Ivan NG Chak Ming (3035564976)
